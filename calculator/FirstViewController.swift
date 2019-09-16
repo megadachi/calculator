@@ -18,9 +18,9 @@ class FirstViewController: UIViewController {
     var startCalculate = false
     // カウンターで正負を管理、偶数＝plus 奇数＝negative
     var countNegative = 0
-    // パーセント計算を管理する
+    // 割合計算を管理するため、入力した数字を保管
     var stackedNumber = "0"
-    var i = 0
+    var stackedNbsArray: [String] = []
     
     // 広告バナーを表示するviewの設定
     @IBOutlet weak var bannerView: GADBannerView!
@@ -61,16 +61,20 @@ class FirstViewController: UIViewController {
             return
         }
         // 既に演算子ボタンを押した状態で再度押された場合、既存の演算子を削除し演算子の重複を防止
-        if outputLabel.text!.hasSuffix("+") || outputLabel.text!.hasSuffix("-") || outputLabel.text!.hasSuffix("×") || outputLabel.text!.hasSuffix("÷") || outputLabel.text!.hasSuffix("%") || outputLabel.text!.hasSuffix("."){
+        if outputLabel.text!.hasSuffix("+") || outputLabel.text!.hasSuffix("-") || outputLabel.text!.hasSuffix("×") || outputLabel.text!.hasSuffix("÷") {
             outputLabel.text = String(outputLabel.text!.dropLast())
         }
         // 割合計算の設定
         switch sender.tag {
         case 14, 15, 16, 17 : // ÷ボタン、×ボタン
-            // 数字をスタックし直し、％を”x/100","*(1-x/100)","*(1+x/100)"に置き換え計算
+            // 演算子ボタン押下のたびに直前に入力された数字を配列に保管
+            stackedNbsArray.append(stackedNumber)
+            // 数字をスタックし直すため、いったんクリア
             stackedNumber = ""
-        default: // ％ボタン、小数点ボタン
-            break
+        default: // ％ボタン、小数点ボタンの重複を防止
+            if outputLabel.text!.hasSuffix("%") || outputLabel.text!.hasSuffix("."){
+                outputLabel.text = String(outputLabel.text!.dropLast())
+            }
         }
         guard let formulaText = outputLabel.text else {
             return
@@ -84,9 +88,10 @@ class FirstViewController: UIViewController {
     // その他のボタンを定義
     @IBAction func symbols(_ sender: UIButton) {
         switch sender.tag {
-        case 11 : // ACボタンが押されたら式と答えをクリアする
+        case 11 : // ACボタンが押されたら式と数字管理をクリアする
             outputLabel.text = ""
             stackedNumber = ""
+            stackedNbsArray.removeAll()
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
                 return
@@ -97,10 +102,17 @@ class FirstViewController: UIViewController {
             guard let formulaText = outputLabel.text else {
                 return
             }
-            let formula: String = formatFormula(formulaText)
+            // 直前の数字を配列に追加
+            stackedNbsArray.append(stackedNumber)
+            // 割合計算用に文字列を変換
+            let formulas: String = formatpFormula(formulaText)
+            // その他の文字列を変換
+            let formula: String = formatFormula(formulas)
             outputLabel.text = evalFormula(formula)
             startCalculate = false
             stackedNumber = ""
+            // 数字配列を空にする
+            stackedNbsArray.removeAll()
         default: // +/-ボタン
             // カウンターで正負を管理、偶数＝plus 奇数＝negative
             countNegative += 1
@@ -172,17 +184,27 @@ class FirstViewController: UIViewController {
         outputLabel.adjustsFontSizeToFitWidth = true
         
     }
-    
+    // 割合計算用に数字配列を用いて文字列を置換え
+    private func formatpFormula(_ pformula: String) -> String {
+        // %を”x/100","*(1-x/100)","*(1+x/100)"に置き換え
+        var formulas = ""
+        for number in stackedNbsArray {
+            let formattedpFormula: String = pformula.replacingOccurrences(of: "-" + number + "%", with: "*(1-" + number + "/100)").replacingOccurrences(of: "+" + number + "%", with: "*(1+" + number + "/100)")
+            formulas = formattedpFormula
+        }
+        return formulas
+    }
+    // 計算用に文字列を置換え
     private func formatFormula(_ formula: String) -> String {
         // 入力された整数には`.0`を追加して小数として評価する
         // また`÷`を`/`に、`×`を`*`に置換する
-        // %を”x/100","*(1-x/100)","*(1+x/100)"に置き換え
+        // %を”x/100"に置換え
         let formattedFormula: String = formula.replacingOccurrences(
             of: "(?<=^|[÷×\\+\\-\\(])([0-9]+)(?=[÷×\\+\\-\\)]|$)",
             with: "$1.0",
             options: NSString.CompareOptions.regularExpression,
             range: nil
-            ).replacingOccurrences(of: "-" + stackedNumber + "%", with: "*(1-" + stackedNumber + "/100)").replacingOccurrences(of: "+" + stackedNumber + "%", with: "*(1+" + stackedNumber + "/100)").replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*").replacingOccurrences(of: "(-)", with: "(-1)*").replacingOccurrences(of: "%", with: "/100")
+            ).replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*").replacingOccurrences(of: "(-)", with: "(-1)*").replacingOccurrences(of: "%", with: "/100")
         return formattedFormula
     }
     
