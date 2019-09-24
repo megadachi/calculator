@@ -1,4 +1,8 @@
 PODS:
+  - ColorPickerRow (1.3.2):
+    - Eureka (>= 5.0.0)
+    - UIColor_Hex_Swift (>= 3.0.0)
+  - Eureka (5.0.1)
   - Expression (0.13.2)
   - Google-Mobile-Ads-SDK (7.49.0):
     - GoogleAppMeasurement (~> 6.0)
@@ -24,31 +28,49 @@ PODS:
   - "GoogleUtilities/NSData+zlib (6.2.5)"
   - GoogleUtilities/Reachability (6.2.5):
     - GoogleUtilities/Logger
+  - ImageRow (4.0.0):
+    - Eureka (~> 5.0)
+  - LicensePlist (2.5.8)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - UIColor_Hex_Swift (5.1.0)
 
 DEPENDENCIES:
+  - ColorPickerRow
+  - Eureka
   - Expression
   - Google-Mobile-Ads-SDK
+  - ImageRow (~> 4.0)
+  - LicensePlist
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ColorPickerRow
+    - Eureka
     - Expression
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
+    - ImageRow
+    - LicensePlist
     - nanopb
+    - UIColor_Hex_Swift
 
 SPEC CHECKSUMS:
+  ColorPickerRow: 9a6edd41d9b42023579925b34893a868cee455e8
+  Eureka: da9d2294da234eae40b22e7273b9fc2335502fc1
   Expression: d701814068e202209e82c3e4d7cc573d3028e6e8
   Google-Mobile-Ads-SDK: df315e371b29cf935f7ea872e7bdec39462a100e
   GoogleAppMeasurement: 86a82f0e1f20b8eedf8e20326530138fd71409de
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
+  ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
+  LicensePlist: 3ad60988ec640a2aeae74cdd2e6d01531c03b7cd
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: 67e656e4de5599f6e1634b84dd7c8a9b080c5c2f
+PODFILE CHECKSUM: 45254b406a1ef424eb9edd697ef2317162cc81d2
 
 COCOAPODS: 1.7.1

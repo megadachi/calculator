@@ -11,6 +11,7 @@
 import UIKit
 import Expression
 import GoogleMobileAds
+import Photos
 
 class FirstViewController: UIViewController {
     
@@ -22,10 +23,15 @@ class FirstViewController: UIViewController {
     var stackedNumber = "0"
     var stackedNbsArray: [String] = []
     
-    // 広告バナーを表示するviewの設定
+    // 背景画像用View
+    @IBOutlet weak var backImg: UIImageView!
+    var backImgImage: Any = UIColor.lightGray
+    let userDefaults = UserDefaults.standard
+    
+    // 広告バナーを表示するview
     @IBOutlet weak var bannerView: GADBannerView!
     
-    // 計算結果表示画面を定義
+    // 計算結果表示画面ラベル
     @IBOutlet var outputLabel: UILabel!
     
     // 数字ボタンを定義
@@ -114,15 +120,21 @@ class FirstViewController: UIViewController {
             // 数字配列を空にする
             stackedNbsArray.removeAll()
         default: // +/-ボタン
-            // カウンターで正負を管理、偶数＝plus 奇数＝negative
-            countNegative += 1
-            if countNegative % 2 != 0{
-                outputLabel.text = outputLabel.text! + "(-)"
+            // 数字の途中に正負ボタンを押せないように設定
+            if outputLabel.text!.hasSuffix("+") || outputLabel.text!.hasSuffix("-") || outputLabel.text!.hasSuffix("×") || outputLabel.text!.hasSuffix("÷") || outputLabel.text == "" {
+                startCalculate = true
+                // カウンターで正負を管理、偶数＝plus 奇数＝negative
+                countNegative += 1
+                if countNegative % 2 != 0{
+                    outputLabel.text = outputLabel.text! + "(-)"
+                } else {
+                    let startPoint = outputLabel.text!.index(outputLabel.text!.endIndex, offsetBy:-3)
+                    let endPoint = outputLabel.text!.index(outputLabel.text!.endIndex, offsetBy: 0)
+                    outputLabel.text!.removeSubrange(startPoint..<endPoint)
+                    countNegative = 0
+                }
             } else {
-                let startPoint = outputLabel.text!.index(outputLabel.text!.endIndex, offsetBy:-3)
-                let endPoint = outputLabel.text!.index(outputLabel.text!.endIndex, offsetBy: 0)
-                outputLabel.text!.removeSubrange(startPoint..<endPoint)
-                countNegative = 0
+                return
             }
         }
     }
@@ -133,6 +145,87 @@ class FirstViewController: UIViewController {
     // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
     // let bannerID = "ca-app-pub-9368270017677505/5618856710" // 広告ユニット ID
     let bannerIDSample = "ca-app-pub-3940256099942544/2934735716" // 広告ユニット ID
+    
+    // 画面が呼び込まれる前に背景情報を読み込む
+    override func viewWillAppear(_ animated: Bool) {
+
+        changeBackground()
+        changeTextColor()
+        changeTextBackColor()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // iPodか判断してiPod用広告を表示する
+        if deviceName == "iPad" {
+            bannerView.isHidden = true
+            bannerIPod()
+        }
+        // バナー広告の設定
+        bannerView.adUnitID = bannerIDSample    // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        
+        // ビューがロードされた時点で式と答えのラベルは空にする
+        outputLabel.text = ""
+        let layer = CALayer()
+        // 影をつける
+        layer.shadowOpacity = 0.7
+        layer.shadowOffset = CGSize(width: 10, height: 10)
+        layer.shadowRadius = 5
+        
+        view.layer.addSublayer(layer)
+        
+        // 文字数に応じてフォントサイズ変更する
+        outputLabel.adjustsFontSizeToFitWidth = true
+        
+    }
+    // 割合計算用に数字配列を用いて文字列を置換え
+    private func formatpFormula(_ pformula: String) -> String {
+        // %を”x/100","*(1-x/100)","*(1+x/100)"に置き換え
+        var formulas = ""
+        for number in stackedNbsArray {
+            let formattedpFormula: String = pformula.replacingOccurrences(of: "-" + number + "%", with: "*(1-" + number + "/100)").replacingOccurrences(of: "+" + number + "%", with: "*(1+" + number + "/100)")
+            formulas = formattedpFormula
+        }
+        return formulas
+    }
+    // 計算用に文字列を置換え
+    private func formatFormula(_ formula: String) -> String {
+        // 入力された整数には`.0`を追加して小数として評価する
+        // また`÷`を`/`に、`×`を`*`に置換する
+        // %を”x/100"に置換え
+        let formattedFormula: String = formula.replacingOccurrences(
+            of: "(?<=^|[÷×\\+\\-\\(])([0-9]+)(?=[÷×\\+\\-\\)]|$)",
+            with: "$1.0",
+            options: NSString.CompareOptions.regularExpression,
+            range: nil
+            ).replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*").replacingOccurrences(of: "(-)", with: "(-1)*").replacingOccurrences(of: "%", with: "/100")
+        return formattedFormula
+    }
+    // 計算
+    private func evalFormula(_ formula: String) -> String {
+        do {
+            // Expressionで文字列の計算式を評価して答えを求める
+            let expression = Expression(formula)
+            let answer = try expression.evaluate()
+            return formatAnswer(String(answer))
+        } catch {
+            // 計算式が不当だった場合
+            return "retry"
+        }
+    }
+    // 回答
+    private func formatAnswer(_ answer: String) -> String {
+        // 答えの小数点以下が`.0`だった場合は、`.0`を削除して答えを整数で表示する
+        let formattedAnswer: String = answer.replacingOccurrences(
+            of: "\\.0$",
+            with: "",
+            options: NSString.CompareOptions.regularExpression,
+            range: nil)
+        return formattedAnswer
+    }
     
     // iPod用のバナー広告
     func bannerIPod() {
@@ -163,71 +256,40 @@ class FirstViewController: UIViewController {
         stackBanner.addArrangedSubview(bannerViewLeft)
         stackBanner.addArrangedSubview(bannerViewRight)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // iPodか判断してiPod用広告を表示する
-        if deviceName == "iPad" {
-            bannerView.isHidden = true
-            bannerIPod()
-        }
-        // バナー広告の設定
-        bannerView.adUnitID = bannerIDSample    // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        
-        // ビューがロードされた時点で式と答えのラベルは空にする
-        outputLabel.text = ""
-        
-        // 文字数に応じてフォントサイズ変更する
-        outputLabel.adjustsFontSizeToFitWidth = true
-        
-    }
-    // 割合計算用に数字配列を用いて文字列を置換え
-    private func formatpFormula(_ pformula: String) -> String {
-        // %を”x/100","*(1-x/100)","*(1+x/100)"に置き換え
-        var formulas = ""
-        for number in stackedNbsArray {
-            let formattedpFormula: String = pformula.replacingOccurrences(of: "-" + number + "%", with: "*(1-" + number + "/100)").replacingOccurrences(of: "+" + number + "%", with: "*(1+" + number + "/100)")
-            formulas = formattedpFormula
-        }
-        return formulas
-    }
-    // 計算用に文字列を置換え
-    private func formatFormula(_ formula: String) -> String {
-        // 入力された整数には`.0`を追加して小数として評価する
-        // また`÷`を`/`に、`×`を`*`に置換する
-        // %を”x/100"に置換え
-        let formattedFormula: String = formula.replacingOccurrences(
-            of: "(?<=^|[÷×\\+\\-\\(])([0-9]+)(?=[÷×\\+\\-\\)]|$)",
-            with: "$1.0",
-            options: NSString.CompareOptions.regularExpression,
-            range: nil
-            ).replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*").replacingOccurrences(of: "(-)", with: "(-1)*").replacingOccurrences(of: "%", with: "/100")
-        return formattedFormula
-    }
-    
-    private func evalFormula(_ formula: String) -> String {
-        do {
-            // Expressionで文字列の計算式を評価して答えを求める
-            let expression = Expression(formula)
-            let answer = try expression.evaluate()
-            return formatAnswer(String(answer))
-        } catch {
-            // 計算式が不当だった場合
-            return "retry"
+    // 文字色設定変更
+    func changeTextColor(){
+        if let archiveData = UserDefaults.standard.data(forKey: "textColorData") {
+            let textColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
+            //            print("txtcolorname", textColor!)
+            UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).tintColor = textColor
+            outputLabel.textColor = textColor
         }
     }
-    
-    private func formatAnswer(_ answer: String) -> String {
-        // 答えの小数点以下が`.0`だった場合は、`.0`を削除して答えを整数で表示する
-        let formattedAnswer: String = answer.replacingOccurrences(
-            of: "\\.0$",
-            with: "",
-            options: NSString.CompareOptions.regularExpression,
-            range: nil)
-        return formattedAnswer
+    // 文字背景色設定変更
+    func changeTextBackColor(){
+        if let archiveData = UserDefaults.standard.data(forKey: "textBackColorData") {
+            let textBackColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
+                        print("txtcolorname", textBackColor!)
+            UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).backgroundColor = textBackColor
+            UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).alpha = 0.8
+            outputLabel.backgroundColor = textBackColor
+            outputLabel.alpha = 0.8
+        }
     }
-    
+    // 背景設定変更
+    func changeBackground()  {
+        // 背景色の設定
+        if let archiveData = UserDefaults.standard.data(forKey: "backColorData") {
+            let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
+            backImg.image = nil
+            backImg.backgroundColor = backImgImage
+        }
+        // 背景画像の設定
+        if let archiveData = UserDefaults.standard.data(forKey: "backImgData") {
+            let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIImage
+            backImg.backgroundColor = nil
+            backImg.image = backImgImage
+            backImg.contentMode = UIView.ContentMode.scaleAspectFill
+        }
+    }
 }

@@ -1,0 +1,50 @@
+name: ColorPickerRow, nameSpecified: 
+body: The MIT License (MIT…
+version: 1.3.2
+
+name: Eureka, nameSpecified: 
+body: The MIT License (MIT…
+version: 5.0.1
+
+name: Expression, nameSpecified: 
+body: MIT License
+
+Copyrig…
+version: 0.13.2
+
+name: Google-Mobile-Ads-SDK, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 7.49.0
+
+name: GoogleAppMeasurement, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 6.1.1
+
+name: GoogleUtilities, nameSpecified: 
+body: 
+                   …
+version: 6.2.5
+
+name: ImageRow, nameSpecified: 
+body: MIT License
+
+Copyrig…
+version: 4.0.0
+
+name: LicensePlist, nameSpecified: 
+body: MIT License
+
+Copyrig…
+version: 2.5.8
+
+name: nanopb, nameSpecified: 
+body: Copyright (c) 2011 P…
+version: 0.3.901
+
+name: UIColor_Hex_Swift, nameSpecified: 
+body: The MIT License (MIT…
+version: 5.1.0
+
+add-version-numbers: false
+
+LicensePlist Version: 1.8.3

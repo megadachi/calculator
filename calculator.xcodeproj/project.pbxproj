@@ -3,24 +3,26 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E20233921F100D56B37 /* Settings.bundle */; };
+		0C7A7E232339253D00D56B37 /* BPdotsDiamond.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E222339253D00D56B37 /* BPdotsDiamond.otf */; };
 		0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9500E23176EB4002E3D01 /* AppDelegate.swift */; };
 		0CC9501123176EB4002E3D01 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501023176EB4002E3D01 /* FirstViewController.swift */; };
 		0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501223176EB4002E3D01 /* SecondViewController.swift */; };
 		0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501423176EB4002E3D01 /* Main.storyboard */; };
 		0CC9501823176EB5002E3D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501723176EB5002E3D01 /* Assets.xcassets */; };
 		0CC9501B23176EB5002E3D01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */; };
-		0CC9502323176F0A002E3D01 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9502223176F0A002E3D01 /* ThirdViewController.swift */; };
-		0CED877523268B9700964664 /* BPdotsDiamond.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0CED877423268B9700964664 /* BPdotsDiamond.otf */; };
 		BB514CB3D2B6E95802E2FA07 /* Pods_calculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02520997871F16640A3607B5 /* Pods_calculator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02520997871F16640A3607B5 /* Pods_calculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_calculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03439A099757E567A01B4788 /* Pods-calculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-calculator.release.xcconfig"; path = "Target Support Files/Pods-calculator/Pods-calculator.release.xcconfig"; sourceTree = "<group>"; };
+		0C7A7E20233921F100D56B37 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		0C7A7E222339253D00D56B37 /* BPdotsDiamond.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BPdotsDiamond.otf; sourceTree = "<group>"; };
 		0CC9500B23176EB4002E3D01 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC9500E23176EB4002E3D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CC9501023176EB4002E3D01 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -29,8 +31,6 @@
 		0CC9501723176EB5002E3D01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CC9501A23176EB5002E3D01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0CC9501C23176EB5002E3D01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0CC9502223176F0A002E3D01 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		0CED877423268B9700964664 /* BPdotsDiamond.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BPdotsDiamond.otf; sourceTree = "<group>"; };
 		57790F7F772B5AEEB2A0418D /* Pods-calculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-calculator.debug.xcconfig"; path = "Target Support Files/Pods-calculator/Pods-calculator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,15 +67,15 @@
 		0CC9500D23176EB4002E3D01 /* calculator */ = {
 			isa = PBXGroup;
 			children = (
-				0CED877423268B9700964664 /* BPdotsDiamond.otf */,
+				0C7A7E222339253D00D56B37 /* BPdotsDiamond.otf */,
 				0CC9500E23176EB4002E3D01 /* AppDelegate.swift */,
 				0CC9501023176EB4002E3D01 /* FirstViewController.swift */,
 				0CC9501223176EB4002E3D01 /* SecondViewController.swift */,
-				0CC9502223176F0A002E3D01 /* ThirdViewController.swift */,
 				0CC9501423176EB4002E3D01 /* Main.storyboard */,
 				0CC9501723176EB5002E3D01 /* Assets.xcassets */,
 				0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */,
 				0CC9501C23176EB5002E3D01 /* Info.plist */,
+				0C7A7E20233921F100D56B37 /* Settings.bundle */,
 			);
 			path = calculator;
 			sourceTree = "<group>";
@@ -86,7 +86,6 @@
 				57790F7F772B5AEEB2A0418D /* Pods-calculator.debug.xcconfig */,
 				03439A099757E567A01B4788 /* Pods-calculator.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -110,6 +109,7 @@
 				0CC9500823176EB4002E3D01 /* Frameworks */,
 				0CC9500923176EB4002E3D01 /* Resources */,
 				50F10A8E9DED38400ED538D7 /* [CP] Embed Pods Frameworks */,
+				0C7A7E1D23391ECE00D56B37 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -158,9 +158,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CED877523268B9700964664 /* BPdotsDiamond.otf in Resources */,
 				0CC9501B23176EB5002E3D01 /* LaunchScreen.storyboard in Resources */,
+				0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */,
 				0CC9501823176EB5002E3D01 /* Assets.xcassets in Resources */,
+				0C7A7E232339253D00D56B37 /* BPdotsDiamond.otf in Resources */,
 				0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +169,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0C7A7E1D23391ECE00D56B37 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $CONFIGURATION = \"Debug\" ]; then\n${PODS_ROOT}/LicensePlist/license-plist --output-path $PRODUCT_NAME/Settings.bundle\nfi\n";
+		};
 		50F10A8E9DED38400ED538D7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -216,7 +234,6 @@
 			files = (
 				0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */,
 				0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */,
-				0CC9502323176F0A002E3D01 /* ThirdViewController.swift in Sources */,
 				0CC9501123176EB4002E3D01 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
