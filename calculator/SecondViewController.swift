@@ -19,14 +19,21 @@ class SecondViewController: FormViewController {
         
         showTable()
         
+        if UserDefaults.standard.data(forKey: "backPatternData") == nil {
+            self.form.rowBy(tag: "Color Row")!.hidden = true
+            self.form.rowBy(tag: "Photo Row")!.hidden = true
+        }
+        
     }
     
-    // 文字色変更の表示設定
-    func rowSetUp(rowShown:String, rowHidden:String){
+    // picker変更の表示設定
+    func rowSetUp(rowShown:String, rowHidden1:String, rowHidden2:String){
         self.form.rowBy(tag: rowShown)?.hidden = false
-        self.form.rowBy(tag: rowHidden)?.hidden = true
+        self.form.rowBy(tag: rowHidden1)?.hidden = true
+        self.form.rowBy(tag: rowHidden2)?.hidden = true
         self.form.rowBy(tag: rowShown)?.evaluateHidden()
-        self.form.rowBy(tag: rowHidden)?.evaluateHidden()
+        self.form.rowBy(tag: rowHidden1)?.evaluateHidden()
+        self.form.rowBy(tag: rowHidden2)?.evaluateHidden()
     }
     
     func showTable(){
@@ -34,16 +41,21 @@ class SecondViewController: FormViewController {
         form +++ Section("Background")
             <<< SegmentedRow<String>() {
 //                $0.title = "Select"
-                $0.options = ["Color", "Image"]
-                }.onChange{ (picker) in
+                $0.options = ["Color", "Photo", "Pattern"]
+                }
+            .onChange{ (picker) in
                     if let optionChosen = picker.value{
                         if optionChosen == "Color"{
-                            self.rowSetUp(rowShown: "Color Row", rowHidden: "Image Row")
-                        } else if optionChosen == "Image" {
-                            self.rowSetUp(rowShown: "Image Row", rowHidden: "Color Row")
+                            self.rowSetUp(rowShown: "Color Row", rowHidden1: "Photo Row", rowHidden2: "Pattern Row")
+                        } else if optionChosen == "Photo" {
+                            self.rowSetUp(rowShown: "Photo Row", rowHidden1: "Color Row", rowHidden2: "Pattern Row")
+                        } else if optionChosen == "Pattern"{
+                             self.rowSetUp(rowShown: "Pattern Row", rowHidden1: "Color Row", rowHidden2: "Photo Row")
                         }
                     }
             }
+
+            
             <<< InlineColorPickerRow("Color Row") { (row) in
                 row.title = "Color Picker"
                 row.isCircular = true
@@ -55,26 +67,33 @@ class SecondViewController: FormViewController {
                     guard let archiveColorData = try? NSKeyedArchiver.archivedData(withRootObject: pickerChosen!, requiringSecureCoding: true) else {
                         fatalError("Archive failed")
                     }
-                    //                    print("pickerimgname", pickerChosen!)
-                    UserDefaults.standard.removeObject(forKey: "backImgData")
+                    UserDefaults.standard.removeObject(forKey: "backPhotoData")
+                    UserDefaults.standard.removeObject(forKey: "backPatternData")
                     UserDefaults.standard.set(archiveColorData, forKey: "backColorData")
-                    //                    UserDefaults.standard.synchronize()
                     picker.collapseInlineRow()
             }
-            <<< ImageRow("Image Row") {
-                $0.title = "ImageRow"
+            <<< ImageRow("Photo Row") {
+                $0.title = "Photo Picker"
                 $0.sourceTypes = .PhotoLibrary
                 $0.clearAction = .no
                 $0.hidden = true
                 }.onChange{ row in
                     let rowChosen = row.value
-                    guard let archiveImgData = try? NSKeyedArchiver.archivedData(withRootObject: rowChosen!, requiringSecureCoding: true) else {
+                    guard let archivePhotoData = try? NSKeyedArchiver.archivedData(withRootObject: rowChosen!, requiringSecureCoding: true) else {
                         fatalError("Archive failed")
                     }
                     UserDefaults.standard.removeObject(forKey: "backColorData")
-                    UserDefaults.standard.set(archiveImgData, forKey: "backImgData")
-                    //                    UserDefaults.standard.synchronize()
-        }
+                    UserDefaults.standard.removeObject(forKey: "backPatternData")
+                    UserDefaults.standard.set(archivePhotoData, forKey: "backPhotoData")
+                }
+            <<< LabelRow("Pattern Row") {
+                $0.title = "Pattern Picker"
+                $0.onCellSelection({ (cell, row) in
+                    self.performSegue(withIdentifier: "toPatternView", sender: nil)
+                })
+                }
+
+
         // 文字色のテーブル
         form
             +++ Section("Text")
@@ -88,7 +107,6 @@ class SecondViewController: FormViewController {
                     guard let archiveTextColorData = try? NSKeyedArchiver.archivedData(withRootObject: pickerChosen!, requiringSecureCoding: true) else {
                         fatalError("Archive failed")
                     }
-                    //                    print("pickertxtname", pickerChosen!)
                     UserDefaults.standard.set(archiveTextColorData, forKey: "textColorData")
                     UserDefaults.standard.synchronize()
                     picker.collapseInlineRow()
@@ -103,7 +121,6 @@ class SecondViewController: FormViewController {
                     guard let archiveTextBackColorData = try? NSKeyedArchiver.archivedData(withRootObject: pickerChosen!, requiringSecureCoding: true) else {
                         fatalError("Archive failed")
                     }
-                    //                    print("pickertxtname", pickerChosen!)
                     UserDefaults.standard.set(archiveTextBackColorData, forKey: "textBackColorData")
                     picker.collapseInlineRow()
         }

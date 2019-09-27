@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C672DAB233D35FB00886EED /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C672DA9233D35FB00886EED /* CollectionViewCell.swift */; };
+		0C672DAC233D35FB00886EED /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672DAA233D35FB00886EED /* CollectionViewCell.xib */; };
+		0C672DAE233D38F700886EED /* PatternViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C672DAD233D38F700886EED /* PatternViewController.swift */; };
 		0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E20233921F100D56B37 /* Settings.bundle */; };
 		0C7A7E232339253D00D56B37 /* BPdotsDiamond.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E222339253D00D56B37 /* BPdotsDiamond.otf */; };
+		0C94412D233D1AF4002C7593 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C94412C233D1AF4002C7593 /* Assets.xcassets */; };
 		0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9500E23176EB4002E3D01 /* AppDelegate.swift */; };
 		0CC9501123176EB4002E3D01 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501023176EB4002E3D01 /* FirstViewController.swift */; };
 		0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501223176EB4002E3D01 /* SecondViewController.swift */; };
 		0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501423176EB4002E3D01 /* Main.storyboard */; };
-		0CC9501823176EB5002E3D01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501723176EB5002E3D01 /* Assets.xcassets */; };
 		0CC9501B23176EB5002E3D01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */; };
 		BB514CB3D2B6E95802E2FA07 /* Pods_calculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02520997871F16640A3607B5 /* Pods_calculator.framework */; };
 /* End PBXBuildFile section */
@@ -21,14 +24,17 @@
 /* Begin PBXFileReference section */
 		02520997871F16640A3607B5 /* Pods_calculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_calculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03439A099757E567A01B4788 /* Pods-calculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-calculator.release.xcconfig"; path = "Target Support Files/Pods-calculator/Pods-calculator.release.xcconfig"; sourceTree = "<group>"; };
+		0C672DA9233D35FB00886EED /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		0C672DAA233D35FB00886EED /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		0C672DAD233D38F700886EED /* PatternViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternViewController.swift; sourceTree = "<group>"; };
 		0C7A7E20233921F100D56B37 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		0C7A7E222339253D00D56B37 /* BPdotsDiamond.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BPdotsDiamond.otf; sourceTree = "<group>"; };
+		0C94412C233D1AF4002C7593 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CC9500B23176EB4002E3D01 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC9500E23176EB4002E3D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CC9501023176EB4002E3D01 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		0CC9501223176EB4002E3D01 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		0CC9501523176EB4002E3D01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0CC9501723176EB5002E3D01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CC9501A23176EB5002E3D01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0CC9501C23176EB5002E3D01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57790F7F772B5AEEB2A0418D /* Pods-calculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-calculator.debug.xcconfig"; path = "Target Support Files/Pods-calculator/Pods-calculator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -71,8 +77,11 @@
 				0CC9500E23176EB4002E3D01 /* AppDelegate.swift */,
 				0CC9501023176EB4002E3D01 /* FirstViewController.swift */,
 				0CC9501223176EB4002E3D01 /* SecondViewController.swift */,
+				0C672DAD233D38F700886EED /* PatternViewController.swift */,
 				0CC9501423176EB4002E3D01 /* Main.storyboard */,
-				0CC9501723176EB5002E3D01 /* Assets.xcassets */,
+				0C672DA9233D35FB00886EED /* CollectionViewCell.swift */,
+				0C672DAA233D35FB00886EED /* CollectionViewCell.xib */,
+				0C94412C233D1AF4002C7593 /* Assets.xcassets */,
 				0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */,
 				0CC9501C23176EB5002E3D01 /* Info.plist */,
 				0C7A7E20233921F100D56B37 /* Settings.bundle */,
@@ -160,9 +169,10 @@
 			files = (
 				0CC9501B23176EB5002E3D01 /* LaunchScreen.storyboard in Resources */,
 				0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */,
-				0CC9501823176EB5002E3D01 /* Assets.xcassets in Resources */,
+				0C672DAC233D35FB00886EED /* CollectionViewCell.xib in Resources */,
 				0C7A7E232339253D00D56B37 /* BPdotsDiamond.otf in Resources */,
 				0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */,
+				0C94412D233D1AF4002C7593 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +243,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */,
+				0C672DAE233D38F700886EED /* PatternViewController.swift in Sources */,
 				0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */,
+				0C672DAB233D35FB00886EED /* CollectionViewCell.swift in Sources */,
 				0CC9501123176EB4002E3D01 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

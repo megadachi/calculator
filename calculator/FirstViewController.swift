@@ -25,7 +25,7 @@ class FirstViewController: UIViewController {
     
     // 背景画像用View
     @IBOutlet weak var backImg: UIImageView!
-    var backImgImage: Any = UIColor.lightGray
+    var backImgImage: Any = UIColor.orange
     let userDefaults = UserDefaults.standard
     
     // 広告バナーを表示するview
@@ -169,13 +169,6 @@ class FirstViewController: UIViewController {
         
         // ビューがロードされた時点で式と答えのラベルは空にする
         outputLabel.text = ""
-        let layer = CALayer()
-        // 影をつける
-        layer.shadowOpacity = 0.7
-        layer.shadowOffset = CGSize(width: 10, height: 10)
-        layer.shadowRadius = 5
-        
-        view.layer.addSublayer(layer)
         
         // 文字数に応じてフォントサイズ変更する
         outputLabel.adjustsFontSizeToFitWidth = true
@@ -260,7 +253,6 @@ class FirstViewController: UIViewController {
     func changeTextColor(){
         if let archiveData = UserDefaults.standard.data(forKey: "textColorData") {
             let textColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
-            //            print("txtcolorname", textColor!)
             UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).tintColor = textColor
             outputLabel.textColor = textColor
         }
@@ -285,10 +277,16 @@ class FirstViewController: UIViewController {
             backImg.backgroundColor = backImgImage
         }
         // 背景画像の設定
-        if let archiveData = UserDefaults.standard.data(forKey: "backImgData") {
+        if let archiveData = UserDefaults.standard.data(forKey: "backPhotoData") {
             let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIImage
             backImg.backgroundColor = nil
             backImg.image = backImgImage
+            backImg.contentMode = UIView.ContentMode.scaleAspectFill
+        }
+        if let archiveData = UserDefaults.standard.data(forKey: "backPatternData") {
+            let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? String
+            backImg.backgroundColor = nil
+            backImg.image = UIImage(named: backImgImage!)
             backImg.contentMode = UIView.ContentMode.scaleAspectFill
         }
     }
