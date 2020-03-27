@@ -10,12 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="BPdotsDiamond.otf">
-            <string>BPdotsDiamond</string>
+        <array key="BPdotsDiamondBold.otf">
+            <string>BPdotsDiamond-Bold</string>
         </array>
     </customFonts>
     <scenes>
-        <!--Calculate-->
+        <!--First View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,19 +25,19 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eEh-PQ-4be">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
-                                <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fJT-Zr-tPf">
                                 <rect key="frame" x="10" y="84.5" width="300" height="399"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlT-G0-4yc">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.79762414383561631" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="bk3-IT-1WW"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -50,8 +50,8 @@
                                         <subviews>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmH-Xj-m99">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="AC"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -64,8 +64,8 @@
                                             </button>
                                             <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywN-92-jCA">
                                                 <rect key="frame" x="77.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="C"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -78,8 +78,8 @@
                                             </button>
                                             <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfP-9b-VYT">
                                                 <rect key="frame" x="155" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="%"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -92,8 +92,8 @@
                                             </button>
                                             <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byI-L1-IFh">
                                                 <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="÷"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -111,8 +111,8 @@
                                         <subviews>
                                             <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9k-JE-vM5">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="7"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -125,8 +125,8 @@
                                             </button>
                                             <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWS-wH-Q1O">
                                                 <rect key="frame" x="77.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="8"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -139,8 +139,8 @@
                                             </button>
                                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2X-Ig-5U8">
                                                 <rect key="frame" x="155" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="9"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -153,8 +153,8 @@
                                             </button>
                                             <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcX-2l-fOY">
                                                 <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="×"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -172,8 +172,8 @@
                                         <subviews>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRK-wz-1Sg">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="4"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -186,8 +186,8 @@
                                             </button>
                                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QrV-rN-lKB">
                                                 <rect key="frame" x="77.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="5"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -200,8 +200,8 @@
                                             </button>
                                             <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6M-M3-acN">
                                                 <rect key="frame" x="155" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="6"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -214,8 +214,8 @@
                                             </button>
                                             <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wP-Dl-wbK">
                                                 <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="-"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -233,8 +233,8 @@
                                         <subviews>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8C-vq-IAp">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="1"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -247,8 +247,8 @@
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YXE-t7-gLL">
                                                 <rect key="frame" x="77.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="2"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -261,8 +261,8 @@
                                             </button>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLn-Gv-A2s">
                                                 <rect key="frame" x="155" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="3"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -275,8 +275,8 @@
                                             </button>
                                             <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLI-Ni-RGn">
                                                 <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="+"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -294,8 +294,8 @@
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MmK-3S-px8">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="0"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -308,8 +308,8 @@
                                             </button>
                                             <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMZ-cG-gJv">
                                                 <rect key="frame" x="77.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="+/-"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -322,18 +322,28 @@
                                             </button>
                                             <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyu-8J-vpp">
                                                 <rect key="frame" x="155" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="."/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="operators:" destination="9pv-A4-QxB" eventType="touchUpInside" id="OXB-ZN-tVv"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uqi-L4-ECy">
                                                 <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond" family="BPdotsDiamond" pointSize="30"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="="/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="symbols:" destination="9pv-A4-QxB" eventType="touchUpInside" id="EMh-Rq-KXV"/>
                                                 </connections>
@@ -365,18 +375,40 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Calculate" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="" image="iconCalc" id="acW-dT-cKf">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="backImg" destination="eEh-PQ-4be" id="Twk-ND-4Ja"/>
                         <outlet property="bannerView" destination="Elt-h0-bre" id="o8H-nb-hzt"/>
                         <outlet property="outputLabel" destination="YlT-G0-4yc" id="lL3-y4-yev"/>
+                        <outletCollection property="fontSet" destination="byI-L1-IFh" collectionClass="NSMutableArray" id="DaV-Al-v9X"/>
+                        <outletCollection property="fontSet" destination="cfP-9b-VYT" collectionClass="NSMutableArray" id="uaZ-H6-fNS"/>
+                        <outletCollection property="fontSet" destination="ywN-92-jCA" collectionClass="NSMutableArray" id="H33-a6-CKM"/>
+                        <outletCollection property="fontSet" destination="dmH-Xj-m99" collectionClass="NSMutableArray" id="c5j-qE-vdU"/>
+                        <outletCollection property="fontSet" destination="TcX-2l-fOY" collectionClass="NSMutableArray" id="eMx-Z8-4PC"/>
+                        <outletCollection property="fontSet" destination="L2X-Ig-5U8" collectionClass="NSMutableArray" id="vFp-5t-GXp"/>
+                        <outletCollection property="fontSet" destination="NWS-wH-Q1O" collectionClass="NSMutableArray" id="B8K-nL-big"/>
+                        <outletCollection property="fontSet" destination="B9k-JE-vM5" collectionClass="NSMutableArray" id="Q0I-CL-Sm7"/>
+                        <outletCollection property="fontSet" destination="6wP-Dl-wbK" collectionClass="NSMutableArray" id="qh1-cV-AuS"/>
+                        <outletCollection property="fontSet" destination="A6M-M3-acN" collectionClass="NSMutableArray" id="i9O-tq-Uzm"/>
+                        <outletCollection property="fontSet" destination="QrV-rN-lKB" collectionClass="NSMutableArray" id="B9q-Oc-jjC"/>
+                        <outletCollection property="fontSet" destination="bRK-wz-1Sg" collectionClass="NSMutableArray" id="25f-Hz-lwX"/>
+                        <outletCollection property="fontSet" destination="zLI-Ni-RGn" collectionClass="NSMutableArray" id="K9A-Xe-q0j"/>
+                        <outletCollection property="fontSet" destination="gLn-Gv-A2s" collectionClass="NSMutableArray" id="mSs-o9-XvA"/>
+                        <outletCollection property="fontSet" destination="YXE-t7-gLL" collectionClass="NSMutableArray" id="OaM-rc-RFa"/>
+                        <outletCollection property="fontSet" destination="k8C-vq-IAp" collectionClass="NSMutableArray" id="auN-2d-CDY"/>
+                        <outletCollection property="fontSet" destination="Uqi-L4-ECy" collectionClass="NSMutableArray" id="Vts-Jl-km6"/>
+                        <outletCollection property="fontSet" destination="Wyu-8J-vpp" collectionClass="NSMutableArray" id="aON-Pu-zX0"/>
+                        <outletCollection property="fontSet" destination="YMZ-cG-gJv" collectionClass="NSMutableArray" id="cN0-IX-hgr"/>
+                        <outletCollection property="fontSet" destination="MmK-3S-px8" collectionClass="NSMutableArray" id="LMW-K0-tqH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-320.07042253521126"/>
         </scene>
-        <!--Setting-->
+        <!--Second View Controller-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -386,7 +418,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Setting" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="" image="iconSet" id="cPa-gy-q4n">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <connections>
                         <segue destination="TOR-fa-Euh" kind="show" identifier="toPatternView" id="t6G-BX-6NR"/>
                     </connections>
@@ -476,4 +510,8 @@
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="iconCalc" width="16.5" height="25"/>
+        <image name="iconSet" width="25" height="25"/>
+    </resources>
 </document>

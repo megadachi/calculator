@@ -1,0 +1,75 @@
+
+/* Class = "UIButton"; normalTitle = "-"; ObjectID = "6wP-Dl-wbK"; */
+"6wP-Dl-wbK.normalTitle" = "-";
+
+/* Class = "UINavigationItem"; title = "Patterns"; ObjectID = "8Dd-4w-WIh"; */
+"8Dd-4w-WIh.title" = "Patterns";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "A6M-M3-acN"; */
+"A6M-M3-acN.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "B9k-JE-vM5"; */
+"B9k-JE-vM5.normalTitle" = "7";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "L2X-Ig-5U8"; */
+"L2X-Ig-5U8.normalTitle" = "9";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "MmK-3S-px8"; */
+"MmK-3S-px8.normalTitle" = "0";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "NWS-wH-Q1O"; */
+"NWS-wH-Q1O.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "QrV-rN-lKB"; */
+"QrV-rN-lKB.normalTitle" = "5";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "TcX-2l-fOY"; */
+"TcX-2l-fOY.normalTitle" = "×";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "Uqi-L4-ECy"; */
+"Uqi-L4-ECy.normalTitle" = "=";
+
+/* Class = "UIButton"; normalTitle = "."; ObjectID = "Wyu-8J-vpp"; */
+"Wyu-8J-vpp.normalTitle" = ".";
+
+/* Class = "UIButton"; normalTitle = "+/-"; ObjectID = "YMZ-cG-gJv"; */
+"YMZ-cG-gJv.normalTitle" = "+/-";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "YXE-t7-gLL"; */
+"YXE-t7-gLL.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "YlT-G0-4yc"; */
+"YlT-G0-4yc.text" = "0";
+
+/* Class = "UITabBarItem"; title = "Calculate"; ObjectID = "acW-dT-cKf"; */
+"acW-dT-cKf.title" = "Calculate";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "bRK-wz-1Sg"; */
+"bRK-wz-1Sg.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "byI-L1-IFh"; */
+"byI-L1-IFh.normalTitle" = "÷";
+
+/* Class = "UITabBarItem"; title = "Setting"; ObjectID = "cPa-gy-q4n"; */
+"cPa-gy-q4n.title" = "Setting";
+
+/* Class = "UIButton"; normalTitle = "%"; ObjectID = "cfP-9b-VYT"; */
+"cfP-9b-VYT.normalTitle" = "%";
+
+/* Class = "UIButton"; normalTitle = "AC"; ObjectID = "dmH-Xj-m99"; */
+"dmH-Xj-m99.normalTitle" = "AC";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "gLn-Gv-A2s"; */
+"gLn-Gv-A2s.normalTitle" = "3";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "k8C-vq-IAp"; */
+"k8C-vq-IAp.normalTitle" = "1";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "o5p-vK-4uO"; */
+"o5p-vK-4uO.title" = "Back";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "ywN-92-jCA"; */
+"ywN-92-jCA.normalTitle" = "C";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "zLI-Ni-RGn"; */
+"zLI-Ni-RGn.normalTitle" = "+";

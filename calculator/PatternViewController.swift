@@ -18,7 +18,7 @@ class PatternViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet var collectionView: UICollectionView!
    
     // 画像patterns
-    var patterns = ["wallpaperImg1", "wallpaperImg2", "wallpaperImg3"]
+    var patterns = ["wallpaperImg1", "wallpaperImg2", "wallpaperImg3", "wallpaperImg4", "wallpaperImg5", "wallpaperImg6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,7 @@ class PatternViewController: UIViewController, UICollectionViewDelegate, UIColle
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         collectionView.collectionViewLayout = layout
+        
     }
     
     //セクションの数
@@ -89,7 +90,7 @@ class PatternViewController: UIViewController, UICollectionViewDelegate, UIColle
         UserDefaults.standard.removeObject(forKey: "backColorData")
         UserDefaults.standard.set(archivePatternData, forKey: "backPatternData")
         dismiss(animated: true, completion: nil)
-        print("extentionからprint", patternChosen)
     }
 
 }
+

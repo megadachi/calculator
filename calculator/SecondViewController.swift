@@ -38,26 +38,26 @@ class SecondViewController: FormViewController {
     
     func showTable(){
         // 背景のテーブル
-        form +++ Section("Background")
+        form +++ Section("Wallpaper".localized)
             <<< SegmentedRow<String>() {
-//                $0.title = "Select"
+                //                $0.title = "Select"
                 $0.options = ["Color", "Photo", "Pattern"]
                 }
-            .onChange{ (picker) in
+                .onChange{ (picker) in
                     if let optionChosen = picker.value{
                         if optionChosen == "Color"{
                             self.rowSetUp(rowShown: "Color Row", rowHidden1: "Photo Row", rowHidden2: "Pattern Row")
                         } else if optionChosen == "Photo" {
                             self.rowSetUp(rowShown: "Photo Row", rowHidden1: "Color Row", rowHidden2: "Pattern Row")
                         } else if optionChosen == "Pattern"{
-                             self.rowSetUp(rowShown: "Pattern Row", rowHidden1: "Color Row", rowHidden2: "Photo Row")
+                            self.rowSetUp(rowShown: "Pattern Row", rowHidden1: "Color Row", rowHidden2: "Photo Row")
                         }
                     }
             }
-
+            
             
             <<< InlineColorPickerRow("Color Row") { (row) in
-                row.title = "Color Picker"
+                row.title = "Color".localized
                 row.isCircular = true
                 row.showsPaletteNames = false
                 row.value = UIColor.orange
@@ -73,7 +73,7 @@ class SecondViewController: FormViewController {
                     picker.collapseInlineRow()
             }
             <<< ImageRow("Photo Row") {
-                $0.title = "Photo Picker"
+                $0.title = "Photo".localized
                 $0.sourceTypes = .PhotoLibrary
                 $0.clearAction = .no
                 $0.hidden = true
@@ -85,20 +85,20 @@ class SecondViewController: FormViewController {
                     UserDefaults.standard.removeObject(forKey: "backColorData")
                     UserDefaults.standard.removeObject(forKey: "backPatternData")
                     UserDefaults.standard.set(archivePhotoData, forKey: "backPhotoData")
-                }
+            }
             <<< LabelRow("Pattern Row") {
-                $0.title = "Pattern Picker"
+                $0.title = "Pattern".localized
                 $0.onCellSelection({ (cell, row) in
                     self.performSegue(withIdentifier: "toPatternView", sender: nil)
                 })
-                }
-
-
+        }
+        
+        
         // 文字色のテーブル
         form
-            +++ Section("Text")
+            +++ Section("Text".localized)
             <<< InlineColorPickerRow("TextColorRow") { (row) in
-                row.title = "Text Color"
+                row.title = "Text Color".localized
                 row.isCircular = true
                 row.showsPaletteNames = false
                 }
@@ -108,11 +108,10 @@ class SecondViewController: FormViewController {
                         fatalError("Archive failed")
                     }
                     UserDefaults.standard.set(archiveTextColorData, forKey: "textColorData")
-                    UserDefaults.standard.synchronize()
                     picker.collapseInlineRow()
             }
             <<< InlineColorPickerRow("TextBackColorRow") { (row) in
-                row.title = "Background Color"
+                row.title = "Background Color".localized
                 row.isCircular = true
                 row.showsPaletteNames = false
                 }
@@ -123,7 +122,33 @@ class SecondViewController: FormViewController {
                     }
                     UserDefaults.standard.set(archiveTextBackColorData, forKey: "textBackColorData")
                     picker.collapseInlineRow()
+            }
+            <<< ActionSheetRow<String>() {
+                $0.title = "Font".localized
+                $0.selectorTitle = "Choose a font".localized
+                $0.options = ["BPdots","Chistoso","Spirax"]
+                //                $0.value = "BPdots"    // initially selected
+                }
+                .onChange { (picker) in
+                    if let pickerChosen = picker.value{
+                        switch pickerChosen{
+                        case "Chistoso":
+                            UserDefaults.standard.set("Chistoso CF", forKey: "fontData")
+                        case "Spirax":
+                            UserDefaults.standard.set("Spirax", forKey: "fontData")
+                        default:
+                            UserDefaults.standard.set("BPdotsDiamond-Bold", forKey: "fontData")
+                        }
+                    }
         }
     }
+    
+    
 }
 
+// 端末の言語設定によって言語切り替え
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+}

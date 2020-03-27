@@ -2,9 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:calculator.xcodeproj">
+      location = "group:/Users/ma/apps/calculator02/Calculator.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Calculator.xcodeproj">
    </FileRef>
 </Workspace>

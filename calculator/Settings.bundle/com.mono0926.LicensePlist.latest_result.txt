@@ -14,16 +14,16 @@ version: 0.13.2
 
 name: Google-Mobile-Ads-SDK, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 7.49.0
+version: 7.51.0
 
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2019 Googl…
-version: 6.1.1
+version: 6.1.3
 
 name: GoogleUtilities, nameSpecified: 
 body: 
                    …
-version: 6.2.5
+version: 6.3.1
 
 name: ImageRow, nameSpecified: 
 body: MIT License
@@ -39,7 +39,11 @@ version: 2.5.8
 
 name: nanopb, nameSpecified: 
 body: Copyright (c) 2011 P…
-version: 0.3.901
+version: 0.3.9011
+
+name: SwiftyStoreKit, nameSpecified: 
+body: Copyright (c) 2015-2…
+version: 0.15.0
 
 name: UIColor_Hex_Swift, nameSpecified: 
 body: The MIT License (MIT…

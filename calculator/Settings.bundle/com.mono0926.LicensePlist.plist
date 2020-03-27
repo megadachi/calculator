@@ -78,6 +78,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>com.mono0926.LicensePlist/SwiftyStoreKit</string>
+			<key>Title</key>
+			<string>SwiftyStoreKit</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>com.mono0926.LicensePlist/UIColor_Hex_Swift</string>
 			<key>Title</key>
 			<string>UIColor_Hex_Swift</string>

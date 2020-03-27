@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  calculator
+
+  Created by M A on 2019/09/29.
+  Copyright © 2019 M A. All rights reserved.
+*/
+
+// フォトライブラリへ書き込みのアクセス許可の場合
+NSPhotoLibraryAddUsageDescription = "このアプリは背景画像に写真を利用します。";

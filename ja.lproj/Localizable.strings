@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  calculator
+
+  Created by M A on 2019/09/29.
+  Copyright © 2019 M A. All rights reserved.
+*/
+
+"Wallpaper" = "壁紙";
+"Color" = "カラー";
+"Photo" = "フォト";
+"Pattern" = "パターン";
+"Text" = "テキスト";
+"Text Color" = "テキストカラー";
+"Background Color" = "背景色";
+"Back" = "戻る";
+"Font" = "フォント";
+"Choose a font" = "フォントを選択";
+
