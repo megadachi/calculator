@@ -156,8 +156,8 @@ class FirstViewController: UIViewController {
     let deviceName = String(UIDevice.current.localizedModel)
     
     // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
-     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 広告ユニット ID
-//    let bannerIDSample = "ca-app-pub-3940256099942544/2934735716" // 広告ユニット ID
+//     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 本番広告ユニット ID
+    let bannerID = "ca-app-pub-3940256099942544/2934735716" // サンプル広告ユニット ID
     
     // 画面が呼び込まれる前に背景情報を読み込む
     override func viewWillAppear(_ animated: Bool) {
@@ -242,7 +242,6 @@ class FirstViewController: UIViewController {
             let textBackColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
             UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).backgroundColor = textBackColor
             outputLabel.backgroundColor = textBackColor
-
         }
         if UserDefaults.standard.data(forKey: "backColorData") == nil {
             UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).alpha = 0.8
@@ -316,11 +315,9 @@ class FirstViewController: UIViewController {
         // バナー広告を定義
         let bannerViewLeft = GADBannerView(adSize: kGADAdSizeBanner)
         let bannerViewRight = GADBannerView(adSize: kGADAdSizeBanner)
-//        bannerViewLeft.adUnitID = bannerIDSample    // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
         bannerViewLeft.adUnitID = bannerID  // 広告ID
         bannerViewLeft.rootViewController = self
         bannerViewLeft.load(GADRequest())
-//        bannerViewRight.adUnitID = bannerIDSample    // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
         bannerViewRight.adUnitID = bannerID  // 広告ID
         bannerViewRight.rootViewController = self
         bannerViewRight.load(GADRequest())
