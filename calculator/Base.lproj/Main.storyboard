@@ -427,6 +427,22 @@
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
+        <!--List View Controller-->
+        <scene sceneID="xp4-dp-RfG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rHX-Pf-bwe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="fic-74-oEL" customClass="ListViewController" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="19m-06-R6h">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="nLf-ea-qel"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZG9-Kg-yZ9"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1431" y="1053"/>
+        </scene>
         <!--Pattern View Controller-->
         <scene sceneID="2cP-OZ-4ee">
             <objects>
@@ -480,6 +496,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="a8m-SP-tvs"/>
                     </view>
+                    <navigationItem key="navigationItem" id="kek-sE-nLF"/>
                     <connections>
                         <outlet property="collectionView" destination="YUW-Nn-X63" id="5Kb-gz-l3U"/>
                     </connections>
@@ -499,6 +516,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="UFw-j0-ajF" kind="relationship" relationship="viewControllers" id="Eqb-8R-MUv"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
@@ -506,9 +524,31 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="EEc-H6-XdU">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kyj-Af-T8y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UFw-j0-ajF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="iconList" selectedImage="iconList" id="Wpk-7t-bEe">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fEf-4I-9nz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fic-74-oEL" kind="relationship" relationship="rootViewController" id="MQ4-40-B6p"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="746.25" y="1053.1690140845071"/>
+        </scene>
     </scenes>
     <resources>
         <image name="iconCalc" width="16.5" height="25"/>
+        <image name="iconList" width="25" height="25"/>
         <image name="iconSet" width="25" height="25"/>
     </resources>
 </document>

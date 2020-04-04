@@ -10,8 +10,7 @@ pod 'Google-Mobile-Ads-SDK'
 pod 'Expression'
 pod 'Eureka'
 pod 'LicensePlist'
-pod 'ImageRow', '~> 4.0'
+pod 'ImageRow'
 pod 'ColorPickerRow'
-pod 'SwiftyStoreKit'
 
 end

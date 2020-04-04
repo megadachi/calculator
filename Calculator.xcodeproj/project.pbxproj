@@ -21,6 +21,7 @@
 		0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501223176EB4002E3D01 /* SecondViewController.swift */; };
 		0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501423176EB4002E3D01 /* Main.storyboard */; };
 		0CC9501B23176EB5002E3D01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */; };
+		0CE538AD24358CC00007EDCC /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE538AC24358CC00007EDCC /* ListViewController.swift */; };
 		0CEA5A6B23411C7000CFDC2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CEA5A6D23411C7000CFDC2F /* Localizable.strings */; };
 		BB514CB3D2B6E95802E2FA07 /* Pods_calculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02520997871F16640A3607B5 /* Pods_calculator.framework */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		0CC9501523176EB4002E3D01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0CC9501A23176EB5002E3D01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0CC9501C23176EB5002E3D01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CE538AC24358CC00007EDCC /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		0CEA5A5E234118C900CFDC2F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		0CEA5A6C23411C7000CFDC2F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		57790F7F772B5AEEB2A0418D /* Pods-calculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-calculator.debug.xcconfig"; path = "Target Support Files/Pods-calculator/Pods-calculator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				0CC9501023176EB4002E3D01 /* FirstViewController.swift */,
 				0CC9501223176EB4002E3D01 /* SecondViewController.swift */,
 				0C672DAD233D38F700886EED /* PatternViewController.swift */,
+				0CE538AC24358CC00007EDCC /* ListViewController.swift */,
 				0CC9501423176EB4002E3D01 /* Main.storyboard */,
 				0C672DA9233D35FB00886EED /* CollectionViewCell.swift */,
 				0C672DAA233D35FB00886EED /* CollectionViewCell.xib */,
@@ -262,6 +265,7 @@
 			files = (
 				0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */,
 				0C672DAE233D38F700886EED /* PatternViewController.swift in Sources */,
+				0CE538AD24358CC00007EDCC /* ListViewController.swift in Sources */,
 				0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */,
 				0C672DAB233D35FB00886EED /* CollectionViewCell.swift in Sources */,
 				0CC9501123176EB4002E3D01 /* FirstViewController.swift in Sources */,

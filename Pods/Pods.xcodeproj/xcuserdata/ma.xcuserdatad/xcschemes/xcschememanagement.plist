@@ -49,11 +49,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftyStoreKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>UIColor_Hex_Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
