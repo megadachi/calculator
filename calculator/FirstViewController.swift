@@ -34,9 +34,12 @@ class FirstViewController: UIViewController {
     // ボタンフォント設定
     @IBOutlet var fontSet: [UIButton]!
     
-    
     // 計算結果表示画面ラベル
     @IBOutlet var outputLabel: UILabel!
+    // 計算結果を保存するためのArray [[名前,計算結果]]
+    var dataArray:[[String]] = []
+    
+    //
     var recalculateNb = "0"
     
     // 数字ボタンを定義
@@ -107,6 +110,8 @@ class FirstViewController: UIViewController {
             outputLabel.text = ""
             stackedNumber = ""
             stackedNbsArray.removeAll()
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
                 return
@@ -179,6 +184,14 @@ class FirstViewController: UIViewController {
         
         // 文字数に応じてフォントサイズ変更する
         outputLabel.adjustsFontSizeToFitWidth = true
+        
+            self.setupLabelTap()
+        
+        if UserDefaults.standard.object(forKey: "dataArray") != nil {
+            dataArray = UserDefaults.standard.object(forKey: "dataArray") as! [[String]]
+        } else {
+            return
+        }
         
     }
     /* 電卓機能 */
@@ -278,6 +291,38 @@ class FirstViewController: UIViewController {
             backImg.image = UIImage(named: backImgImage!)
             backImg.contentMode = UIView.ContentMode.scaleAspectFill
         }
+    }
+    
+    /* 計算結果表示ラベルのタップイベント */
+    @objc func labelTapped(_ sender: UITapGestureRecognizer) {
+        // タップ時のイベント定義
+//        print(UserDefaults.standard.object(forKey: "dataArray"))
+        let alert = UIAlertController(title: "Save".localized,
+                                      message: "Save as".localized,
+                                              preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        alert.addTextField { (tf) in
+            tf.placeholder = "Enter the name".localized
+        }
+        alert.addAction(UIAlertAction(title: "Done".localized, style: .default, handler: { [weak alert] (ac) in
+//            guard let name = alert?.textFields?.first?.text ?? "" else {
+//                return
+//            }
+            if alert?.textFields?.first?.text != nil {
+                let name = alert?.textFields?.first?.text ?? ""
+                self.dataArray.append([name,self.outputLabel.text!])
+                print(self.dataArray)
+            UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
+                print(UserDefaults.standard.object(forKey: "dataArray")!)
+            }
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    // 表示ラベルのタップインスタンス作成
+    func setupLabelTap() {
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.labelTapped(_:)))
+        self.outputLabel.isUserInteractionEnabled = true
+        self.outputLabel.addGestureRecognizer(labelTap)
     }
     
     /* All iAd Functions */
