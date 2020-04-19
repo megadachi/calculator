@@ -11,7 +11,7 @@ import UIKit
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // tableViewと紐付け
+/* 宣言 */
     @IBOutlet weak var tableView: UITableView!
     // 名前と式を格納する配列
     var nameArray:[String] = []
@@ -24,14 +24,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1;
     }
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        view.tintColor = .none
-        return formulaArray[section] as String
-    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell",for:indexPath)
-//        cell.textLabel?.text = formulaArray[indexPath.section]
-         cell.textLabel?.text = nameArray[indexPath.section]
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = nameArray[indexPath.section]
+        cell.detailTextLabel?.numberOfLines = 0
+        cell.detailTextLabel?.text = formulaArray[indexPath.section]
         return cell
     }
 
@@ -106,8 +104,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //resultArray内のindexPathのrow番目をremove（消去）する
-            nameArray.remove(at: indexPath.row)
-            formulaArray.remove(at: indexPath.row)
+            nameArray.remove(at: indexPath.section)
+            formulaArray.remove(at: indexPath.section)
             //再びアプリ内に消去した配列を保存
             resetData()
 //            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
@@ -148,143 +146,3 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
 }
-
-
-//import Eureka
-//
-//class ListViewController: FormViewController {
-//    
-//    var dataArray:[[String]] = [] // 式を格納する配列
-//    var dataNumber = -1 // 式の配列番号を管理
-//    var rowNumber = 0 // 式を表示するセルの番号
-//    var selectedRow = 0 // 変更するセル
-//    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        // UserDefaultsにキー値で保存された配列を取り出す
-//        if UserDefaults.standard.object(forKey: "dataArray") != nil {
-//            dataArray = UserDefaults.standard.object(forKey: "dataArray") as! [[String]]
-//        } else {
-//            return
-//        }// データが無いときは編集ボタンを表示しない
-//        if dataArray.count == 0 {
-//            self.navigationController?.isNavigationBarHidden = true
-//            print("dataArrayは空")
-//            return
-//        } else {
-//            self.navigationController?.isNavigationBarHidden = false
-//            navigationItem.rightBarButtonItem = editButtonItem
-//            while rowNumber < dataArray.count {
-//                dataNumber += 1
-//                rowNumber += 1
-//                form +++
-//                    MultivaluedSection(multivaluedOptions: [/*.Reorder,*/ .Delete], footer: "\(dataArray[dataNumber][1])") { // フッターに式を表示
-//                        $0 <<< TextRow("\(rowNumber)") {
-////                            $0.tag = String(rowNumber)
-//                            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, row, completionHandler) in
-//                                print("Delete")
-//                                self.dataArray.remove(at: Int(self.rowNumber))
-//                                UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
-//                                completionHandler?(true)
-//                            }
-//                            $0.trailingSwipe.actions = [deleteAction]
-//                            $0.value = dataArray[dataNumber][0] // セルの値に式の名前を表示
-//                        }
-//                        .onChange{ row in
-//                            self.selectedRow = Int(row.tag!)! - 1
-//                            print(self.selectedRow)
-//                            self.dataArray[self.selectedRow][0] = row.value! // セルの値を配列中の式名に
-//                        }
-//                }
-//                print( "n4", "セル番号", rowNumber, "配列", dataArray)
-//            }
-//        }
-//        
-//        
-//        //tableViewを更新
-//        tableView.reloadData()
-//    }
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        // navigationbar、編集ボタンの定義
-//        //        self.navigationController?.isNavigationBarHidden = false
-//        //        navigationItem.rightBarButtonItem = editButtonItem
-//        
-//        // デフォルトで編集モードoff
-//        tableView.isEditing = false
-//        
-//        // デフォルトでセルアクションを無効
-//        for row in form.rows {
-//            row.baseCell.isUserInteractionEnabled = false
-//        }
-//    }
-//    
-//    // デフォルトでスワイプ無効
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        if tableView.isEditing {
-//            return .delete
-//        }
-//        return .none
-//    }
-//    // 編集ボタンのアクション設定
-//    override func setEditing(_ editing: Bool, animated: Bool) {
-//        super.setEditing(editing, animated: animated)
-//        tableView.isEditing = editing
-//        // 編集モードon・offの場合設定
-//        if tableView.isEditing {
-//            for row in form.rows {
-//                row.baseCell.isUserInteractionEnabled = true
-//            }
-//        } else {
-//            for row in form.rows {
-//                row.baseCell.isUserInteractionEnabled = false
-//            }
-//            UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
-//            print("n5", "userdefaults", UserDefaults.standard.object(forKey: "dataArray")!)
-//            print("配列", dataArray)
-//        }
-//    }
-//    //    // ここを編集！
-////    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)  {
-////        //                        let selectedRow = tableView.indexPathsForSelectedRows!
-////        //        print(selectedRow)
-////        //        selectedRow -= 1
-////        //        dataArray.remove(at: selectedRow)
-////        //        // 先にデータを削除しないと、エラーが発生します。
-////        //        self.tableData.remove(at: indexPath.row)
-////        //        tableView.deleteRows(at: [indexPath], with: .automatic)
-////        self.dataArray.remove(at: indexPath.row)
-////        UserDefaults.standard.set(dataArray, forKey: "dataArray")
-////        dataNumber = -1 // 式の配列番号を管理
-////        rowNumber = 0// 式を表示するセルの番号
-////        //        selectedRow -= 1 // 変更するセル
-////        print("n6","削除後のuserdefaults", UserDefaults.standard.object(forKey: "dataArray")!)
-////        if dataArray.count != 0{
-////            print("n7 削除後の配列", dataArray)
-////            print(UserDefaults.standard.array(forKey: "dataArray")!.count)
-////        }
-////
-////        tableView.beginUpdates()
-////        tableView.deleteRows(at: [indexPath], with: .automatic)
-////        tableView.endUpdates()
-////        //        tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-////        //        tableView.deleteSections(IndexSet(integer: 0),with: UITableView.RowAnimation.automatic)
-////
-////        print("n8")
-////    }
-//    //    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//    //        dataArray.remove(at: indexPath.row)
-//    //                UserDefaults.standard.set(dataArray, forKey: "dataArray")
-//    //                dataNumber = -1 // 式の配列番号を管理
-//    //                rowNumber = 0// 式を表示するセルの番号
-//    //        print("didEndDisplayingCell: \(indexPath)")
-//    //    }
-//    // スワイプボタンの文言指定
-//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-//        return "Delete".localized
-//    }
-//    
-//}
