@@ -7,131 +7,284 @@
 //
 
 import UIKit
-import Eureka
 
-class ListViewController: FormViewController {
+
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var dataArray:[[String]] = [] // 式を格納する配列
-    var dataNumber = -1 // 式の配列番号を管理
-    var rowNumber = 0 // 式を表示するセルの番号
-    var selectedRow = 0 // 変更するセル
+    // tableViewと紐付け
+    @IBOutlet weak var tableView: UITableView!
+    // 名前と式を格納する配列
+    var nameArray:[String] = []
+    var formulaArray:[String] = []
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // UserDefaultsにキー値で保存された配列を取り出す
-        if UserDefaults.standard.object(forKey: "dataArray") != nil {
-            print("n1")
-            dataArray = UserDefaults.standard.object(forKey: "dataArray") as! [[String]]
-            print("n2")
-            if dataArray.count == 0 {
-                self.navigationController?.isNavigationBarHidden = true
-                print("dataArrayは空")
-                return
-            } else {
-                self.navigationController?.isNavigationBarHidden = false
-                navigationItem.rightBarButtonItem = editButtonItem
-                print("n3")
-                while rowNumber < dataArray.count {
-                    dataNumber += 1
-                    rowNumber += 1
-                    form +++
-                        MultivaluedSection(multivaluedOptions: [/*.Reorder,*/ .Delete], footer: "\(dataArray[dataNumber][1])") { // フッターに式を表示
-                            $0 <<< TextRow("\(rowNumber)") {
-                                $0.value = dataArray[dataNumber][0] // セルの値に式の名前を表示
-                            }
-                            .onChange{ row in
-                                self.selectedRow = Int(row.tag!)! - 1
-                                print(self.selectedRow)
-                                self.dataArray[self.selectedRow][0] = row.value! // セルの値を配列中の式名に
-                            }
-//                            .onCellSelection({ (cell, row) in
-//                                self.dataNumber = Int(row.tag!)! - 1
-//                                print(self.dataNumber)
-//
-//                            })
-//                                .cellUpdate{ cell, row in
-//                                self.dataArray[self.dataNumber][0] = row.value! // セルの値を配列中の式名に
-//                            }
-                    }
-                    
-                    print( "n4", "セル番号", rowNumber, "配列", dataArray)
-                }
-            }
-        } else {
-            return
-        }
-        
-        //tableViewを更新
-        tableView.reloadData()
+/* テーブルの設定 */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return nameArray.count
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // navigationbar、編集ボタンの定義
-        //        self.navigationController?.isNavigationBarHidden = false
-        //        navigationItem.rightBarButtonItem = editButtonItem
-        
-        // でフォルドで編集モードoff
-        tableView.isEditing = false
-        
-        // デフォルトでセルアクションを無効
-        for row in form.rows {
-            row.baseCell.isUserInteractionEnabled = false
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1;
     }
-    
-    // デフォルトでスワイプ無効
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if tableView.isEditing {
-            return .delete
-        }
-        return .none
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        view.tintColor = .none
+        return formulaArray[section] as String
     }
-    // 編集ボタンのアクション設定
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell",for:indexPath)
+//        cell.textLabel?.text = formulaArray[indexPath.section]
+         cell.textLabel?.text = nameArray[indexPath.section]
+        return cell
+    }
+
+/* 編集設定 */
+    // 編集ボタン設定
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         tableView.isEditing = editing
         // 編集モードon・offの場合設定
         if tableView.isEditing {
-            for row in form.rows {
-                row.baseCell.isUserInteractionEnabled = true
-            }
+            tableView.isUserInteractionEnabled = true
+//            tableView.allowsSelectionDuringEditing = true
         } else {
-            for row in form.rows {
-                row.baseCell.isUserInteractionEnabled = false
+            tableView.isUserInteractionEnabled = false
+            resetData()
+            if UserDefaults.standard.object(forKey: "nameArray") != nil {
+                print("n5", "userdefaults", UserDefaults.standard.object(forKey: "nameArray")!)
             }
-            UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
-            print("n5", "userdefaults", UserDefaults.standard.object(forKey: "dataArray")!)
-            print("配列", dataArray)
+            print("name", nameArray)
         }
     }
-    //    // ここを編集！
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)  {
-//                        let selectedRow = tableView.indexPathsForSelectedRows!
-//        print(selectedRow)
-        //        selectedRow -= 1
-        //        dataArray.remove(at: selectedRow)
-        //        // 先にデータを削除しないと、エラーが発生します。
-        //        self.tableData.remove(at: indexPath.row)
-        //        tableView.deleteRows(at: [indexPath], with: .automatic)
-        dataArray.remove(at: indexPath.row)
-        UserDefaults.standard.set(dataArray, forKey: "dataArray")
-        dataNumber = -1 // 式の配列番号を管理
-        rowNumber = 0// 式を表示するセルの番号
-        //        selectedRow -= 1 // 変更するセル
-        print("n6","削除後のuserdefaults", UserDefaults.standard.object(forKey: "dataArray")!)
-        if dataArray.count != 0{
-            print("n7 削除後の配列", dataArray)
+    // デフォルトでスワイプ無効
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing {
+            return .delete
         }
-//        tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        print("n8")
+        return .none
     }
     // スワイプボタンの文言指定
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Delete".localized
     }
+    func resetData(){
+        UserDefaults.standard.set(self.nameArray, forKey: "nameArray")
+        UserDefaults.standard.set(formulaArray, forKey: "formulaArray")
+    }
+/* テキスト入力 */
+    // セルタップ検知
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing == true {
+            // タップされたセルのセクション番号を出力
+            let selectedRow = indexPath.section
+            print("\(selectedRow)番目の行が選択されました。")
+            displayForm(path: selectedRow)
+        }
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    // タップイベント設定
+     @objc func displayForm(path:Int){
+        //create alert
+        let alert = UIAlertController(title: "", message: "Change Name".localized, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        alert.addTextField { (tf) in
+            tf.placeholder = "Enter the name".localized
+        }
+        alert.addAction(UIAlertAction(title: "Done".localized, style: .default, handler: { [weak alert] (ac) in
+            self.view.isMultipleTouchEnabled = false
+            if alert?.textFields?.first?.text != nil {
+                let name = alert?.textFields?.first?.text ?? ""
+                self.nameArray[path] = name
+                self.resetData()
+                self.tableView.reloadData()
+                print("name", self.nameArray)
+            }
+        }))
+        present(alert, animated: true, completion: nil)
+    }
     
+/* 削除処理 */
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //resultArray内のindexPathのrow番目をremove（消去）する
+            nameArray.remove(at: indexPath.row)
+            formulaArray.remove(at: indexPath.row)
+            //再びアプリ内に消去した配列を保存
+            resetData()
+//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            tableView.deleteSections(IndexSet(integer: 0),with: UITableView.RowAnimation.automatic)
+            //tableViewを更新
+            tableView.reloadData()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // defaultからデータ配列を取り出す
+        if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil{
+            nameArray = UserDefaults.standard.object(forKey: "nameArray") as! [String]
+            formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [String]
+        }
+        // データが無いときは編集ボタンを表示しない
+        if nameArray.count == 0 {
+            self.navigationController?.isNavigationBarHidden = true
+            // 編集モードoff
+//            tableView.isEditing = false
+            print("dataArrayは空")
+            return
+        } else {
+            self.navigationController?.isNavigationBarHidden = false
+            navigationItem.rightBarButtonItem = editButtonItem
+        }
+        //tableViewを更新
+        tableView.reloadData()
+        
+    }
 }
+
+
+//import Eureka
+//
+//class ListViewController: FormViewController {
+//    
+//    var dataArray:[[String]] = [] // 式を格納する配列
+//    var dataNumber = -1 // 式の配列番号を管理
+//    var rowNumber = 0 // 式を表示するセルの番号
+//    var selectedRow = 0 // 変更するセル
+//    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        // UserDefaultsにキー値で保存された配列を取り出す
+//        if UserDefaults.standard.object(forKey: "dataArray") != nil {
+//            dataArray = UserDefaults.standard.object(forKey: "dataArray") as! [[String]]
+//        } else {
+//            return
+//        }// データが無いときは編集ボタンを表示しない
+//        if dataArray.count == 0 {
+//            self.navigationController?.isNavigationBarHidden = true
+//            print("dataArrayは空")
+//            return
+//        } else {
+//            self.navigationController?.isNavigationBarHidden = false
+//            navigationItem.rightBarButtonItem = editButtonItem
+//            while rowNumber < dataArray.count {
+//                dataNumber += 1
+//                rowNumber += 1
+//                form +++
+//                    MultivaluedSection(multivaluedOptions: [/*.Reorder,*/ .Delete], footer: "\(dataArray[dataNumber][1])") { // フッターに式を表示
+//                        $0 <<< TextRow("\(rowNumber)") {
+////                            $0.tag = String(rowNumber)
+//                            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, row, completionHandler) in
+//                                print("Delete")
+//                                self.dataArray.remove(at: Int(self.rowNumber))
+//                                UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
+//                                completionHandler?(true)
+//                            }
+//                            $0.trailingSwipe.actions = [deleteAction]
+//                            $0.value = dataArray[dataNumber][0] // セルの値に式の名前を表示
+//                        }
+//                        .onChange{ row in
+//                            self.selectedRow = Int(row.tag!)! - 1
+//                            print(self.selectedRow)
+//                            self.dataArray[self.selectedRow][0] = row.value! // セルの値を配列中の式名に
+//                        }
+//                }
+//                print( "n4", "セル番号", rowNumber, "配列", dataArray)
+//            }
+//        }
+//        
+//        
+//        //tableViewを更新
+//        tableView.reloadData()
+//    }
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        // navigationbar、編集ボタンの定義
+//        //        self.navigationController?.isNavigationBarHidden = false
+//        //        navigationItem.rightBarButtonItem = editButtonItem
+//        
+//        // デフォルトで編集モードoff
+//        tableView.isEditing = false
+//        
+//        // デフォルトでセルアクションを無効
+//        for row in form.rows {
+//            row.baseCell.isUserInteractionEnabled = false
+//        }
+//    }
+//    
+//    // デフォルトでスワイプ無効
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        if tableView.isEditing {
+//            return .delete
+//        }
+//        return .none
+//    }
+//    // 編集ボタンのアクション設定
+//    override func setEditing(_ editing: Bool, animated: Bool) {
+//        super.setEditing(editing, animated: animated)
+//        tableView.isEditing = editing
+//        // 編集モードon・offの場合設定
+//        if tableView.isEditing {
+//            for row in form.rows {
+//                row.baseCell.isUserInteractionEnabled = true
+//            }
+//        } else {
+//            for row in form.rows {
+//                row.baseCell.isUserInteractionEnabled = false
+//            }
+//            UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
+//            print("n5", "userdefaults", UserDefaults.standard.object(forKey: "dataArray")!)
+//            print("配列", dataArray)
+//        }
+//    }
+//    //    // ここを編集！
+////    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)  {
+////        //                        let selectedRow = tableView.indexPathsForSelectedRows!
+////        //        print(selectedRow)
+////        //        selectedRow -= 1
+////        //        dataArray.remove(at: selectedRow)
+////        //        // 先にデータを削除しないと、エラーが発生します。
+////        //        self.tableData.remove(at: indexPath.row)
+////        //        tableView.deleteRows(at: [indexPath], with: .automatic)
+////        self.dataArray.remove(at: indexPath.row)
+////        UserDefaults.standard.set(dataArray, forKey: "dataArray")
+////        dataNumber = -1 // 式の配列番号を管理
+////        rowNumber = 0// 式を表示するセルの番号
+////        //        selectedRow -= 1 // 変更するセル
+////        print("n6","削除後のuserdefaults", UserDefaults.standard.object(forKey: "dataArray")!)
+////        if dataArray.count != 0{
+////            print("n7 削除後の配列", dataArray)
+////            print(UserDefaults.standard.array(forKey: "dataArray")!.count)
+////        }
+////
+////        tableView.beginUpdates()
+////        tableView.deleteRows(at: [indexPath], with: .automatic)
+////        tableView.endUpdates()
+////        //        tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+////        //        tableView.deleteSections(IndexSet(integer: 0),with: UITableView.RowAnimation.automatic)
+////
+////        print("n8")
+////    }
+//    //    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//    //        dataArray.remove(at: indexPath.row)
+//    //                UserDefaults.standard.set(dataArray, forKey: "dataArray")
+//    //                dataNumber = -1 // 式の配列番号を管理
+//    //                rowNumber = 0// 式を表示するセルの番号
+//    //        print("didEndDisplayingCell: \(indexPath)")
+//    //    }
+//    // スワイプボタンの文言指定
+//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+//        return "Delete".localized
+//    }
+//    
+//}

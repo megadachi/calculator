@@ -36,9 +36,9 @@ class FirstViewController: UIViewController {
     
     // 計算結果表示画面ラベル
     @IBOutlet var outputLabel: UILabel!
-    // 計算結果を保存するためのArray [[名前,計算結果]]
-    var dataArray:[[String]] = []
-    
+    // 計算結果を保存するためのArray [名前][計算結果]
+    var nameArray:[String] = []
+    var formulaArray:[String] = []
     //
     var recalculateNb = "0"
     
@@ -110,8 +110,12 @@ class FirstViewController: UIViewController {
             outputLabel.text = ""
             stackedNumber = ""
             stackedNbsArray.removeAll()
-            let domain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: domain)
+//            let domain = Bundle.main.bundleIdentifier!
+//            UserDefaults.standard.removePersistentDomain(forName: domain)
+            nameArray=[]
+            formulaArray = []
+            UserDefaults.standard.set(nameArray, forKey: "nameArray")
+            UserDefaults.standard.set(formulaArray, forKey: "formulaArray")
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
                 return
@@ -187,8 +191,9 @@ class FirstViewController: UIViewController {
         
             self.setupLabelTap()
         
-        if UserDefaults.standard.object(forKey: "dataArray") != nil {
-            dataArray = UserDefaults.standard.object(forKey: "dataArray") as! [[String]]
+        if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil{
+            nameArray = UserDefaults.standard.object(forKey: "nameArray") as! [String]
+            formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [String]
         } else {
             return
         }
@@ -296,7 +301,7 @@ class FirstViewController: UIViewController {
     /* 計算結果表示ラベルのタップイベント */
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
         // タップ時のイベント定義
-//        print(UserDefaults.standard.object(forKey: "dataArray"))
+        print(UserDefaults.standard.object(forKey: "nameArray"))
         let alert = UIAlertController(title: "Save".localized,
                                       message: "Save as".localized,
                                               preferredStyle: UIAlertController.Style.alert)
@@ -308,12 +313,15 @@ class FirstViewController: UIViewController {
 //            guard let name = alert?.textFields?.first?.text ?? "" else {
 //                return
 //            }
+            self.view.isMultipleTouchEnabled = false
             if alert?.textFields?.first?.text != nil {
                 let name = alert?.textFields?.first?.text ?? ""
-                self.dataArray.append([name,self.outputLabel.text!])
-                print(self.dataArray)
-            UserDefaults.standard.set(self.dataArray, forKey: "dataArray")
-                print(UserDefaults.standard.object(forKey: "dataArray")!)
+                self.nameArray.append(name)
+                self.formulaArray.append(self.outputLabel.text!)
+                print("name", self.nameArray)
+                UserDefaults.standard.set(self.nameArray, forKey: "nameArray")
+                UserDefaults.standard.set(self.formulaArray, forKey: "formulaArray")
+                print("default formula", UserDefaults.standard.object(forKey: "formulaArray")!)
             }
         }))
         present(alert, animated: true, completion: nil)
