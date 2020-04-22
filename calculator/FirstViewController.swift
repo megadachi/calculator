@@ -36,10 +36,14 @@ class FirstViewController: UIViewController {
     
     // 計算結果表示画面ラベル
     @IBOutlet var outputLabel: UILabel!
+    
     // 計算結果を保存するためのArray [名前][計算結果]
     var nameArray:[String] = []
-    var formulaArray:[String] = []
-    //
+    var formulaArray:[[String]] = []
+    // copy&pasteに使う
+    var copiedText = ""
+    
+    // 計算結果(回答)
     var recalculateNb = "0"
     
     // 数字ボタンを定義
@@ -54,7 +58,7 @@ class FirstViewController: UIViewController {
         if let nb = sender.titleLabel?.text {
             stackedNumber = stackedNumber + nb
         }
-        // ボタン（Cと=以外）が押されたら式を表示する
+        // ラベルに数字がある場合、代入する
         guard let formulaText = outputLabel.text else {
             return
         }
@@ -62,6 +66,7 @@ class FirstViewController: UIViewController {
         guard let senderedText = sender.titleLabel?.text else {
             return
         }
+        // 代入した数字と取得したボタンタイトルをラベルに表示
         outputLabel.text = formulaText + senderedText
         countNegative = 0
     }
@@ -110,12 +115,10 @@ class FirstViewController: UIViewController {
             outputLabel.text = ""
             stackedNumber = ""
             stackedNbsArray.removeAll()
-//            let domain = Bundle.main.bundleIdentifier!
-//            UserDefaults.standard.removePersistentDomain(forName: domain)
-            nameArray=[]
-            formulaArray = []
-            UserDefaults.standard.set(nameArray, forKey: "nameArray")
-            UserDefaults.standard.set(formulaArray, forKey: "formulaArray")
+            countNegative = 0
+            // テスト用にデータ消去
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
                 return
@@ -175,25 +178,26 @@ class FirstViewController: UIViewController {
         changeTextColor()
         changeTextBackColor()
         changeFont()
+        copyText()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // ads表示
-        bannerViewActionShouldBegin()
+//        bannerViewActionShouldBegin()
         
         // ビューがロードされた時点で式と答えのラベルは空にする
         outputLabel.text = ""
         
         // 文字数に応じてフォントサイズ変更する
         outputLabel.adjustsFontSizeToFitWidth = true
-        
-            self.setupLabelTap()
+        // ラベルタップでヒストリーに保存
+        self.setupLabelTap()
         
         if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil{
             nameArray = UserDefaults.standard.object(forKey: "nameArray") as! [String]
-            formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [String]
+            formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [[String]]
         } else {
             return
         }
@@ -232,7 +236,8 @@ class FirstViewController: UIViewController {
             return formatAnswer(String(answer))
         } catch {
             // 計算式が不当だった場合
-            return "retry"
+            errorAlert()
+            return ""
         }
     }
     // 回答
@@ -245,7 +250,85 @@ class FirstViewController: UIViewController {
             range: nil)
         return formattedAnswer
     }
-    /* 画面設定 */
+    // ヒストリーからコピー＆ペースト
+    func copyText(){
+        guard let n = UserDefaults.standard.object(forKey: "copiedText") as! String? else {
+            return
+        }
+        copiedText = n
+        // 計算結果が表示されていた場合、代入
+        if restart == false {
+            outputLabel.text = copiedText
+            // 割合計算用に数字をstackedNumberにストックする
+            stackedNbsArray.append(copiedText)
+            stackedNumber = ""
+            copiedText = ""
+            // コピーボードを空にする
+            UserDefaults.standard.removeObject(forKey: "copiedText")
+            restart = true
+        } else {
+            // 負の数字の場合、マイナスをカッコに入れる
+            if copiedText.hasPrefix("-"){
+                copiedText = copiedText.replacingOccurrences(of: "-", with: "(-)")
+            }
+            switch outputLabel.text!.suffix(1) {
+            case "+", "-", "×", "÷", ")", "": // そのままペーストできるケース
+                // ラベルにコピーを追加して表示
+                outputLabel.text = outputLabel.text! + copiedText
+                stackedNbsArray.append(copiedText)
+                stackedNumber = ""
+                copiedText = ""
+                // コピーボードを空にする
+                UserDefaults.standard.removeObject(forKey: "copiedText")
+            case ".":
+                errorAlert()
+                return
+            default: // オペレータを選択してペースト
+                selectOperationAlert()
+            }
+        }
+        countNegative = 0
+    }
+    // ペースト時のアラート設定
+    func selectOperationAlert() {
+        let alert = UIAlertController(title: "Select Operation".localized,
+                                      message: "",
+                                      preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "+", style: .default, handler: { action in
+        self.outputLabel.text! += "+" + self.copiedText
+            }
+        ))
+        alert.addAction(UIAlertAction(title: "-", style: .default, handler: { action in
+            self.outputLabel.text! += "-" + self.copiedText
+        }
+        ))
+        alert.addAction(UIAlertAction(title: "×", style: .default, handler: { action in
+            self.outputLabel.text! += "×" + self.copiedText
+        }
+        ))
+        alert.addAction(UIAlertAction(title: "÷", style: .default, handler: { action in
+            self.outputLabel.text! += "÷" + self.copiedText
+        }
+        ))
+        present(alert, animated: true, completion: nil)
+        // 割合計算用に数字をstackedNumberにストックする
+        stackedNbsArray.append(copiedText)
+        stackedNumber = ""
+        // コピーボードを空にする
+        UserDefaults.standard.removeObject(forKey: "copiedText")
+        // ＝ボタン押下後、計算結果を用いて計算可能にする
+        restart = true
+    }
+    // エラー時のアラート
+    func errorAlert(){
+        let alert = UIAlertController(title: "Error".localized,
+                                      message: "There was an error. Please try again.".localized,
+                                 preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+/* 画面設定 */
     // 文字色設定変更
     func changeTextColor(){
         if let archiveData = UserDefaults.standard.data(forKey: "textColorData") {
@@ -301,7 +384,6 @@ class FirstViewController: UIViewController {
     /* 計算結果表示ラベルのタップイベント */
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
         // タップ時のイベント定義
-        print(UserDefaults.standard.object(forKey: "nameArray"))
         let alert = UIAlertController(title: "Save".localized,
                                       message: "Save as".localized,
                                               preferredStyle: UIAlertController.Style.alert)
@@ -317,11 +399,9 @@ class FirstViewController: UIViewController {
             if alert?.textFields?.first?.text != nil {
                 let name = alert?.textFields?.first?.text ?? ""
                 self.nameArray.append(name)
-                self.formulaArray.append(self.outputLabel.text!)
-                print("name", self.nameArray)
+                self.formulaArray.append([self.outputLabel.text!, self.recalculateNb])
                 UserDefaults.standard.set(self.nameArray, forKey: "nameArray")
                 UserDefaults.standard.set(self.formulaArray, forKey: "formulaArray")
-                print("default formula", UserDefaults.standard.object(forKey: "formulaArray")!)
             }
         }))
         present(alert, animated: true, completion: nil)
