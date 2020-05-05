@@ -26,7 +26,7 @@
                                 <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="fJT-Zr-tPf">
-                                <rect key="frame" x="10" y="84.5" width="300" height="399"/>
+                                <rect key="frame" x="10" y="80" width="300" height="408"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlT-G0-4yc">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
@@ -44,7 +44,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VLl-7O-iGm">
-                                        <rect key="frame" x="0.0" y="75" width="300" height="48"/>
+                                        <rect key="frame" x="0.0" y="75" width="300" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmH-Xj-m99">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
@@ -89,9 +89,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byI-L1-IFh">
-                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
+                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="÷"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -105,7 +105,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8HH-9i-qEH">
-                                        <rect key="frame" x="0.0" y="144" width="300" height="48"/>
+                                        <rect key="frame" x="0.0" y="145.5" width="300" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B9k-JE-vM5">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
@@ -150,9 +150,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcX-2l-fOY">
-                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
+                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="×"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -166,7 +166,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JhX-Gp-9hV">
-                                        <rect key="frame" x="0.0" y="213" width="300" height="48"/>
+                                        <rect key="frame" x="0.0" y="216" width="300" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRK-wz-1Sg">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
@@ -211,9 +211,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wP-Dl-wbK">
-                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
+                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="-"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -227,7 +227,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pxz-RG-M41">
-                                        <rect key="frame" x="0.0" y="282" width="300" height="48"/>
+                                        <rect key="frame" x="0.0" y="286.5" width="300" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8C-vq-IAp">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
@@ -272,9 +272,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLI-Ni-RGn">
-                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
+                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="+"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -288,7 +288,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T3r-Kg-fV3">
-                                        <rect key="frame" x="0.0" y="351" width="300" height="48"/>
+                                        <rect key="frame" x="0.0" y="357" width="300" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MmK-3S-px8">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="48"/>
@@ -319,9 +319,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyu-8J-vpp">
-                                                <rect key="frame" x="155" y="0.0" width="67.5" height="48"/>
+                                                <rect key="frame" x="155" y="0.0" width="67.5" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="."/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -333,9 +333,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uqi-L4-ECy">
-                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="48"/>
+                                                <rect key="frame" x="232.5" y="0.0" width="67.5" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="="/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -435,14 +435,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xO1-2X-heP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xO1-2X-heP">
                                 <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="pWf-Wy-Xcq" detailTextLabel="MGT-wL-0O4" style="IBUITableViewCellStyleSubtitle" id="Orf-jb-5YF">
                                         <rect key="frame" x="0.0" y="28" width="320" height="55.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Orf-jb-5YF" id="DDF-FS-prl">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Orf-jb-5YF" id="DDF-FS-prl">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>

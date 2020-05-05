@@ -51,6 +51,9 @@ public struct iOS {
                                                 ColorSpec(hex: UIColor.gray.hexString(), name: "gray"),
                                                 ColorSpec(hex: UIColor.lightGray.hexString(), name: "light gray"),
                                                 ColorSpec(hex: UIColor.white.hexString(), name: "white"),
+                                                // 追加部 ↓
+                                                ColorSpec(hex: UIColor.clear.hexString(), name: "clear"),
+                                                // 追加部 ↑
                                                 ColorSpec(hex: UIColor.red.hexString(), name: "red"),
                                                 ColorSpec(hex: UIColor.green.hexString(), name: "green"),
                                                 ColorSpec(hex: UIColor.blue.hexString(), name: "blue"),

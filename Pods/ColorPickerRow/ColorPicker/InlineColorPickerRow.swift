@@ -45,6 +45,45 @@ public final class InlineColorPickerCell : Cell<UIColor>, CellType {
         selectionStyle = .default
         accessoryView = swatchView
     }
+    // 追加部↓
+    var palettes : [ColorPalette] = [iOS().palette,
+    Solarised().palette,
+    WP8().palette,
+    Flat().palette,
+    Material().palette,
+    Metro().palette]
+    
+    public func indexPath(forColor color : UIColor?) -> IndexPath? {
+           if let color = color {
+               let colorHexString = color.hexString()
+               var section = 0
+               for palette in palettes {
+                   var row = 0
+                   for colorSpec in palette.palette {
+                       if colorSpec.color.hexString() == colorHexString {
+                           return IndexPath(row: row, section: section)
+                       }
+                       row += 1
+                   }
+                   section += 1
+               }
+           }
+           
+           return nil
+       }
+       
+       public func colorSpec(forColor color: UIColor?) -> (palette: ColorPalette, color: ColorSpec)? {
+           if let color = color,
+              let indexPath = indexPath(forColor: color) {
+               let palette = palettes[indexPath.section]
+               let colorSpec = palette.palette[indexPath.row]
+               
+               return (palette: palette, color: colorSpec)
+           }
+           
+           return nil
+       }
+    // 追加部 ↑
 }
 
 // MARK: InlineColorPickerRow

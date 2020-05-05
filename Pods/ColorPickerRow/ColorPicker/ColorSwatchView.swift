@@ -73,7 +73,24 @@ public class ColorSwatchView : UIView {
             
             color.setFill()
             path.fill()
-            
+            // 追加部 ↓
+            if color == ColorSpec(hex: UIColor.clear.hexString(), name: "clear").color {
+                // 斜線
+                let obliqueLine = UIBezierPath()
+                obliqueLine.move(to: CGPoint(x: 6, y: 6))
+                obliqueLine.addLine(to: CGPoint.init(x: 24, y: 24))
+                obliqueLine.lineWidth = 1
+                UIColor.red.setStroke()
+                obliqueLine.stroke()
+                // 円
+                let frameColor = UIColor.red
+                let selectRect = bounds.insetBy(dx: 2.0, dy: 2.0)
+                let selectPath = isCircular ? UIBezierPath(ovalIn: selectRect) : UIBezierPath(roundedRect: selectRect, cornerRadius: CGFloat(Int(selectRect.width * 0.2)))
+                frameColor.setStroke()
+                selectPath.lineWidth = 1.0
+                selectPath.stroke()
+            }
+            // 追加部 ↑
             if isSelected {
                 let frameColor = color.blackOrGrayContrastingColor()
                 let selectRect = bounds.insetBy(dx: 2.0, dy: 2.0)

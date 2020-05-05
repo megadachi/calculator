@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		0C0B04F9235F0B3E00016ACD /* ChistosoCF-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B04F8235F0B3E00016ACD /* ChistosoCF-Bold.otf */; };
 		0C0B04FB235F0B6D00016ACD /* Spirax-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B04FA235F0B6D00016ACD /* Spirax-Regular.ttf */; };
+		0C1330FE2451677D00A955C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C1330FD2451677D00A955C1 /* Assets.xcassets */; };
 		0C672DAB233D35FB00886EED /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C672DA9233D35FB00886EED /* CollectionViewCell.swift */; };
 		0C672DAC233D35FB00886EED /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C672DAA233D35FB00886EED /* CollectionViewCell.xib */; };
 		0C672DAE233D38F700886EED /* PatternViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C672DAD233D38F700886EED /* PatternViewController.swift */; };
 		0C75FBEC23414723006CC590 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0C75FBEE23414723006CC590 /* InfoPlist.strings */; };
 		0C75FBF223414C91006CC590 /* BPdotsDiamondBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75FBF123414C91006CC590 /* BPdotsDiamondBold.otf */; };
 		0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E20233921F100D56B37 /* Settings.bundle */; };
-		0C94412D233D1AF4002C7593 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C94412C233D1AF4002C7593 /* Assets.xcassets */; };
 		0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9500E23176EB4002E3D01 /* AppDelegate.swift */; };
 		0CC9501123176EB4002E3D01 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501023176EB4002E3D01 /* FirstViewController.swift */; };
 		0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501223176EB4002E3D01 /* SecondViewController.swift */; };
@@ -31,13 +31,13 @@
 		03439A099757E567A01B4788 /* Pods-calculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-calculator.release.xcconfig"; path = "Target Support Files/Pods-calculator/Pods-calculator.release.xcconfig"; sourceTree = "<group>"; };
 		0C0B04F8235F0B3E00016ACD /* ChistosoCF-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChistosoCF-Bold.otf"; sourceTree = "<group>"; };
 		0C0B04FA235F0B6D00016ACD /* Spirax-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Spirax-Regular.ttf"; sourceTree = "<group>"; };
+		0C1330FD2451677D00A955C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C672DA9233D35FB00886EED /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		0C672DAA233D35FB00886EED /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		0C672DAD233D38F700886EED /* PatternViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternViewController.swift; sourceTree = "<group>"; };
 		0C75FBED23414723006CC590 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0C75FBF123414C91006CC590 /* BPdotsDiamondBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BPdotsDiamondBold.otf; sourceTree = "<group>"; };
 		0C7A7E20233921F100D56B37 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		0C94412C233D1AF4002C7593 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CC9500B23176EB4002E3D01 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC9500E23176EB4002E3D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CC9501023176EB4002E3D01 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -94,9 +94,9 @@
 				0C672DAD233D38F700886EED /* PatternViewController.swift */,
 				0CE538AC24358CC00007EDCC /* ListViewController.swift */,
 				0CC9501423176EB4002E3D01 /* Main.storyboard */,
+				0C1330FD2451677D00A955C1 /* Assets.xcassets */,
 				0C672DA9233D35FB00886EED /* CollectionViewCell.swift */,
 				0C672DAA233D35FB00886EED /* CollectionViewCell.xib */,
-				0C94412C233D1AF4002C7593 /* Assets.xcassets */,
 				0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */,
 				0CC9501C23176EB5002E3D01 /* Info.plist */,
 				0C75FBEE23414723006CC590 /* InfoPlist.strings */,
@@ -188,12 +188,12 @@
 				0C75FBEC23414723006CC590 /* InfoPlist.strings in Resources */,
 				0C0B04F9235F0B3E00016ACD /* ChistosoCF-Bold.otf in Resources */,
 				0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */,
+				0C1330FE2451677D00A955C1 /* Assets.xcassets in Resources */,
 				0C672DAC233D35FB00886EED /* CollectionViewCell.xib in Resources */,
 				0CEA5A6B23411C7000CFDC2F /* Localizable.strings in Resources */,
 				0C0B04FB235F0B6D00016ACD /* Spirax-Regular.ttf in Resources */,
 				0C75FBF223414C91006CC590 /* BPdotsDiamondBold.otf in Resources */,
 				0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */,
-				0C94412D233D1AF4002C7593 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

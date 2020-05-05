@@ -12,6 +12,7 @@ import UIKit
 import Expression
 import GoogleMobileAds
 import Photos
+import ColorPickerRow
 
 class FirstViewController: UIViewController {
     
@@ -26,7 +27,7 @@ class FirstViewController: UIViewController {
     // 背景画像用View
     @IBOutlet weak var backImg: UIImageView!
     var backImgImage: Any = UIColor.orange
-    let userDefaults = UserDefaults.standard
+    let uds = UserDefaults.standard
     
     // 広告バナーを表示するview
     @IBOutlet weak var bannerView: GADBannerView!
@@ -116,9 +117,6 @@ class FirstViewController: UIViewController {
             stackedNumber = ""
             stackedNbsArray.removeAll()
             countNegative = 0
-            // テスト用にデータ消去
-            let domain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: domain)
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
                 return
@@ -185,7 +183,7 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         
         // ads表示
-//        bannerViewActionShouldBegin()
+        bannerViewActionShouldBegin()
         
         // ビューがロードされた時点で式と答えのラベルは空にする
         outputLabel.text = ""
@@ -195,9 +193,9 @@ class FirstViewController: UIViewController {
         // ラベルタップでヒストリーに保存
         self.setupLabelTap()
         
-        if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil{
-            nameArray = UserDefaults.standard.object(forKey: "nameArray") as! [String]
-            formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [[String]]
+        if uds.object(forKey: "nameArray") != nil && uds.object(forKey: "formulaArray") != nil{
+            nameArray = uds.object(forKey: "nameArray") as! [String]
+            formulaArray = uds.object(forKey: "formulaArray") as! [[String]]
         } else {
             return
         }
@@ -227,12 +225,27 @@ class FirstViewController: UIViewController {
             ).replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*").replacingOccurrences(of: "(-)", with: "(-1)*").replacingOccurrences(of: "%", with: "/100")
         return formattedFormula
     }
+
     // 計算
     private func evalFormula(_ formula: String) -> String {
         do {
             // Expressionで文字列の計算式を評価して答えを求める
             let expression = Expression(formula)
-            let answer = try expression.evaluate()
+            var answer = try expression.evaluate()
+            // 小数点以下を丸めて誤差をなくす
+            if String(answer).contains("."){
+               let str = String(answer)
+                let dec :NSDecimalNumber = NSDecimalNumber(string :str)
+                let behavior = NSDecimalNumberHandler(
+                           roundingMode: .bankers,
+                           scale: 10,
+                           raiseOnExactness: false,
+                           raiseOnOverflow: false,
+                           raiseOnUnderflow: false,
+                           raiseOnDivideByZero: false)
+                answer = Double(truncating: dec.rounding(accordingToBehavior: behavior))
+               
+            }
             return formatAnswer(String(answer))
         } catch {
             // 計算式が不当だった場合
@@ -240,6 +253,7 @@ class FirstViewController: UIViewController {
             return ""
         }
     }
+ 
     // 回答
     private func formatAnswer(_ answer: String) -> String {
         // 答えの小数点以下が`.0`だった場合は、`.0`を削除して答えを整数で表示する
@@ -252,7 +266,7 @@ class FirstViewController: UIViewController {
     }
     // ヒストリーからコピー＆ペースト
     func copyText(){
-        guard let n = UserDefaults.standard.object(forKey: "copiedText") as! String? else {
+        guard let n = uds.object(forKey: "copiedText") as! String? else {
             return
         }
         copiedText = n
@@ -264,7 +278,7 @@ class FirstViewController: UIViewController {
             stackedNumber = ""
             copiedText = ""
             // コピーボードを空にする
-            UserDefaults.standard.removeObject(forKey: "copiedText")
+            uds.removeObject(forKey: "copiedText")
             restart = true
         } else {
             // 負の数字の場合、マイナスをカッコに入れる
@@ -279,9 +293,11 @@ class FirstViewController: UIViewController {
                 stackedNumber = ""
                 copiedText = ""
                 // コピーボードを空にする
-                UserDefaults.standard.removeObject(forKey: "copiedText")
+                uds.removeObject(forKey: "copiedText")
             case ".":
                 errorAlert()
+                copiedText = ""
+                uds.removeObject(forKey: "copiedText")
                 return
             default: // オペレータを選択してペースト
                 selectOperationAlert()
@@ -316,42 +332,65 @@ class FirstViewController: UIViewController {
         stackedNbsArray.append(copiedText)
         stackedNumber = ""
         // コピーボードを空にする
-        UserDefaults.standard.removeObject(forKey: "copiedText")
+        uds.removeObject(forKey: "copiedText")
         // ＝ボタン押下後、計算結果を用いて計算可能にする
         restart = true
     }
-    // エラー時のアラート
+    // コピーエラー時のアラート
     func errorAlert(){
         let alert = UIAlertController(title: "Error".localized,
                                       message: "There was an error. Please try again.".localized,
-                                 preferredStyle: .alert)
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 /* 画面設定 */
     // 文字色設定変更
     func changeTextColor(){
-        if let archiveData = UserDefaults.standard.data(forKey: "textColorData") {
+        if let archiveData = uds.data(forKey: "textColorData") { // 旧保存形式(データ型)
             let textColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
             UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).tintColor = textColor
             outputLabel.textColor = textColor
         }
+        if let archiveHexData = uds.string(forKey: "textColorHexData") { // 新保存形式(文字型)
+            if let archiveNameData = uds.string(forKey: "textColorNameData"){
+                let txtColor = ColorSpec(hex: archiveHexData, name: archiveNameData).color
+                UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).tintColor = txtColor
+                outputLabel.textColor = txtColor
+            }
+        }
     }
     // 文字背景色設定変更
     func changeTextBackColor(){
-        if let archiveData = UserDefaults.standard.data(forKey: "textBackColorData") {
-            let textBackColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
+        // 旧保存形式(データ型)
+        if let archiveData = uds.data(forKey: "textBackColorData") {
+            let textBackColor = try! (NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor)!
             UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).backgroundColor = textBackColor
             outputLabel.backgroundColor = textBackColor
         }
-        if UserDefaults.standard.data(forKey: "backColorData") == nil {
+        // 新保存形式(文字型)
+        if let archiveHexData = uds.string(forKey: "textBackColorHexData") {
+            if let archiveNameData = uds.string(forKey: "textBackColorNameData") {
+                let textBackColor = ColorSpec(hex: archiveHexData, name: archiveNameData).color
+                UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).backgroundColor = textBackColor
+                outputLabel.backgroundColor = textBackColor
+                if textBackColor == UIColor(red: 0, green: 0, blue: 0, alpha: 0){
+                    UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).setTitleShadowColor(.black, for: .normal)
+                    outputLabel.shadowColor = UIColor.black
+                } else {
+                    UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).setTitleShadowColor(.none, for: .normal)
+                    outputLabel.shadowColor = UIColor.clear
+                }
+            }
+        }
+        if uds.data(forKey: "backColorData") == nil || uds.string(forKey: "backColorNameData") == nil {
             UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).alpha = 0.8
             outputLabel.alpha = 0.8
         }
     }
     //文字フォント設定変更
     func changeFont(){
-        if let textFont = UserDefaults.standard.object(forKey: "fontData") as? String{
+        if let textFont = uds.object(forKey: "fontData") as? String{
             UILabel.appearance(whenContainedInInstancesOf: [FirstViewController.self]).font = UIFont(name: textFont, size: 30)
             for btn in fontSet{
                 btn.titleLabel!.font = UIFont(name: textFont, size: 30)
@@ -361,22 +400,34 @@ class FirstViewController: UIViewController {
     // 背景設定変更
     func changeBackground()  {
         // 背景色の設定
-        if let archiveData = UserDefaults.standard.data(forKey: "backColorData") {
+        if let archiveData = uds.data(forKey: "backColorData") { // 旧保存形式(データ型)
             let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
             backImg.image = nil
             backImg.backgroundColor = backImgImage
         }
+        if let archiveHexData = uds.string(forKey: "backColorHexData") { // 新保存形式(文字型)
+            if let archiveNameData = uds.string(forKey: "backColorNameData"){
+                backImg.image = nil
+                backImg.backgroundColor = ColorSpec(hex: archiveHexData, name: archiveNameData).color
+            }
+        }
+        
         // 背景画像の設定
-        if let archiveData = UserDefaults.standard.data(forKey: "backPhotoData") {
+        if let archiveData = uds.data(forKey: "backPhotoData") {
             let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIImage
             backImg.backgroundColor = nil
             backImg.image = backImgImage
             backImg.contentMode = UIView.ContentMode.scaleAspectFill
         }
-        if let archiveData = UserDefaults.standard.data(forKey: "backPatternData") {
+        // 背景パターンの設定
+        if let archiveData = uds.data(forKey: "backPatternData") { // 旧保存形式(データ)
             let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? String
             backImg.backgroundColor = nil
             backImg.image = UIImage(named: backImgImage!)
+            backImg.contentMode = UIView.ContentMode.scaleAspectFill
+        } else if let archiveData = uds.string(forKey: "backPatternData"){ // 現形式文字で保存
+            backImg.backgroundColor = nil
+            backImg.image = UIImage(named: archiveData)
             backImg.contentMode = UIView.ContentMode.scaleAspectFill
         }
     }
@@ -386,7 +437,7 @@ class FirstViewController: UIViewController {
         // タップ時のイベント定義
         let alert = UIAlertController(title: "Save".localized,
                                       message: "Save as".localized,
-                                              preferredStyle: UIAlertController.Style.alert)
+                                      preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         alert.addTextField { (tf) in
             tf.placeholder = "Enter the name".localized
@@ -400,8 +451,8 @@ class FirstViewController: UIViewController {
                 let name = alert?.textFields?.first?.text ?? ""
                 self.nameArray.append(name)
                 self.formulaArray.append([self.outputLabel.text!, self.recalculateNb])
-                UserDefaults.standard.set(self.nameArray, forKey: "nameArray")
-                UserDefaults.standard.set(self.formulaArray, forKey: "formulaArray")
+                self.uds.set(self.nameArray, forKey: "nameArray")
+                self.uds.set(self.formulaArray, forKey: "formulaArray")
             }
         }))
         present(alert, animated: true, completion: nil)
@@ -421,8 +472,6 @@ class FirstViewController: UIViewController {
             bannerIPod()
         } else {
             // iPhone用バナー広告の設定
-            // ->リリース前に実際のadunitIDに変更adunitする！
-//            bannerView.adUnitID = bannerIDSample  // サンプル広告ID
             bannerView.adUnitID = bannerID  // 広告ID
 
             bannerView.rootViewController = self

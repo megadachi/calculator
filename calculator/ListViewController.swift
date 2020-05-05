@@ -114,7 +114,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         if nameArray.count == 0 {
             self.navigationController?.isNavigationBarHidden = true
             // 編集モードoff
-            // tableView.isEditing = false
+            tableView.isEditing = false
             return
         } else {
             self.navigationController?.isNavigationBarHidden = false

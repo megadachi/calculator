@@ -7,12 +7,12 @@
 */
 
 "Wallpaper" = "壁紙";
-"Color" = "カラー";
-"Photo" = "フォト";
+"Color" = "色";
+"Photo" = "写真";
 "Pattern" = "パターン";
 "Text" = "テキスト";
-"Text Color" = "テキストカラー";
-"Background Color" = "背景色";
+"Text Color" = "文字色";
+"Background Color" = "文字背景色";
 "Back" = "戻る";
 "Font" = "フォント";
 "Choose a font" = "フォントを選択";
@@ -21,6 +21,7 @@
 "Done" = "完了";
 "Save" = "保存";
 "Save as" = "名前をつけて保存";
+"Enter the name" = "名前を入力";
 "Enter new name" = "名前を入力";
 "Cancel" = "キャンセル";
 "Done" = "完了";

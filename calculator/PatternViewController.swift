@@ -18,7 +18,7 @@ class PatternViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet var collectionView: UICollectionView!
    
     // 画像patterns
-    var patterns = ["wallpaperImg1", "wallpaperImg2", "wallpaperImg3", "wallpaperImg4", "wallpaperImg5", "wallpaperImg6","wallpaperImg7","wallpaperImg8", "wallpaperImg9"]
+    var patterns = ["wallpaperImg1", "wallpaperImg2", "wallpaperImg3", "wallpaperImg4", "wallpaperImg5", "wallpaperImg6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,14 +81,13 @@ class PatternViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // セルをタップした時に呼ばれる
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // スタンプが押された時の処理を書く
+        // 選択された時の保存処理を書く
         let patternChosen = patterns[indexPath.row]
-        guard let archivePatternData = try? NSKeyedArchiver.archivedData(withRootObject: patternChosen, requiringSecureCoding: true) else {
-            fatalError("Archive failed")
-        }
+        UserDefaults.standard.set(patternChosen, forKey: "backPatternData")
         UserDefaults.standard.removeObject(forKey: "backImgData")
-        UserDefaults.standard.removeObject(forKey: "backColorData")
-        UserDefaults.standard.set(archivePatternData, forKey: "backPatternData")
+        UserDefaults.standard.removeObject(forKey: "backColorHexData")
+        UserDefaults.standard.removeObject(forKey: "backColorNameData")
+        // ページ遷移
         dismiss(animated: true, completion: nil)
     }
 
