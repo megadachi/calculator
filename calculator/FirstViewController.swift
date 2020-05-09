@@ -166,8 +166,8 @@ class FirstViewController: UIViewController {
     let deviceName = String(UIDevice.current.localizedModel)
     
     // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
-//     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 本番広告ユニット ID
-    let bannerID = "ca-app-pub-3940256099942544/2934735716" // サンプル広告ユニット ID
+     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 本番広告ユニット ID
+//    let bannerID = "ca-app-pub-3940256099942544/2934735716" // サンプル広告ユニット ID
     
     // 画面が呼び込まれる前に背景情報を読み込む
     override func viewWillAppear(_ animated: Bool) {
@@ -234,17 +234,7 @@ class FirstViewController: UIViewController {
             var answer = try expression.evaluate()
             // 小数点以下を丸めて誤差をなくす
             if String(answer).contains("."){
-               let str = String(answer)
-                let dec :NSDecimalNumber = NSDecimalNumber(string :str)
-                let behavior = NSDecimalNumberHandler(
-                           roundingMode: .bankers,
-                           scale: 10,
-                           raiseOnExactness: false,
-                           raiseOnOverflow: false,
-                           raiseOnUnderflow: false,
-                           raiseOnDivideByZero: false)
-                answer = Double(truncating: dec.rounding(accordingToBehavior: behavior))
-               
+                answer = round(answer * 10000000000) / 10000000000
             }
             return formatAnswer(String(answer))
         } catch {

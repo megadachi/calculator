@@ -14,16 +14,16 @@ version: 0.13.2
 
 name: Google-Mobile-Ads-SDK, nameSpecified: 
 body: Copyright 2020 Googl…
-version: 7.57.0
+version: 7.58.0
 
 name: GoogleAppMeasurement, nameSpecified: 
 body: Copyright 2020 Googl…
-version: 6.4.0
+version: 6.4.2
 
 name: GoogleUtilities, nameSpecified: 
 body: 
                    …
-version: 6.5.2
+version: 6.6.0
 
 name: ImageRow, nameSpecified: 
 body: MIT License
@@ -35,11 +35,16 @@ name: LicensePlist, nameSpecified:
 body: MIT License
 
 Copyrig…
-version: 2.14.0
+version: 2.15.1
 
 name: nanopb, nameSpecified: 
 body: Copyright (c) 2011 P…
 version: 0.3.9011
+
+name: PromisesObjC, nameSpecified: 
+body: 
+                   …
+version: 1.2.8
 
 name: UIColor_Hex_Swift, nameSpecified: 
 body: The MIT License (MIT…
@@ -47,4 +52,4 @@ version: 5.1.0
 
 add-version-numbers: false
 
-LicensePlist Version: 2.14.0
+LicensePlist Version: 2.15.0

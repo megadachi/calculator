@@ -4,38 +4,40 @@ PODS:
     - UIColor_Hex_Swift (>= 3.0.0)
   - Eureka (5.2.1)
   - Expression (0.13.2)
-  - Google-Mobile-Ads-SDK (7.57.0):
+  - Google-Mobile-Ads-SDK (7.58.0):
     - GoogleAppMeasurement (~> 6.0)
-  - GoogleAppMeasurement (6.4.0):
+  - GoogleAppMeasurement (6.4.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
-  - GoogleUtilities/AppDelegateSwizzler (6.5.2):
+  - GoogleUtilities/AppDelegateSwizzler (6.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.5.2)
-  - GoogleUtilities/Logger (6.5.2):
+  - GoogleUtilities/Environment (6.6.0):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.6.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.5.2):
+  - GoogleUtilities/MethodSwizzler (6.6.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.5.2):
+  - GoogleUtilities/Network (6.6.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.5.2)"
-  - GoogleUtilities/Reachability (6.5.2):
+  - "GoogleUtilities/NSData+zlib (6.6.0)"
+  - GoogleUtilities/Reachability (6.6.0):
     - GoogleUtilities/Logger
   - ImageRow (4.0.0):
     - Eureka (~> 5.0)
-  - LicensePlist (2.14.0)
+  - LicensePlist (2.15.1)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - PromisesObjC (1.2.8)
   - UIColor_Hex_Swift (5.1.0)
 
 DEPENDENCIES:
@@ -57,18 +59,20 @@ SPEC REPOS:
     - ImageRow
     - LicensePlist
     - nanopb
+    - PromisesObjC
     - UIColor_Hex_Swift
 
 SPEC CHECKSUMS:
   ColorPickerRow: 409acc262ca04283eb56f54e813e775d2e99741e
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   Expression: d701814068e202209e82c3e4d7cc573d3028e6e8
-  Google-Mobile-Ads-SDK: ec897018b9ab9b447e7aa4876e7f75aba13ba2de
-  GoogleAppMeasurement: 6e68a94d0eaeb1d73ef6b0ed4f7334e29d63ae29
-  GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
+  Google-Mobile-Ads-SDK: 7052557293c75c676db55feb707ace9b790f32c1
+  GoogleAppMeasurement: 2253e99c1f22638cf234c059144660c338ad76c3
+  GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
-  LicensePlist: d52efb2ce5d3cf58833d362f82967ba4af25fe9a
+  LicensePlist: 9fb7c521b431f94ea665046c15ed5f392583afbd
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
 PODFILE CHECKSUM: 93c23a39f183286b1cdaf0f799efe77d777de5cd
