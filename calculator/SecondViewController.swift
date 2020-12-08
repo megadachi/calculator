@@ -14,12 +14,17 @@ import Photos
 
 class SecondViewController: FormViewController {
     
+    // iPhone/iPodを識別する
+    let deviceName = String(UIDevice.current.localizedModel)
+    
+    let uds = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         showTable()
         
-        if UserDefaults.standard.data(forKey: "backPatternData") == nil {
+        if uds.data(forKey: "backPatternData") == nil {
             self.form.rowBy(tag: "Color Row")!.hidden = true
             self.form.rowBy(tag: "Photo Row")!.hidden = true
         }
@@ -35,7 +40,7 @@ class SecondViewController: FormViewController {
         self.form.rowBy(tag: rowHidden1)?.evaluateHidden()
         self.form.rowBy(tag: rowHidden2)?.evaluateHidden()
     }
-    
+
     func showTable(){
         // 背景のテーブル
         form +++ Section("Wallpaper".localized)
@@ -61,14 +66,14 @@ class SecondViewController: FormViewController {
                 row.showsPaletteNames = true
                 row.value = UIColor.orange
                 row.hidden = true
-            }.onChange { (picker) in
+            }.onChange { [self] (picker) in
                 if let colorSpec = picker.cell.colorSpec(forColor: picker.value)?.color {
                     print("colorSpec.hex", colorSpec.hex)
-                    UserDefaults.standard.set(colorSpec.hex, forKey: "backColorHexData")
-                    UserDefaults.standard.set(colorSpec.name, forKey: "backColorNameData")
+                    uds.set(colorSpec.hex, forKey: "backColorHexData")
+                    uds.set(colorSpec.name, forKey: "backColorNameData")
                 }
-                UserDefaults.standard.removeObject(forKey: "backPhotoData")
-                UserDefaults.standard.removeObject(forKey: "backPatternData")
+                uds.removeObject(forKey: "backPhotoData")
+                uds.removeObject(forKey: "backPatternData")
                 picker.collapseInlineRow()
             }
             // 背景写真
@@ -77,15 +82,15 @@ class SecondViewController: FormViewController {
                 $0.sourceTypes = .PhotoLibrary
                 $0.clearAction = .no
                 $0.hidden = true
-            }.onChange{ row in
+            }.onChange{ [self] row in
                 let rowChosen = row.value
                 guard let archivePhotoData = try? NSKeyedArchiver.archivedData(withRootObject: rowChosen!, requiringSecureCoding: true) else {
                     fatalError("Archive failed")
                 }
-                UserDefaults.standard.removeObject(forKey: "backColorHexData")
-                UserDefaults.standard.removeObject(forKey: "backColorNameData")
-                UserDefaults.standard.removeObject(forKey: "backPatternData")
-                UserDefaults.standard.set(archivePhotoData, forKey: "backPhotoData")
+                uds.removeObject(forKey: "backColorHexData")
+                uds.removeObject(forKey: "backColorNameData")
+                uds.removeObject(forKey: "backPatternData")
+                uds.set(archivePhotoData, forKey: "backPhotoData")
             }
             // 背景パターン
             <<< LabelRow("Pattern Row") {
@@ -103,11 +108,10 @@ class SecondViewController: FormViewController {
                 row.isCircular = true
                 row.showsPaletteNames = true
             }
-            .onChange { (picker) in
+            .onChange { [self] (picker) in
                 if let colorSpec = picker.cell.colorSpec(forColor: picker.value)?.color {
-                    print("colorSpec.hex", colorSpec.hex)
-                    UserDefaults.standard.set(colorSpec.hex, forKey: "textColorHexData")
-                    UserDefaults.standard.set(colorSpec.name, forKey: "textColorNameData")
+                    uds.set(colorSpec.hex, forKey: "textColorHexData")
+                    uds.set(colorSpec.name, forKey: "textColorNameData")
                 } else {
                     fatalError("Archive failed")
                 }
@@ -118,34 +122,47 @@ class SecondViewController: FormViewController {
                 row.isCircular = true
                 row.showsPaletteNames = true
             }
-            .onChange { (picker) in
+            .onChange { [self] (picker) in
                 if let colorSpec = picker.cell.colorSpec(forColor: picker.value)?.color {
-                    print(colorSpec.hex)
-                    UserDefaults.standard.set(colorSpec.hex, forKey: "textBackColorHexData")
-                    UserDefaults.standard.set(colorSpec.name, forKey: "textBackColorNameData")
+                    uds.set(colorSpec.hex, forKey: "textBackColorHexData")
+                    uds.set(colorSpec.name, forKey: "textBackColorNameData")
                 } else {
                     fatalError("Archive failed")
                 }
                 picker.collapseInlineRow()
             }
-    
+            // フォント選択
             <<< ActionSheetRow<String>() {
                 $0.title = "Font".localized
                 $0.selectorTitle = "Choose a font".localized
                 $0.options = ["BPdots","Chistoso","Spirax"]
-                //                $0.value = "BPdots"    // initially selected
             }
-            .onChange { (picker) in
+            .onChange { [self] (picker) in
                 if let pickerChosen = picker.value{
                     switch pickerChosen{
                     case "Chistoso":
-                        UserDefaults.standard.set("Chistoso CF", forKey: "fontData")
+                        uds.set("Chistoso CF", forKey: "fontData")
                     case "Spirax":
-                        UserDefaults.standard.set("Spirax", forKey: "fontData")
+                        uds.set("Spirax", forKey: "fontData")
                     default:
-                        UserDefaults.standard.set("BPdotsDiamond-Bold", forKey: "fontData")
+                        uds.set("BPdotsDiamond-Bold", forKey: "fontData")
                     }
                 }
+        }
+        
+        // レイアウトロック
+        form +++ Section("Layout".localized)
+        <<< SwitchRow("Lock") { row in
+            row.title = "Layout Lock".localized
+            row.value = uds.bool(forKey: "LayoutLock")
+        }.onChange { [self] row in
+//            if row.value == true {
+//                            (self.form.rowBy(tag: "Lock") as? SwitchRow)?.cell.switchControl.isOn = true
+//                        } else {
+//                            (self.form.rowBy(tag: "Lock") as? SwitchRow)?.cell.switchControl.isOn = false
+//                        }
+            uds.set(row.value, forKey: "LayoutLock")
+            row.updateCell()
         }
     }
 }

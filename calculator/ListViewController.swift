@@ -56,9 +56,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return .none
     }
     // スワイプボタンの文言指定
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Delete".localized
-    }
+//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+//        return "Delete".localized
+//    }
     func resetData(){
         UserDefaults.standard.set(self.nameArray, forKey: "nameArray")
         UserDefaults.standard.set(formulaArray, forKey: "formulaArray")
@@ -100,15 +100,15 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // defaultからデータ配列を取り出す
-        if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil{
+        if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil {
             nameArray = UserDefaults.standard.object(forKey: "nameArray") as! [String]
             formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [[String]]
+            print("name",nameArray,"\n formul",formulaArray)
         }
         // データが無いときは編集ボタンを表示しない
         if nameArray.count == 0 {
@@ -122,7 +122,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         //tableViewを更新
         tableView.reloadData()
-        
     }
 }
 
@@ -133,39 +132,49 @@ extension ListViewController {
         guard tableView.isEditing else {
             return .none
         }
-        // コピーのアクションを設定する
-        let copyAction = UIContextualAction(style: .normal  , title: "Copy".localized) {
+        // タイトル変更を設定
+        let renameAction = UIContextualAction(style: .normal, title: "Rename".localized) {
             (ctxAction, view, completionHandler) in
-            // 答えをクリップボードにコピー
-            self.copiedText = self.formulaArray[indexPath.section][1]
+            self.displayForm(path: indexPath.section)
+            completionHandler(true)
+        }
+        renameAction.backgroundColor = UIColor.systemGreen
+        // コピーのアクションを設定する
+        let copyAction = UIContextualAction(style: .normal, title: "Copy".localized) {
+            (ctxAction, view, completionHandler) in
+            // 答えが0で、式に演算記号がない場合＝数字のみを保存していた場合は式を代入
+            if self.formulaArray[indexPath.section][1] == "0" && !self.formulaArray[indexPath.section][0].contains("-") || !self.formulaArray[indexPath.section][0].contains("+") || !self.formulaArray[indexPath.section][0].contains("*") || !self.formulaArray[indexPath.section][0].contains("/") {
+                self.copiedText = self.formulaArray[indexPath.section][0]
+            } else {
+                // 答えを代入
+                self.copiedText = self.formulaArray[indexPath.section][1]
+            }
+            // クリップボードにコピー
             UIPasteboard.general.string = self.copiedText
             UserDefaults.standard.set(self.copiedText, forKey: "copiedText")
             completionHandler(true)
         }
         // コピーボタンのデザインを設定する
-        copyAction.backgroundColor = UIColor(red: 0/255, green: 125/255, blue: 255/255, alpha: 1)
+        copyAction.backgroundColor = UIColor.systemBlue
         // 削除のアクションを設定する
         let deleteAction = UIContextualAction(style: .destructive, title:"Delete".localized) {
             (ctxAction, view, completionHandler) in
-             //resultArray内のindexPathのrow番目をremove（消去）する
+             //resultArray内のindexPathのrow番目を消去
             self.nameArray.remove(at: indexPath.section)
             self.formulaArray.remove(at: indexPath.section)
             //再びアプリ内に消去した配列を保存
             self.resetData()
-            //            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-                        tableView.deleteSections(IndexSet(integer: 0),with: UITableView.RowAnimation.fade)
-                        //tableViewを更新
-                        tableView.reloadData()
+            tableView.deleteSections(IndexSet(integer: 0),with: UITableView.RowAnimation.fade)
+            //tableViewを更新
+            tableView.reloadData()
             completionHandler(true)
         }
         // 削除ボタンのデザインを設定する
-        deleteAction.backgroundColor = UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
-
+        deleteAction.backgroundColor = UIColor.red
         // スワイプでの削除を無効化して設定する
-        let swipeAction = UISwipeActionsConfiguration(actions:[deleteAction, copyAction])
+        let swipeAction = UISwipeActionsConfiguration(actions:[deleteAction, copyAction, renameAction])
         swipeAction.performsFirstActionWithFullSwipe = false
        
         return swipeAction
-
     }
 }

@@ -13,6 +13,8 @@
 "Text" = "テキスト";
 "Text Color" = "文字色";
 "Background Color" = "文字背景色";
+"Layout" = "レイアウト";
+"Layout Lock" = "レイアウトロック";
 "Back" = "戻る";
 "Font" = "フォント";
 "Choose a font" = "フォントを選択";

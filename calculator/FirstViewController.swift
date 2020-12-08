@@ -29,6 +29,11 @@ class FirstViewController: UIViewController {
     var backImgImage: Any = UIColor.orange
     let uds = UserDefaults.standard
     
+    // サイズ管理用stackview
+    @IBOutlet weak var container: UIStackView!
+    // サイズ管理用stackviewのx軸
+    @IBOutlet weak var containerConstraint: NSLayoutConstraint!
+    
     // 広告バナーを表示するview
     @IBOutlet weak var bannerView: GADBannerView!
     
@@ -38,7 +43,7 @@ class FirstViewController: UIViewController {
     // 計算結果表示画面ラベル
     @IBOutlet var outputLabel: UILabel!
     
-    // 計算結果を保存するためのArray [名前][計算結果]
+    // 計算結果を保存する name[名前] formul[[式][計算結果]]
     var nameArray:[String] = []
     var formulaArray:[[String]] = []
     // copy&pasteに使う
@@ -74,7 +79,6 @@ class FirstViewController: UIViewController {
     
     // 演算子ボタンを定義
     @IBAction func operators(_ sender: UIButton) {
-
         // ラベルが空の場合は何もしない
         guard outputLabel.text != "" else {
             return
@@ -121,8 +125,13 @@ class FirstViewController: UIViewController {
             guard outputLabel.text != nil else {
                 return
             }
-            outputLabel.text = String(outputLabel.text!.dropLast())
-            stackedNumber =  String(stackedNumber.dropLast())
+            if outputLabel.text?.hasSuffix(")") == true {
+                outputLabel.text = String(outputLabel.text!.dropLast(3))
+                countNegative = 0
+            } else {
+                outputLabel.text = String(outputLabel.text!.dropLast())
+                stackedNumber =  String(stackedNumber.dropLast())
+            }
         case 18 : // =ボタンが押されたら答えを計算して表示する
             guard let formulaText = outputLabel.text else {
                 return
@@ -144,16 +153,14 @@ class FirstViewController: UIViewController {
             stackedNbsArray.removeAll()
         default: // +/-ボタン
             // 数字の途中に正負ボタンを押せないように設定
-            if outputLabel.text!.hasSuffix("+") || outputLabel.text!.hasSuffix("-") || outputLabel.text!.hasSuffix("×") || outputLabel.text!.hasSuffix("÷") || outputLabel.text == "" {
+            if outputLabel.text!.hasSuffix("+") || outputLabel.text!.hasSuffix("-") || outputLabel.text!.hasSuffix("×") || outputLabel.text!.hasSuffix("÷") || outputLabel.text == "" || outputLabel.text!.hasSuffix(")") {
                 restart = true
                 // カウンターで正負を管理、偶数＝plus 奇数＝negative
                 countNegative += 1
                 if countNegative % 2 != 0{
                     outputLabel.text = outputLabel.text! + "(-)"
                 } else {
-                    let startPoint = outputLabel.text!.index(outputLabel.text!.endIndex, offsetBy:-3)
-                    let endPoint = outputLabel.text!.index(outputLabel.text!.endIndex, offsetBy: 0)
-                    outputLabel.text!.removeSubrange(startPoint..<endPoint)
+                    outputLabel.text = String(outputLabel.text!.dropLast(3))
                     countNegative = 0
                 }
             } else {
@@ -166,12 +173,11 @@ class FirstViewController: UIViewController {
     let deviceName = String(UIDevice.current.localizedModel)
     
     // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
-     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 本番広告ユニット ID
-//    let bannerID = "ca-app-pub-3940256099942544/2934735716" // サンプル広告ユニット ID
+//     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 本番広告ユニット ID
+    let bannerID = "ca-app-pub-3940256099942544/2934735716" // サンプル広告ユニット ID
     
     // 画面が呼び込まれる前に背景情報を読み込む
     override func viewWillAppear(_ animated: Bool) {
-
         changeBackground()
         changeTextColor()
         changeTextBackColor()
@@ -184,10 +190,8 @@ class FirstViewController: UIViewController {
         
         // ads表示
         bannerViewActionShouldBegin()
-        
         // ビューがロードされた時点で式と答えのラベルは空にする
         outputLabel.text = ""
-        
         // 文字数に応じてフォントサイズ変更する
         outputLabel.adjustsFontSizeToFitWidth = true
         // ラベルタップでヒストリーに保存
@@ -201,6 +205,7 @@ class FirstViewController: UIViewController {
         }
         
     }
+    
     /* 電卓機能 */
     // 割合計算用に数字配列を用いて文字列を置換え
     private func formatpFormula(_ pformula: String) -> String {
@@ -332,7 +337,7 @@ class FirstViewController: UIViewController {
                                       message: "There was an error. Please try again.".localized,
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 /* 画面設定 */
     // 文字色設定変更
@@ -433,16 +438,15 @@ class FirstViewController: UIViewController {
             tf.placeholder = "Enter the name".localized
         }
         alert.addAction(UIAlertAction(title: "Done".localized, style: .default, handler: { [weak alert] (ac) in
-//            guard let name = alert?.textFields?.first?.text ?? "" else {
-//                return
-//            }
             self.view.isMultipleTouchEnabled = false
             if alert?.textFields?.first?.text != nil {
                 let name = alert?.textFields?.first?.text ?? ""
                 self.nameArray.append(name)
+                print("recalculate",self.recalculateNb)
                 self.formulaArray.append([self.outputLabel.text!, self.recalculateNb])
                 self.uds.set(self.nameArray, forKey: "nameArray")
                 self.uds.set(self.formulaArray, forKey: "formulaArray")
+                print("set formul",self.formulaArray)
             }
         }))
         present(alert, animated: true, completion: nil)
@@ -454,12 +458,21 @@ class FirstViewController: UIViewController {
         self.outputLabel.addGestureRecognizer(labelTap)
     }
     
-    /* All iAd Functions */
+/* レイアウト */
+    func setPosition() {
+        let ifo = UIApplication.shared.statusBarOrientation
+        if ifo == UIInterfaceOrientation.landscapeLeft || ifo == UIInterfaceOrientation.landscapeRight {
+            container.backgroundColor = UIColor.black
+            print("landscape")
+        }
+    }
+    
+/* All iAd Functions */
     func bannerViewActionShouldBegin(){
         // iPodか判断してiPod用広告を表示する
         if deviceName == "iPad" {
             bannerView.isHidden = true
-            bannerIPod()
+            bannerIPad()
         } else {
             // iPhone用バナー広告の設定
             bannerView.adUnitID = bannerID  // 広告ID
@@ -467,10 +480,9 @@ class FirstViewController: UIViewController {
             bannerView.rootViewController = self
             bannerView.load(GADRequest())
         }
-        
     }
-    // iPod用のバナー広告
-    func bannerIPod() {
+    // iPad用のバナー広告
+    func bannerIPad() {
         // stackviewを作成しバナー広告を入れる
         let stackBanner = UIStackView()
         self.view.addSubview(stackBanner)
