@@ -18,7 +18,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var formulaArray:[[String]] = []
     var copiedText:String = ""
     
-/* テーブルの設定 */
+/* テーブル表示の設定 */
     func numberOfSections(in tableView: UITableView) -> Int {
         return nameArray.count
     }
@@ -42,7 +42,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         // 編集モードon・offの場合設定
         if tableView.isEditing {
             tableView.isUserInteractionEnabled = true
-//            tableView.allowsSelectionDuringEditing = true
         } else {
             tableView.isUserInteractionEnabled = false
             resetData()
@@ -55,10 +54,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return .none
     }
-    // スワイプボタンの文言指定
-//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-//        return "Delete".localized
-//    }
+    // データをストック
     func resetData(){
         UserDefaults.standard.set(self.nameArray, forKey: "nameArray")
         UserDefaults.standard.set(formulaArray, forKey: "formulaArray")
@@ -108,7 +104,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         if UserDefaults.standard.object(forKey: "nameArray") != nil && UserDefaults.standard.object(forKey: "formulaArray") != nil {
             nameArray = UserDefaults.standard.object(forKey: "nameArray") as! [String]
             formulaArray = UserDefaults.standard.object(forKey: "formulaArray") as! [[String]]
-            print("name",nameArray,"\n formul",formulaArray)
         }
         // データが無いときは編集ボタンを表示しない
         if nameArray.count == 0 {
@@ -126,7 +121,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 }
 
 extension ListViewController {
-
+    // スワイプアクション設定
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         guard tableView.isEditing else {
@@ -171,6 +166,12 @@ extension ListViewController {
         }
         // 削除ボタンのデザインを設定する
         deleteAction.backgroundColor = UIColor.red
+        // ボタンにアイコンを表示
+        if #available(iOS 13.0, *) {
+            renameAction.image = UIImage(systemName: "pencil")
+            copyAction.image = UIImage(systemName: "doc.on.doc")
+            deleteAction.image = UIImage(systemName: "trash")
+        }
         // スワイプでの削除を無効化して設定する
         let swipeAction = UISwipeActionsConfiguration(actions:[deleteAction, copyAction, renameAction])
         swipeAction.performsFirstActionWithFullSwipe = false

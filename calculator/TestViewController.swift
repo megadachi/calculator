@@ -63,7 +63,7 @@ class TestViewController: UIViewController {
         }
     }
 
-    // レイアウトが変更(回転、画面遷移)のたび呼ばれる
+    // レイアウト変更(回転、画面遷移)のたび呼ばれる
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // 可動域設定
@@ -152,19 +152,15 @@ class TestViewController: UIViewController {
         containerView.topAnchor.constraint(equalTo: bannerView.bottomAnchor, constant: 10).isActive = true
         containerView.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -10).isActive = true
         // ボタンサイズ調整
-        let btnsSpaceHeight = containerView.frame.height
-        let btnSpaceHeight = btnsSpaceHeight / 8
-        let btnHeightRatio = btnSpaceHeight / btnsSpaceHeight
-        let ratio = containerView.frame.height / 8 / containerView.frame.height
-        print("HeightRatio",btnHeightRatio,"ratio",ratio)
+        let btnHeightRatio = containerView.frame.height / 8 / containerView.frame.height
         for btn in btns {
             btn.translatesAutoresizingMaskIntoConstraints = false
             btn.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: btnHeightRatio).isActive = true
-            btn.titleLabel?.adjustsFontSizeToFitWidth = true
+//            btn.titleLabel?.adjustsFontSizeToFitWidth = true
         }
         // ラベルサイズ調整
         outputLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: btnHeightRatio * 2).isActive = true
-        UIButton.appearance(whenContainedInInstancesOf: [TestViewController.self]).backgroundColor = UIColor.lightGray
+        UIButton.appearance(whenContainedInInstancesOf: [TestViewController.self]).titleLabel?.adjustsFontSizeToFitWidth = true
         // 倍率設定があれば代入
         if pinchScale < 1 {
             // 倍率の反映

@@ -374,9 +374,7 @@
                             <constraint firstAttribute="trailing" secondItem="eEh-PQ-4be" secondAttribute="trailing" id="e20-fI-x6X"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="iconCalc" id="acW-dT-cKf">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" image="iconCalc" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="backImg" destination="eEh-PQ-4be" id="Twk-ND-4Ja"/>
                         <outlet property="bannerView" destination="Elt-h0-bre" id="o8H-nb-hzt"/>
@@ -419,9 +417,7 @@
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="iconSet" id="cPa-gy-q4n">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" image="iconSet" id="cPa-gy-q4n"/>
                     <connections>
                         <segue destination="TOR-fa-Euh" kind="show" identifier="toPatternView" id="t6G-BX-6NR"/>
                     </connections>
@@ -567,6 +563,7 @@
                         <segue destination="UFw-j0-ajF" kind="relationship" relationship="viewControllers" id="Eqb-8R-MUv"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="z7r-Ua-fsk" kind="relationship" relationship="viewControllers" id="D1i-OJ-eQZ"/>
+                        <segue destination="Hae-b4-DCS" kind="relationship" relationship="viewControllers" id="bhw-DJ-LMk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -577,9 +574,7 @@
         <scene sceneID="EEc-H6-XdU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UFw-j0-ajF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="iconList" selectedImage="iconList" id="Wpk-7t-bEe">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" image="iconList" selectedImage="iconList" id="Wpk-7t-bEe"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fEf-4I-9nz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -607,10 +602,10 @@
                                 <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="cLf-h7-CLD">
-                                <rect key="frame" x="10" y="79" width="246" height="291"/>
+                                <rect key="frame" x="10" y="79" width="198" height="285"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHi-Ck-cei">
-                                        <rect key="frame" x="0.0" y="0.0" width="246" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="198" height="35"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -622,10 +617,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YB2-cU-Bil">
-                                        <rect key="frame" x="0.0" y="36" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="35" width="198" height="50"/>
                                         <subviews>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmn-0b-lu3">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="AC"/>
@@ -636,7 +631,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zq5-SI-mnc">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="52" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="C"/>
@@ -647,7 +642,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFy-ju-NES">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="104" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="%"/>
@@ -658,7 +653,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RD-cn-P9z">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="156" y="0.0" width="42" height="50"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="÷"/>
@@ -671,10 +666,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="2" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aT8-fY-OHd">
-                                        <rect key="frame" x="0.0" y="87" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="85" width="198" height="50"/>
                                         <subviews>
                                             <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhI-LL-U7W">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="7"/>
@@ -685,7 +680,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJK-Ok-OfS">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="52" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="8"/>
@@ -696,7 +691,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obL-7Z-V4B">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="104" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="9"/>
@@ -707,7 +702,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTJ-Xd-mUS">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="156" y="0.0" width="42" height="50"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="×"/>
@@ -720,10 +715,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="3" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0WS-H3-lSV">
-                                        <rect key="frame" x="0.0" y="138" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="135" width="198" height="50"/>
                                         <subviews>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkW-le-P7a">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="4"/>
@@ -734,7 +729,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGR-uY-HZM">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="52" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="5"/>
@@ -745,7 +740,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvj-b6-yX8">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="104" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="6"/>
@@ -756,7 +751,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XZ-w9-mDB">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="156" y="0.0" width="42" height="50"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="-"/>
@@ -769,10 +764,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="4" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dyz-Ni-9WO">
-                                        <rect key="frame" x="0.0" y="189" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="185" width="198" height="50"/>
                                         <subviews>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtG-jx-1AE">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="1"/>
@@ -783,7 +778,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Stg-41-gTN">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="52" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="2"/>
@@ -794,7 +789,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKJ-m3-0ZY">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="104" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="3"/>
@@ -805,7 +800,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdt-Rw-5X2">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="156" y="0.0" width="42" height="50"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="+"/>
@@ -818,10 +813,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="5" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xax-7K-SB3">
-                                        <rect key="frame" x="0.0" y="240" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="235" width="198" height="50"/>
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nW-Ia-450">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="0"/>
@@ -832,7 +827,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8L-7i-MZl">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="52" y="0.0" width="42" height="47"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="+/-"/>
@@ -843,7 +838,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mke-yq-kmQ">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="104" y="0.0" width="42" height="50"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="."/>
@@ -854,7 +849,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikf-Sn-RCu">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="156" y="0.0" width="42" height="50"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
                                                 <state key="normal" title="="/>
@@ -888,9 +883,7 @@
                             <constraint firstItem="ebd-97-qF0" firstAttribute="top" secondItem="4SR-Cy-WIv" secondAttribute="top" id="sf6-Gx-IA6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" systemItem="favorites" id="ffW-K8-pon">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" systemItem="favorites" id="ffW-K8-pon"/>
                     <connections>
                         <outlet property="bannerView" destination="ebd-97-qF0" id="ZOR-Hd-kI0"/>
                         <outlet property="bgView" destination="PbI-6e-Lrx" id="Fev-b5-tzm"/>
@@ -921,6 +914,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3g-MP-Nhh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-998"/>
+        </scene>
+        <!--Test View Controller2-->
+        <scene sceneID="ptc-lY-Yhz">
+            <objects>
+                <viewController id="Hae-b4-DCS" customClass="TestViewController2" customModule="calculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dbR-KB-AKL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SdB-rJ-aE1">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOx-90-u0T" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZEC-FT-DWq"/>
+                                    <constraint firstAttribute="width" constant="320" id="lFb-iF-MIg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Wg-jh-8vG" customClass="FirstViewItems" customModule="calculator" customModuleProvider="target">
+                                <rect key="frame" x="40" y="195" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cK3-x8-RhQ"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="SdB-rJ-aE1" secondAttribute="trailing" id="4hj-dX-OM5"/>
+                            <constraint firstItem="SdB-rJ-aE1" firstAttribute="leading" secondItem="cK3-x8-RhQ" secondAttribute="leading" id="ehH-FU-pa8"/>
+                            <constraint firstItem="uOx-90-u0T" firstAttribute="centerX" secondItem="dbR-KB-AKL" secondAttribute="centerX" id="lx8-CG-Jdm"/>
+                            <constraint firstItem="SdB-rJ-aE1" firstAttribute="bottom" secondItem="cK3-x8-RhQ" secondAttribute="bottom" id="n1X-IP-blk"/>
+                            <constraint firstItem="uOx-90-u0T" firstAttribute="top" secondItem="cK3-x8-RhQ" secondAttribute="top" id="nO8-S7-IzD"/>
+                            <constraint firstItem="SdB-rJ-aE1" firstAttribute="top" secondItem="dbR-KB-AKL" secondAttribute="top" id="vQo-pb-ufy"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" systemItem="recents" id="zN3-wS-agk"/>
+                    <connections>
+                        <outlet property="bannerView" destination="uOx-90-u0T" id="WQq-kU-J8F"/>
+                        <outlet property="bgView" destination="SdB-rJ-aE1" id="m2d-LH-Nes"/>
+                        <outlet property="firstViewItems" destination="2Wg-jh-8vG" id="vFX-z8-E8e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JgA-vo-qwK" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="-730"/>
         </scene>
     </scenes>
     <resources>
