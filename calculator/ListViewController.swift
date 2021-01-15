@@ -137,8 +137,7 @@ extension ListViewController {
         // コピーのアクションを設定する
         let copyAction = UIContextualAction(style: .normal, title: "Copy".localized) {
             (ctxAction, view, completionHandler) in
-            // 答えが0で、式に演算記号がない場合＝数字のみを保存していた場合は式を代入
-            if self.formulaArray[indexPath.section][1] == "0" && !self.formulaArray[indexPath.section][0].contains("-") || !self.formulaArray[indexPath.section][0].contains("+") || !self.formulaArray[indexPath.section][0].contains("*") || !self.formulaArray[indexPath.section][0].contains("/") {
+            if self.formulaArray[indexPath.section][1] == "0" && !self.formulaArray[indexPath.section][0].contains("=") {
                 self.copiedText = self.formulaArray[indexPath.section][0]
             } else {
                 // 答えを代入

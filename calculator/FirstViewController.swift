@@ -16,6 +16,32 @@ import ColorPickerRow
 
 class FirstViewController: UIViewController {
     
+    // 電卓アイテムを収納
+    @IBOutlet weak var contentView = FVManager.shared.setUPStackView()
+    // 背景View
+    @IBOutlet weak var bgView: UIImageView!
+    var backImgImage: Any = UIColor.orange
+    // ボタン
+    @IBOutlet var btns: [UIButton]!
+    // ラベル
+    @IBOutlet weak var outputLabel: UILabel!
+    // バナー
+    @IBOutlet weak var bannerView: UIView!
+/* ジェスチャ用 */
+    // ピンチ倍率、最大値、最小値
+    var pinchScale:CGFloat = 1
+    var maxScale:CGFloat = 1
+    var minScale:CGFloat = 0.5
+    // 稼働サイズ設定
+    var rectRange = CGRect()
+    // パン移動範囲管理用
+    var savedPoint:[CGFloat] = []
+    
+    // iPhone・iPodを識別する
+    let deviceName = String(UIDevice.current.localizedModel)
+    
+    let uds = UserDefaults.standard
+/* 計算 */
     // 新規計算可能かを管理する
     var restart = false
     // カウンターで正負を管理、偶数＝plus 奇数＝negative
@@ -23,35 +49,13 @@ class FirstViewController: UIViewController {
     // 割合計算を管理するため、入力した数字を保管
     var stackedNumber = "0"
     var stackedNbsArray: [String] = []
-    
-    // 背景画像用View
-    @IBOutlet weak var backImg: UIImageView!
-    var backImgImage: Any = UIColor.orange
-    let uds = UserDefaults.standard
-    
-    // サイズ管理用stackview
-    @IBOutlet weak var container: UIStackView!
-    // サイズ管理用stackviewのx軸
-    @IBOutlet weak var containerConstraint: NSLayoutConstraint!
-    
-    // 広告バナーを表示するview
-    @IBOutlet weak var bannerView: GADBannerView!
-    
-    // ボタンフォント設定
-    @IBOutlet var fontSet: [UIButton]!
-    
-    // 計算結果表示画面ラベル
-    @IBOutlet var outputLabel: UILabel!
-    
     // 計算結果を保存する name[名前] formul[[式][計算結果]]
     var nameArray:[String] = []
     var formulaArray:[[String]] = []
     // copy&pasteに使う
     var copiedText = ""
-    
     // 計算結果(回答)
     var recalculateNb = "0"
-    
     // 数字ボタンを定義
     @IBAction func numbers(_ sender: UIButton) {
         // ＝ボタンで計算完了後に数字が押された場合、情報をクリアし計算可能に
@@ -76,7 +80,6 @@ class FirstViewController: UIViewController {
         outputLabel.text = formulaText + senderedText
         countNegative = 0
     }
-    
     // 演算子ボタンを定義
     @IBAction func operators(_ sender: UIButton) {
         // ラベルが空の場合は何もしない
@@ -90,8 +93,11 @@ class FirstViewController: UIViewController {
         // 割合計算の設定
         switch sender.tag {
         case 14, 15, 16, 17 : // + - ÷ ×ボタン
+            // ＝押下後に演算子を選択した場合、回答に演算子をつけて計算再開
             if restart == false {
                 outputLabel.text! = recalculateNb
+                // 回答をリセット
+                recalculateNb = "0"
             }
             // 演算子ボタン押下のたびに直前に入力された数字を配列に保管
             stackedNbsArray.append(stackedNumber)
@@ -103,6 +109,9 @@ class FirstViewController: UIViewController {
             if outputLabel.text!.hasSuffix("%") || outputLabel.text!.hasSuffix("."){
                 outputLabel.text = String(outputLabel.text!.dropLast())
             }
+            guard restart == true else {
+                return
+            }
         }
         guard let formulaText = outputLabel.text else {
             return
@@ -112,7 +121,6 @@ class FirstViewController: UIViewController {
         }
         outputLabel.text = formulaText + senderedText
     }
-    
     // その他のボタンを定義
     @IBAction func symbols(_ sender: UIButton) {
         switch sender.tag {
@@ -123,6 +131,10 @@ class FirstViewController: UIViewController {
             countNegative = 0
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
+                return
+            }
+            // =押下後に押せないようにする
+            guard restart == true else {
                 return
             }
             if outputLabel.text?.hasSuffix(")") == true {
@@ -168,28 +180,9 @@ class FirstViewController: UIViewController {
             }
         }
     }
-/* 広告用ソース */
-    // iPhone/iPodを識別する
-    let deviceName = String(UIDevice.current.localizedModel)
-    
-    // サンプル広告ID ->リリース前に実際のadunitIDに変更adunitする！
-//     let bannerID = "ca-app-pub-9368270017677505/5618856710" // 本番広告ユニット ID
-    let bannerID = "ca-app-pub-3940256099942544/2934735716" // サンプル広告ユニット ID
-    
-    // 画面が呼び込まれる前に背景情報を読み込む
-    override func viewWillAppear(_ animated: Bool) {
-        changeBackground()
-        changeTextColor()
-        changeTextBackColor()
-        changeFont()
-        copyText()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // ads表示
-        bannerViewActionShouldBegin()
         // ビューがロードされた時点で式と答えのラベルは空にする
         outputLabel.text = ""
         // 文字数に応じてフォントサイズ変更する
@@ -203,10 +196,49 @@ class FirstViewController: UIViewController {
         } else {
             return
         }
-        
+        // 倍率が保存されていれば代入し使用
+        if let rate = uds.object(forKey: "PinchScale"){
+            pinchScale = rate as! CGFloat
+        }
+        // 座標が保存されていれば代入し使用
+        if let point = uds.object(forKey: "savedPoint"){
+            savedPoint = point as! [CGFloat]
+        }
+        // ads表示
+        bannerViewAction()
     }
-    
-    /* 電卓機能 */
+    // 画面遷移の際に呼ばれる
+    override func viewWillAppear(_ animated: Bool) {
+        // カスタマイズ設定
+        FVManager.shared.changeBackground(backImg: bgView)
+        FVManager.shared.changeTextColor(label: outputLabel)
+        FVManager.shared.changeTextBackColor(label: outputLabel)
+        FVManager.shared.changeFont(btns: btns)
+        // 履歴コピー
+        copyText()
+        // レイアウトセット
+        defaultPosition()
+    }
+    // レイアウト変更(回転、画面遷移)のたび呼ばれる
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // 可動域設定
+        getRange()
+        // 倍率が保存されていれば代入し使用
+        if let rate = uds.object(forKey: "PinchScale"){
+            pinchScale = rate as! CGFloat
+        }
+        // 座標が保存されていれば代入し使用
+        if let point = uds.object(forKey: "savedPoint"){
+            savedPoint = point as! [CGFloat]
+        }
+        // 画面回転時の座標ずれ調整
+        adjustPoint()
+        // ジェスチャ登録
+        FVManager.shared.onPinch(view: contentView!, range: rectRange)
+        FVManager.shared.onPan(view: contentView!, range: rectRange)
+    }
+/* 電卓機能 */
     // 割合計算用に数字配列を用いて文字列を置換え
     private func formatpFormula(_ pformula: String) -> String {
         // %を”x/100","*(1-x/100)","*(1+x/100)"に置き換え
@@ -220,8 +252,7 @@ class FirstViewController: UIViewController {
     // 計算用に文字列を置換え
     private func formatFormula(_ formula: String) -> String {
         // 入力された整数には`.0`を追加して小数として評価する
-        // また`÷`を`/`に、`×`を`*`に置換する
-        // %を”x/100"に置換え
+        // また`÷`を`/`に、`×`を`*`に置換、 %を”x/100"に置換え
         let formattedFormula: String = formula.replacingOccurrences(
             of: "(?<=^|[÷×\\+\\-\\(])([0-9]+)(?=[÷×\\+\\-\\)]|$)",
             with: "$1.0",
@@ -230,7 +261,6 @@ class FirstViewController: UIViewController {
             ).replacingOccurrences(of: "÷", with: "/").replacingOccurrences(of: "×", with: "*").replacingOccurrences(of: "(-)", with: "(-1)*").replacingOccurrences(of: "%", with: "/100")
         return formattedFormula
     }
-
     // 計算
     private func evalFormula(_ formula: String) -> String {
         do {
@@ -248,7 +278,6 @@ class FirstViewController: UIViewController {
             return ""
         }
     }
- 
     // 回答
     private func formatAnswer(_ answer: String) -> String {
         // 答えの小数点以下が`.0`だった場合は、`.0`を削除して答えを整数で表示する
@@ -339,95 +368,7 @@ class FirstViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-/* 画面設定 */
-    // 文字色設定変更
-    func changeTextColor(){
-        if let archiveData = uds.data(forKey: "textColorData") { // 旧保存形式(データ型)
-            let textColor = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
-            UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).tintColor = textColor
-            outputLabel.textColor = textColor
-        }
-        if let archiveHexData = uds.string(forKey: "textColorHexData") { // 新保存形式(文字型)
-            if let archiveNameData = uds.string(forKey: "textColorNameData"){
-                let txtColor = ColorSpec(hex: archiveHexData, name: archiveNameData).color
-                UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).tintColor = txtColor
-                outputLabel.textColor = txtColor
-            }
-        }
-    }
-    // 文字背景色設定変更
-    func changeTextBackColor(){
-        // 旧保存形式(データ型)
-        if let archiveData = uds.data(forKey: "textBackColorData") {
-            let textBackColor = try! (NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor)!
-            UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).backgroundColor = textBackColor
-            outputLabel.backgroundColor = textBackColor
-        }
-        // 新保存形式(文字型)
-        if let archiveHexData = uds.string(forKey: "textBackColorHexData") {
-            if let archiveNameData = uds.string(forKey: "textBackColorNameData") {
-                let textBackColor = ColorSpec(hex: archiveHexData, name: archiveNameData).color
-                UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).backgroundColor = textBackColor
-                outputLabel.backgroundColor = textBackColor
-                if textBackColor == UIColor(red: 0, green: 0, blue: 0, alpha: 0){
-                    UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).setTitleShadowColor(.black, for: .normal)
-                    outputLabel.shadowColor = UIColor.black
-                } else {
-                    UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).setTitleShadowColor(.none, for: .normal)
-                    outputLabel.shadowColor = UIColor.clear
-                }
-            }
-        }
-        if uds.data(forKey: "backColorData") == nil || uds.string(forKey: "backColorNameData") == nil {
-            UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).alpha = 0.8
-            outputLabel.alpha = 0.8
-        }
-    }
-    //文字フォント設定変更
-    func changeFont(){
-        if let textFont = uds.object(forKey: "fontData") as? String{
-            UILabel.appearance(whenContainedInInstancesOf: [FirstViewController.self]).font = UIFont(name: textFont, size: 30)
-            for btn in fontSet{
-                btn.titleLabel!.font = UIFont(name: textFont, size: 30)
-            }
-        }
-    }
-    // 背景設定変更
-    func changeBackground()  {
-        // 背景色の設定
-        if let archiveData = uds.data(forKey: "backColorData") { // 旧保存形式(データ型)
-            let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIColor
-            backImg.image = nil
-            backImg.backgroundColor = backImgImage
-        }
-        if let archiveHexData = uds.string(forKey: "backColorHexData") { // 新保存形式(文字型)
-            if let archiveNameData = uds.string(forKey: "backColorNameData"){
-                backImg.image = nil
-                backImg.backgroundColor = ColorSpec(hex: archiveHexData, name: archiveNameData).color
-            }
-        }
-        
-        // 背景画像の設定
-        if let archiveData = uds.data(forKey: "backPhotoData") {
-            let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? UIImage
-            backImg.backgroundColor = nil
-            backImg.image = backImgImage
-            backImg.contentMode = UIView.ContentMode.scaleAspectFill
-        }
-        // 背景パターンの設定
-        if let archiveData = uds.data(forKey: "backPatternData") { // 旧保存形式(データ)
-            let backImgImage = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(archiveData) as? String
-            backImg.backgroundColor = nil
-            backImg.image = UIImage(named: backImgImage!)
-            backImg.contentMode = UIView.ContentMode.scaleAspectFill
-        } else if let archiveData = uds.string(forKey: "backPatternData"){ // 現形式文字で保存
-            backImg.backgroundColor = nil
-            backImg.image = UIImage(named: archiveData)
-            backImg.contentMode = UIView.ContentMode.scaleAspectFill
-        }
-    }
-    
-    /* 計算結果表示ラベルのタップイベント */
+/* 計算結果表示ラベルのタップイベント */
     @objc func labelTapped(_ sender: UITapGestureRecognizer) {
         // タップ時のイベント定義
         let alert = UIAlertController(title: "Save".localized,
@@ -441,8 +382,10 @@ class FirstViewController: UIViewController {
             self.view.isMultipleTouchEnabled = false
             if alert?.textFields?.first?.text != nil {
                 let name = alert?.textFields?.first?.text ?? ""
+                // 計算結果を保存する name[名前]
                 self.nameArray.append(name)
                 print("recalculate",self.recalculateNb)
+                // 計算結果を保存する formul[[式][計算結果]]
                 self.formulaArray.append([self.outputLabel.text!, self.recalculateNb])
                 self.uds.set(self.nameArray, forKey: "nameArray")
                 self.uds.set(self.formulaArray, forKey: "formulaArray")
@@ -457,58 +400,83 @@ class FirstViewController: UIViewController {
         self.outputLabel.isUserInteractionEnabled = true
         self.outputLabel.addGestureRecognizer(labelTap)
     }
-    
 /* レイアウト */
-    func setPosition() {
-        let ifo = UIApplication.shared.statusBarOrientation
-        if ifo == UIInterfaceOrientation.landscapeLeft || ifo == UIInterfaceOrientation.landscapeRight {
-            container.backgroundColor = UIColor.black
-            print("landscape")
+    // 均等配置
+    func defaultPosition() {
+        // コンテナサイズ調整
+        contentView!.translatesAutoresizingMaskIntoConstraints = false
+        contentView!.widthAnchor.constraint(equalTo: bgView.widthAnchor, constant: -20).isActive = true
+        contentView!.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 10).isActive = true
+        contentView!.topAnchor.constraint(equalTo: bannerView.bottomAnchor, constant: 10).isActive = true
+        contentView!.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -10).isActive = true
+        // ボタンサイズ調整
+        let btnHeightRatio = contentView!.frame.height / 8 / contentView!.frame.height
+        for btn in btns {
+            btn.translatesAutoresizingMaskIntoConstraints = false
+            btn.heightAnchor.constraint(equalTo: contentView!.heightAnchor, multiplier: btnHeightRatio).isActive = true
         }
+        // ラベルサイズ調整
+        outputLabel.heightAnchor.constraint(equalTo: contentView!.heightAnchor, multiplier: btnHeightRatio * 2).isActive = true
+        UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).titleLabel?.adjustsFontSizeToFitWidth = true
+        // 倍率が保存されていれば代入し使用
+        if let rate = uds.object(forKey: "PinchScale"){
+            pinchScale = rate as! CGFloat
+        }
+        // 倍率設定があれば代入
+        if pinchScale < 1 {
+            // 倍率の反映
+            contentView!.transform = CGAffineTransform(scaleX: pinchScale, y: pinchScale)
+        }
+        // 画面回転時の座標ずれ調整
+        adjustPoint()
+    }
+    // 可動域計算
+    func getRange() {
+        let originX = bgView.frame.minX + 10
+        let originY = bannerView.frame.maxY + 10
+        rectRange.origin = CGPoint(x: originX, y: originY)
+        rectRange.size = CGSize(width: bgView.frame.maxX - 10 - originX, height: bgView.frame.maxY - 10 - originY)
+    }
+    // 画面回転時の座標を計算
+    func adjustPoint() {
+        if savedPoint.count > 0 {
+            contentView!.frame.origin.x = savedPoint[0] * rectRange.maxX
+            contentView!.frame.origin.y = savedPoint[1] * rectRange.maxY
+            fitToRange()
+        }
+    }
+    // 可動域を超える場合に可動域限に配置
+    func fitToRange() {
+        if contentView!.frame.maxX > rectRange.maxX {
+            contentView!.frame.origin.x = rectRange.maxX - contentView!.frame.width - 1
+                print("-x",contentView!.frame.origin)
+            }
+            if contentView!.frame.maxY > rectRange.maxY {
+                contentView!.frame.origin.y = rectRange.maxY - contentView!.frame.height - 1
+                print("-y",contentView!.frame.origin)
+            }
+            if contentView!.frame.minX < rectRange.minX {
+                contentView!.frame.origin.x = rectRange.minX
+                print("+x",contentView!.frame.origin)
+            }
+            if contentView!.frame.minY < rectRange.minY {
+                contentView!.frame.origin.y = rectRange.minY
+                print("+y",contentView!.frame.origin)
+            }
     }
     
-/* All iAd Functions */
-    func bannerViewActionShouldBegin(){
+/* バナー広告表示 */
+    func bannerViewAction(){
+        bannerView.backgroundColor = UIColor.clear
         // iPodか判断してiPod用広告を表示する
-        if deviceName == "iPad" {
-            bannerView.isHidden = true
-            bannerIPad()
+        if deviceName == "iPhone" {
+            let adView = AdmobManager.shared.showBanner(self)
+            AdmobManager.shared.addBannerToView(adView, bannerView, n: 0)
         } else {
-            // iPhone用バナー広告の設定
-            bannerView.adUnitID = bannerID  // 広告ID
-
-            bannerView.rootViewController = self
-            bannerView.load(GADRequest())
+            let adViewL = AdmobManager.shared.showBanner(self)
+            AdmobManager.shared.addBannerToView(adViewL, bannerView, n: -170)
+            let adViewR = AdmobManager.shared.showBanner(self)
+            AdmobManager.shared.addBannerToView(adViewR, bannerView, n: 170)
         }
     }
-    // iPad用のバナー広告
-    func bannerIPad() {
-        // stackviewを作成しバナー広告を入れる
-        let stackBanner = UIStackView()
-        self.view.addSubview(stackBanner)
-        stackBanner.distribution = .fillEqually
-        stackBanner.alignment = .fill
-        stackBanner.spacing = 10.0
-        stackBanner.translatesAutoresizingMaskIntoConstraints = false
-        stackBanner.widthAnchor.constraint(equalToConstant: 700).isActive = true
-        stackBanner.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        // 縦方向は上辺をセーフエリアに合わせる
-        stackBanner.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        // 横方向の中心は、親ビューの横方向の中心と同じ
-        stackBanner.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
-        // バナー広告を定義
-        let bannerViewLeft = GADBannerView(adSize: kGADAdSizeBanner)
-        let bannerViewRight = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerViewLeft.adUnitID = bannerID  // 広告ID
-        bannerViewLeft.rootViewController = self
-        bannerViewLeft.load(GADRequest())
-        bannerViewRight.adUnitID = bannerID  // 広告ID
-        bannerViewRight.rootViewController = self
-        bannerViewRight.load(GADRequest())
-        view.addSubview(bannerViewLeft)
-        view.addSubview(bannerViewRight)
-        stackBanner.addArrangedSubview(bannerViewLeft)
-        stackBanner.addArrangedSubview(bannerViewRight)
-    }
-
 }

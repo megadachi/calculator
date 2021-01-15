@@ -161,6 +161,7 @@ class SecondViewController: FormViewController {
 //                        } else {
 //                            (self.form.rowBy(tag: "Lock") as? SwitchRow)?.cell.switchControl.isOn = false
 //                        }
+            print("switch",row.value!)
             uds.set(row.value, forKey: "LayoutLock")
             row.updateCell()
         }
