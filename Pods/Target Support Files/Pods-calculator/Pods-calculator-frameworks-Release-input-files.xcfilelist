@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-calculator/Pods-calculator-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ASN1Decoder/ASN1Decoder.framework
 ${BUILT_PRODUCTS_DIR}/ColorPickerRow/ColorPickerRow.framework
 ${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework
 ${BUILT_PRODUCTS_DIR}/Expression/Expression.framework

@@ -8,20 +8,30 @@
 
 import UIKit
 import GoogleMobileAds
+import StoreKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PurchaseManagerDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         // AdMob
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        // デリゲート設定
+        PurchaseManager.sharedManager().delegate = self
+        // Attach an observer to the payment queue.
+        SKPaymentQueue.default().add(PurchaseManager.sharedManager())
+        
         
         return true
+    }
+    // 課金終了(前回アプリ起動時課金処理が中断されていた場合呼ばれる)
+    func purchaseManager(_ purchaseManager: PurchaseManager!, didFinishUntreatedPurchaseWithTransaction transaction: SKPaymentTransaction!, decisionHandler: ((_ complete: Bool) -> Void)!) {
+        print("#### didFinishUntreatedPurchaseWithTransaction ####")
+        //コンテンツ解放が終了したら、この処理を実行(true: 課金処理全部完了, false 課金処理中断)
+        decisionHandler(true)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -42,8 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
+    // Called when the application is about to terminate.
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        // Remove the observer.
+        SKPaymentQueue.default().remove(PurchaseManager.sharedManager())
     }
 
 

@@ -4,7 +4,7 @@
 //
 //  Created by M A on 2019/08/29.
 //  Copyright © 2019 M A. All rights reserved.
-//
+// 
 // アプリ ID: ca-app-pub-9368270017677505~4908410270
 // 広告ユニット ID: ca-app-pub-9368270017677505/5618856710
 
@@ -204,11 +204,16 @@ class FirstViewController: UIViewController {
         if let point = uds.object(forKey: "savedPoint"){
             savedPoint = point as! [CGFloat]
         }
-        // ads表示
-        bannerViewAction()
     }
     // 画面遷移の際に呼ばれる
     override func viewWillAppear(_ animated: Bool) {
+        // ads表示
+        if uds.bool(forKey: "RemoveADs") != true {
+            bannerView.isHidden = false
+            bannerViewAction()
+        } else {
+            bannerView.isHidden = true
+        }
         // カスタマイズ設定
         FVManager.shared.changeBackground(backImg: bgView)
         FVManager.shared.changeTextColor(label: outputLabel)

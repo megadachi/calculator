@@ -8,3 +8,6 @@
 
 // フォトライブラリへ書き込みのアクセス許可の場合
 NSPhotoLibraryAddUsageDescription = "このアプリは背景画像に写真を利用します。";
+
+// App Tracking Transparencyのトラッキング許諾
+NSUserTrackingUsageDescription = "データは、好みに合った広告を表示するために使われます。";

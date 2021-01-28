@@ -13,8 +13,17 @@
 "Text" = "テキスト";
 "Text Color" = "文字色";
 "Background Color" = "文字背景色";
-"Layout" = "レイアウト";
-"Layout Lock" = "レイアウトロック";
+"ADs" = "広告";
+"Disable advertisements by making a purchase." = "購入して広告を非表示";
+"Remove ADs" = "広告を削除";
+"\nNew purchase -> Purchase\nAlready purchased -> Restore" = "\n新規購入 -> 購入\n購入済み -> 復元";
+"Purchase" = "購入";
+"Restore" = "復元";
+"Successfully purchased!" = "購入処理完了";
+"Purchase failed." = "購入処理できません。";
+"There are no purchases to restore." = "復元可能な購入がありません。";
+"Restore failed." = "復元処理失敗";
+"Successfully restored!" = "復元処理完了";
 "Back" = "戻る";
 "Font" = "フォント";
 "Choose a font" = "フォントを選択";
@@ -33,3 +42,15 @@
 "Select Operation" = "記号を選択";
 "Error" = "エラー";
 "There was an error. Please try again." = "入力内容を確認して、やり直してください。";
+"There are no products available." = "購入可能なプロダクトがありません。";
+"Invalid product idntifier." = "有効なプロダクト情報がありません。";
+"Error No Product Info" = "エラー プロダクト情報がありません。";
+"Purchase is not valid." = "設定で購入が無効になっています。";
+"Purchasing." = "課金処理中です。";
+"Restoring." = "リストア中です。";
+"Purchase was on the way.\nContinue to download for free." = "購入処理が中断されていました。\nこのまま無料でダウンロードできます。";
+"Continue" = "続行";
+"Restore on the way" = "リストア処理中です。";
+"Receipt Error" = "レシートエラー";
+"Please try again." = "もう一度やり直してください。";
+
