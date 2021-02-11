@@ -43,7 +43,7 @@ final class ProductManager: NSObject, SKProductsRequestDelegate {
     }
     func request(_ request: SKRequest, didFailWithError error: Error) {
         DispatchQueue.main.async {
-            let error = NSError(domain: "ProductsRequestErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey:"Error No Product Info".localized])
+            let error = NSError(domain: "ProductsRequestErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey:"Product infomation does not exist.".localized])
             self.completionForProductidentifiers?(nil,error)
         productManagerShared.remove(self)
         }
@@ -52,19 +52,14 @@ final class ProductManager: NSObject, SKProductsRequestDelegate {
     func requestDidFinish(_ request: SKRequest) {
         productManagerShared.remove(self)
     }
-//    // PurchaseManagerでのリストア用
-//    func refreshRequest(){
-//        let request = SKReceiptRefreshRequest()
-//        request.delegate = self
-//        request.start()
-//    }
 /* MARK: - Utility */
     // 価格情報を抽出
     class func priceStringFromProduct(product: SKProduct!) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.formatterBehavior = .behavior10_4
-        numberFormatter.numberStyle = .currency
-        numberFormatter.locale = product.priceLocale
-        return numberFormatter.string(from: product.price)!
+        let formatter = NumberFormatter()
+        formatter.formatterBehavior = .behavior10_4
+        formatter.numberStyle = .currency
+        formatter.locale = product.priceLocale
+        return formatter.string(from: product.price)!
     }
 }
+

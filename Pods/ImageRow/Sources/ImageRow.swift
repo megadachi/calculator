@@ -28,10 +28,12 @@ import Foundation
 public struct ImageRowSourceTypes: OptionSet {
     public let rawValue: Int
     public var imagePickerControllerSourceTypeRawValue: Int { return self.rawValue >> 1 }
-
+    
+/* sourceType : イメージッピッカーをカメラキャプチャとして起動するか、フォトライブラリへの参照として起動するか
+     allowsEditing : 選択したメディアの編集（拡大縮小など）を許可する
+     mediaTypes : Photo, Movie のどのメディアを選択可能にするか */
     public init(rawValue: Int) { self.rawValue = rawValue }
     init(_ sourceType: UIImagePickerController.SourceType) { self.init(rawValue: 1 << sourceType.rawValue) }
-
     public static let PhotoLibrary = ImageRowSourceTypes(.photoLibrary)
     public static let Camera = ImageRowSourceTypes(.camera)
     public static let SavedPhotosAlbum = ImageRowSourceTypes(.savedPhotosAlbum)

@@ -17,7 +17,10 @@
     }
   ],
   "settings" : {
-
+    "_billingIssuesEnabled" : false,
+    "_failTransactionsEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitError" : 0
   },
   "subscriptionGroups" : [
 

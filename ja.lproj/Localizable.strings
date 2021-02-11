@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   calculator
 
@@ -14,16 +14,19 @@
 "Text Color" = "文字色";
 "Background Color" = "文字背景色";
 "ADs" = "広告";
-"Disable advertisements by making a purchase." = "購入して広告を非表示";
+"Disable advertisements by making a purchase or restore." = "購入、または復元して広告を非表示";
 "Remove ADs" = "広告を削除";
 "\nNew purchase -> Purchase\nAlready purchased -> Restore" = "\n新規購入 -> 購入\n購入済み -> 復元";
 "Purchase" = "購入";
 "Restore" = "復元";
+"Unable to purchase the product." = "購入手続きできません。";
 "Successfully purchased!" = "購入処理完了";
 "Purchase failed." = "購入処理できません。";
 "There are no purchases to restore." = "復元可能な購入がありません。";
 "Restore failed." = "復元処理失敗";
 "Successfully restored!" = "復元処理完了";
+"Waiting For Approval" = "承認待ち";
+"Thank you! You can continue to use Cutelator while your purchase is pending an approval from your parent." = "承認待ちの間もCutelatorを利用できます。";
 "Back" = "戻る";
 "Font" = "フォント";
 "Choose a font" = "フォントを選択";
@@ -44,13 +47,17 @@
 "There was an error. Please try again." = "入力内容を確認して、やり直してください。";
 "There are no products available." = "購入可能なプロダクトがありません。";
 "Invalid product idntifier." = "有効なプロダクト情報がありません。";
-"Error No Product Info" = "エラー プロダクト情報がありません。";
-"Purchase is not valid." = "設定で購入が無効になっています。";
+"Product infomation does not exist." = "プロダクト情報がありません。";
+"Purchase is not authorised" = "設定で購入が無効になっています。";
+"Please check the restrection settings." = "機能制限の設定を確認してください。";
 "Purchasing." = "課金処理中です。";
 "Restoring." = "リストア中です。";
 "Purchase was on the way.\nContinue to download for free." = "購入処理が中断されていました。\nこのまま無料でダウンロードできます。";
 "Continue" = "続行";
 "Restore on the way" = "リストア処理中です。";
+"Purchase information does not exist" = "購入情報がありません";
+"Receipt does not exist" = "レシート情報がありません";
+"Would you like to remove advertisements? Why not purchase?" = "購入して広告を削除しませんか？";
+"Purchase information is invalid" = "購入情報が正しくありません";
 "Receipt Error" = "レシートエラー";
 "Please try again." = "もう一度やり直してください。";
-

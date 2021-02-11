@@ -12,13 +12,13 @@ import ASN1Decoder
 
 private let purchaseManagerShared = PurchaseManager()
 // アイテムの購入を処理するためのプロトコル
-class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate {
+class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegate {
     
     var delegate : PurchaseManagerDelegate?
     // プロダクトID
     fileprivate var productIdentifier : String?
+    fileprivate var refreshRequest: SKReceiptRefreshRequest?
     // レシート検証ステータス
-    var receiptCheck = false
     enum ReceiptValidationError : Error {
         case couldNotFindReceipt
         case emptyReceiptContents
@@ -41,22 +41,25 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
         // configures the app to make payments on the device, before presenting products for sale
         //エラーがあれば終了
         if SKPaymentQueue.canMakePayments() == false {
-            let errorMessage = "Purchase is not valid.".localized
+            let errorMessage = "Purchase is not authorised".localized
             let error = NSError(domain: "PurchaseErrorDomain", code: 1, userInfo: [NSLocalizedDescriptionKey:errorMessage])
             self.delegate?.purchaseManagerDidFailedPurchase?(self)
-            print("error",error)
             print("InnApp : PurchaseManager" + errorMessage)
+            showMessage(title: errorMessage, message: "Please check the restrection settings.".localized)
             return
         }
         print("InnApp : PurchaseManager startWithProduct CheckSupendedTransactions")
         //未処理のトランザクションがあればそれを利用
         let transactions = SKPaymentQueue.default().transactions
         if transactions.count > 0 {
+            print("transaction.count",transactions.count)
             for transaction in transactions {
+                print("transaction.transactionState",transaction.transactionState)
                 if transaction.transactionState != .purchased {
                     continue
                 }
                 if transaction.payment.productIdentifier == product.productIdentifier {
+                    print("ransaction:payment.productIdentifier == productIdentifier")
                     if let window = UIApplication.shared.delegate?.window {
                         let ac = UIAlertController(title: nil, message: "Purchase was on the way.\nContinue to download for free.".localized, preferredStyle: .alert)
                         let action = UIAlertAction(title: "Continue".localized, style: UIAlertAction.Style.default, handler: {[weak self] (action : UIAlertAction!) -> Void in
@@ -93,10 +96,7 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
             case .purchased :
                 //課金完了 レシートの確認やアイテムの付与を行う
                 self.completeTransaction(transaction)
-                verifySignature()
-                if receiptCheck == true {
-                    verifyID()
-                }
+                verifyPurchase()
                 break
             case .failed :
                     //課金失敗 エラーが発生したことをユーザに知らせる
@@ -104,12 +104,12 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
 //                }
                 break
             case .restored :
-                //リストア
+                //リストア レシートの確認やアイテムの付与を行う
+                print("func paymentQueu .restored: start")
                 self.restoreTransaction(transaction)
-                verifySignature()
-                if receiptCheck == true {
-                    verifyID()
-                }
+                print("func paymentQueu .restored: after restoreTransaction")
+//                verifyPurchase()
+//                print("func paymentQueu .restored: after verifyPurchase")
                 break
             case .deferred :
                 //承認待ち
@@ -145,29 +145,32 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
         print("InnApp : PurchaseManager failedTransaction")
         //課金失敗
         self.delegate?.purchaseManagerDidFailedPurchase?(self)
-//        if transaction.payment.productIdentifier == self.productIdentifier {
+        if transaction.payment.productIdentifier == self.productIdentifier {
             self.productIdentifier = nil
-//            }
+            }
         SKPaymentQueue.default().finishTransaction(transaction)
+        // キャンセルでなくTransactionが修了した場合、エラー表示
         if (transaction.error as? SKError)?.code != .paymentCancelled {
             delegate?.purchaseManagerDidFailedPurchase!(self)
         }
     }
     fileprivate func restoreTransaction(_ transaction : SKPaymentTransaction) {
-        //リストア(originalTransactionをdidFinishPurchaseWithTransactionで通知)　※設計に応じて変更
+        print("func restoreTransaction: start")
+        //リストア(originalTransactionをdidFinishPurchaseWithTransactionで通知)　func paymentQueueを呼ぶ ※設計に応じて変更
         self.delegate?.purchaseManager?(self, didFinishPurchaseWithTransaction: transaction.original, decisionHandler: { (complete) -> Void in
             if complete == true {
                 //トランザクション終了
                 SKPaymentQueue.default().finishTransaction(transaction)
+                ("func restoreTransaction: transaction complete")
             }
         })
     }
     fileprivate func deferredTransaction(_ transaction : SKPaymentTransaction) {
         //承認待ち
         self.delegate?.purchaseManagerDidDeferred?(self)
-//        if transaction.payment.productIdentifier == self.productIdentifier {
+        if transaction.payment.productIdentifier == self.productIdentifier {
             self.productIdentifier = nil
-//            }
+            }
     }
     // 全ての購入処理が終わったとき
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
@@ -178,20 +181,46 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
     func startRestore(){
         print("InnApp : PurchaseManager startRestore")
         // Create a receipt refresh request
-        DispatchQueue.main.async {
-            let request = SKReceiptRefreshRequest()
-            request.delegate = self
-            request.start()
+        DispatchQueue.main.async { [self] in
+            // レシートをリフレッシュ
+            let refreshRequest = SKReceiptRefreshRequest(receiptProperties: nil)
+            // 要求完了前に開放されないよう、インスタンス変数に保持
+            self.refreshRequest = refreshRequest
+            refreshRequest.delegate = self
+            refreshRequest.start()
+            // 端末内の"Bundle.main.appStoreReceiptURL"で取得できるパスにレシートデータがあるか確認
+            if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL,
+                        FileManager.default.fileExists(atPath: appStoreReceiptURL.path) {
+                print("receipt was in the device")
+                // レシートがある場合、レシートをチェック
+                verifyPurchase()
+            } else {
+                print("SKPaymentManager : no receipt. restore completed transaction.")
+                // 自分をQueueに追加して、結果を待ち構えます。
+                SKPaymentQueue.default().add(self)
+                // Asks the payment queue to restore previously completed purchases リストア実行
+                SKPaymentQueue.default().restoreCompletedTransactions()
+                print("receipt was not in the device")
+                verifyPurchase()
+                // レシートがない場合 ＝ 未購入
+                guard let receiptURL = Bundle.main.appStoreReceiptURL,
+                      FileManager.default.fileExists(atPath: receiptURL.path) else {
+                    delegate?.purchaseManagerFailedRestoreNeverPurchase?(self)
+                    return
+                }
+            }
         }
-//            SKPaymentQueue.default().add(self)
-        // initWithReceiptProperties:メソッドの値を参照する
-            SKPaymentQueue.default().restoreCompletedTransactions()
-//        } else {
-//            print("InnApp : PurchaseManager startRestore Second")
-//            self.isRestore = false
-//            let error = NSError(domain: "PurchaseErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey:"Restore on the way".localized])
-//            self.delegate?.purchaseManagerDidFailedRestore?(self)
-//        }
+    }
+    // リストア要求終了時呼ばれる
+    func requestDidFinish(_ request: SKRequest) {
+        if request is SKReceiptRefreshRequest {
+            // リストア要求終了時処理 解放
+            self.refreshRequest = nil
+        }
+    }
+    //AppStoreで必須
+    func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        return true
     }
     //リストア失敗時に呼ばれる
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
@@ -199,52 +228,73 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
         // アラート表示
         delegate?.purchaseManagerDidFailedRestore?(self)
     }
-    // 購入履歴が確認できた場合、復元する
+    // called after all restorable transactions have been processed by the payment queue リストア完了時に呼ばれる
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         print("InnApp : PurchaseManager PaymentQueueRetoreCompletedTransactions")
-        // 購入履歴がない場合、アラート表示
-        guard !queue.transactions.isEmpty else {
-                    print("not purchased yet!")
-            delegate?.purchaseManagerFailedRestoreNeverPurchase?(self)
-                    return
-                }
-        // すでに商品を購入していたら、復元を行う
+        // queuに残っているすでに購入している商品を、復元
         for transaction in queue.transactions {
             print("InnApp : PurchaseManager CompleteRestore", transaction.payment.productIdentifier, transaction.transactionState)
-            //リストア完了時に呼ばれる
-            delegate?.purchaseManagerDidFinishRestore?(self)
         }
     }
-    func verifySignature(){
-//        #if DEBUG
-//        let certificateName = "StoreKitTestCertificate"
-//        print("debug")
-//        #else
+    // レシートチェック
+    func verifyPurchase(){
+        #if DEBUG
+        let certificateName = "StoreKitTestCertificate"
+        print("debug")
+        #else
         let certificateName = "AppleIncRootCertificate"
-//        print("production")
-//        #endif
+        print("production")
+        #endif
         // Get the Path to the receipt
-        let receiptUrl = Bundle.main.appStoreReceiptURL
-        //Check if it's actually there
-        if FileManager.default.fileExists(atPath: receiptUrl!.path)
-        {
+        guard
+            // レシートデータは端末内の"Bundle.main.appStoreReceiptURL"で取得できるパスに保存される
+            let receiptUrl = Bundle.main.appStoreReceiptURL,
+            let receiptData = try? Data(contentsOf: receiptUrl)
+        else {
+            print("SKPaymentManager : No receipt.")
+            showMessage(title: "Receipt does not exist".localized, message: "Would you like to remove advertisements? Why not purchase?".localized)
+            return
+        }
+        // Check if it's actually there
+        if FileManager.default.fileExists(atPath: receiptUrl.path) {
+            // レシートチェック
+            do {
+                // return the PKCS #7 data structure
+                let receiptDataPkcs7 = try PKCS7(data: receiptData)
+                if let receiptInfo = receiptDataPkcs7.receipt() {
+                    print(receiptInfo)
+                }
+                let receipt = receiptDataPkcs7.receipt()
+                // プロダクトIDをチェック
+                guard receipt?.bundleIdentifier == Bundle.main.bundleIdentifier else {
+                    DispatchQueue.main.async { [self] in
+                        showMessage(title: "Purchase information is invalid".localized, message: "Would you like to remove advertisements? Why not purchase?".localized)
+                    }
+                    return
+                }
+            } catch let error {
+                print("SKPaymentManager : Failure to validate receipt: \(error)")
+                showMessage(title: "Receipt Error".localized, message: "Please try again.".localized)
+            }
             //Load in the receipt
-            let receipt: Data = try! Data(contentsOf: receiptUrl!)
             let receiptBio = BIO_new(BIO_s_mem())
             // write the contents of the certificate to memory
-            BIO_write(receiptBio, (receipt as NSData).bytes, Int32(receipt.count))
+            BIO_write(receiptBio, (receiptData as NSData).bytes, Int32(receiptData.count))
             //Verify receiptPKCS7 is not nil
             let receiptPKCS7 = d2i_PKCS7_bio(receiptBio, nil)
             // Check that the container has a signature
             guard OBJ_obj2nid(receiptPKCS7!.pointee.type) == NID_pkcs7_signed else {
-              print("receiptStatus = .invalidPKCS7Signature")
-              return
+                print("receiptStatus = .invalidPKCS7Signature")
+                showMessage(title: "Purchase information is invalid".localized, message: "Would you like to remove advertisements? Why not purchase?".localized)
+                return
             }
+            // Certificateのチェック
             //Read in Apple's Root CA
             guard
                 let rootCertURL = Bundle.main.url(forResource: certificateName, withExtension: "cer"),
                 let caData = try? Data(contentsOf: rootCertURL) else {
                 print("error")
+                showMessage(title: "Purchase information does not exist".localized, message: "Would you like to remove advertisements? Why not purchase?".localized)
                 return
             }
             let caBIO = BIO_new(BIO_s_mem())
@@ -255,57 +305,28 @@ class PurchaseManager : NSObject,SKPaymentTransactionObserver, SKRequestDelegate
             let caStore = X509_STORE_new()
             X509_STORE_add_cert(caStore, caRootX509)
             OPENSSL_init_crypto(UInt64(OPENSSL_INIT_ADD_ALL_DIGESTS), nil)
-//            #if DEBUG
-//            let verifyResult = PKCS7_verify(receiptPKCS7, nil, caStore, nil, nil, PKCS7_NOCHAIN)
-//            #else
+                        #if DEBUG
+                        let verifyResult = PKCS7_verify(receiptPKCS7, nil, caStore, nil, nil, PKCS7_NOCHAIN)
+                        #else
             let verifyResult = PKCS7_verify(receiptPKCS7, nil, caStore, nil, nil, 0)
-            print("result",verifyResult)
-//            #endif
+                        #endif
             // verify a certificate in the chain from the root certificate signed the receipt. If so, the function returns 1.
             if verifyResult != 1 {
-                print("Validation Fails!")
-                print("receiptPKCS7",receiptPKCS7)
-                receiptCheck = false
+                print("PKCS7_verify",verifyResult)
+                delegate?.purchaseManagerFailedRestoreNeverPurchase?(self)
                 return
             } else {
                 print("validation succeed")
-                receiptCheck = true
+                UserDefaults.standard.set(true, forKey: "RemoveADs")
+                print("verifyID",UserDefaults.standard.bool(forKey: "RemoveADs"))
+                // リストア完了メッセージ表示
+                delegate?.purchaseManagerDidFinishRestore?(self)
             }
         }
     }
-    // Appleサーバーに問い合わせてレシートを取得
-    func verifyID() {
-        guard
-            let receiptUrl = Bundle.main.appStoreReceiptURL,
-            let receiptData = try? Data(contentsOf: receiptUrl)
-        else {
-            print("SKPaymentManager : No receipt.")
-            return
-        }
-        print("receiptData",receiptData)
-        do {
-            // return the PKCS #7 data structure
-            let receiptDataPkcs7 = try PKCS7(data: receiptData)
-            if let receiptInfo = receiptDataPkcs7.receipt() {
-                print(receiptInfo)
-            }
-            let receipt = receiptDataPkcs7.receipt()
-            print("receipt bi",receipt?.bundleIdentifier)
-            guard receipt?.bundleIdentifier == Bundle.main.bundleIdentifier else {
-                DispatchQueue.main.async { [self] in
-                    receiptErrorMessage()
-                }
-                return
-            }
-            UserDefaults.standard.set(true, forKey: "RemoveADs")
-            print(UserDefaults.standard.bool(forKey: "RemoveADs"))
-        } catch let error {
-            print("SKPaymentManager : Failure to validate receipt: \(error)")
-        }
-    }
-    func receiptErrorMessage(){
+    func showMessage(title: String, message: String){
         if let window = UIApplication.shared.delegate?.window {
-            let ac = UIAlertController(title: "Receipt Error".localized, message: "Please try again.".localized, preferredStyle: .alert)
+            let ac = UIAlertController(title: title.localized, message: message, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             window!.rootViewController?.present(ac, animated: true, completion: nil)
             return

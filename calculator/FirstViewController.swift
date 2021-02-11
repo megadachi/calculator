@@ -190,6 +190,7 @@ class FirstViewController: UIViewController {
         // ラベルタップでヒストリーに保存
         self.setupLabelTap()
         
+        uds.set(false, forKey: "RemoveADs")
         if uds.object(forKey: "nameArray") != nil && uds.object(forKey: "formulaArray") != nil{
             nameArray = uds.object(forKey: "nameArray") as! [String]
             formulaArray = uds.object(forKey: "formulaArray") as! [[String]]

@@ -18,6 +18,8 @@
 		0C75FBF223414C91006CC590 /* BPdotsDiamondBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75FBF123414C91006CC590 /* BPdotsDiamondBold.otf */; };
 		0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E20233921F100D56B37 /* Settings.bundle */; };
 		0C872F1F25C0FA910057D559 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0C872EB025C0FA910057D559 /* LICENSE */; };
+		0CA9137625C8020B0008BB8A /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9137525C8020B0008BB8A /* IAPManager.swift */; };
+		0CB2687325D14FC200C7C538 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 0CB2687225D14FC200C7C538 /* StoreKitTestCertificate.cer */; };
 		0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9500E23176EB4002E3D01 /* AppDelegate.swift */; };
 		0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9501223176EB4002E3D01 /* SecondViewController.swift */; };
 		0CC9501623176EB4002E3D01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC9501423176EB4002E3D01 /* Main.storyboard */; };
@@ -163,6 +165,8 @@
 		0C872F1D25C0FA910057D559 /* lhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lhash.h; sourceTree = "<group>"; };
 		0C872F1E25C0FA910057D559 /* asn1err.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1err.h; sourceTree = "<group>"; };
 		0C872F2625C0FFFC0057D559 /* calculator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "calculator-Bridging-Header.h"; sourceTree = "<group>"; };
+		0CA9137525C8020B0008BB8A /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		0CB2687225D14FC200C7C538 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		0CC9500B23176EB4002E3D01 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC9500E23176EB4002E3D01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CC9501223176EB4002E3D01 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -368,8 +372,10 @@
 				0C0B04F8235F0B3E00016ACD /* ChistosoCF-Bold.otf */,
 				0CC9500E23176EB4002E3D01 /* AppDelegate.swift */,
 				0CC9501423176EB4002E3D01 /* Main.storyboard */,
+				0CA9137525C8020B0008BB8A /* IAPManager.swift */,
 				0CCA80AF25B56901004B11DD /* ProductManager.swift */,
 				0CCA80B325B56AE3004B11DD /* PurchaseManager.swift */,
+				0CB2687225D14FC200C7C538 /* StoreKitTestCertificate.cer */,
 				0C04D1D325B840E3001B0968 /* Configuration.storekit */,
 				0CF762AD25956490001EB60E /* FVStackViewManager.swift */,
 				0C6CE75B258DFFC40045C60F /* AdmobManager.swift */,
@@ -473,6 +479,7 @@
 			files = (
 				0CF35FD825C01459005BEAA5 /* AppleIncRootCertificate.cer in Resources */,
 				0CC9501B23176EB5002E3D01 /* LaunchScreen.storyboard in Resources */,
+				0CB2687325D14FC200C7C538 /* StoreKitTestCertificate.cer in Resources */,
 				0C75FBEC23414723006CC590 /* InfoPlist.strings in Resources */,
 				0C0B04F9235F0B3E00016ACD /* ChistosoCF-Bold.otf in Resources */,
 				0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */,
@@ -554,6 +561,7 @@
 			files = (
 				0CD2519D256CA4BC00EFA7C7 /* FirstViewController.swift in Sources */,
 				0CC9501323176EB4002E3D01 /* SecondViewController.swift in Sources */,
+				0CA9137625C8020B0008BB8A /* IAPManager.swift in Sources */,
 				0C672DAE233D38F700886EED /* PatternViewController.swift in Sources */,
 				0CE538AD24358CC00007EDCC /* ListViewController.swift in Sources */,
 				0CCA80B425B56AE3004B11DD /* PurchaseManager.swift in Sources */,

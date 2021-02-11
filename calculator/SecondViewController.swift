@@ -14,20 +14,22 @@ import Photos
 import StoreKit
 
 class SecondViewController: FormViewController, PurchaseManagerDelegate {
-    
+    // 課金処理クラス
+//    let iapManager = IAPManager()
     // iPhone/iPodを識別する
     let deviceName = String(UIDevice.current.localizedModel)
     
     let uds = UserDefaults.standard
     // プロダクトID
     let productIdentifiers : [String] = ["com.megadachi.calculator_removeADs"]
+//    let productIdentifiers = "com.megadachi.calculator_removeADs"
     var purchaseInfo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // 設定テーブルを表示
         showTable()
-        
+        // 背景設定欄の表示設定
         if uds.data(forKey: "backPatternData") == nil {
             self.form.rowBy(tag: "Color Row")!.hidden = true
             self.form.rowBy(tag: "Photo Row")!.hidden = true
@@ -35,9 +37,10 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
         // プロダクト情報取得
         fetchProductInformationForIds(productIdentifiers)
         print(productIdentifiers[0])
+//        iapManager.getProductInfo(productIdentifiers: productIdentifiers)
+//        getProductInfo()
         print("ad",uds.bool(forKey: "RemoveADs"))
-        uds.set(false, forKey: "RemoveADs")
-        print("ad",uds.bool(forKey: "RemoveADs"))
+       
     }
     
     // picker変更の表示設定
@@ -158,66 +161,47 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
                     }
                 }
         }
-        
         // 広告
-        form +++ Section(header: "ADs".localized, footer: "Disable advertisements by making a purchase.".localized)
+        form +++ Section(header: "ADs".localized, footer: "Disable advertisements by making a purchase or restore.".localized)
             // 広告表示選択
-            <<< SwitchRow("Remove ADs") { row in
+            <<< ButtonRow () { (row: ButtonRow) -> Void in
+                row.tag = "Remove ADs"
                 row.title = "Remove ADs".localized
-                if uds.bool(forKey: "RemoveADs") == true {
-                    row.value = uds.bool(forKey: "RemoveADs")
-                    row.disabled = true
-                    self.form.rowBy(tag: "Purchased Data")?.hidden = false
-                    self.form.rowBy(tag: "Purchased Data")?.evaluateHidden()
-                } else {
-                    row.value = false
-                }
-            }.onChange { [self] row in
-            if row.value == true {
-                showPurchaseMenu()
-                print(purchaseInfo)
-                if uds.bool(forKey: "RemoveADs") != true {
-                    row.value = false
-                } else if uds.bool(forKey: "RemoveADs") == true {
-                    row.value = true
-                    row.disabled = true
-                }
-                row.updateCell()
-            }
-//                            self.form.rowBy(tag: "Allow Tracking")?.hidden = true
-//                print("hidden true")
-//                self.form.rowBy(tag: "Allow Tracking")?.evaluateHidden()
-//                        } else {
-//                            self.form.rowBy(tag: "Allow Tracking")?.hidden = false
-//                            self.form.rowBy(tag: "Allow Tracking")?.evaluateHidden()
-//                            print("hidden false")
-//                        }
-            print("switch",row.value!)
-            row.updateCell()
-            }
-            // 購入情報
-            <<< LabelRow("Purchased Data"){
-                $0.title = "Purchased"
-                $0.hidden = true
-            }
+            }.cellUpdate ({ [self] (cell, row) in
+                // 購入済の場合は操作不可にする
+                    if uds.bool(forKey: "RemoveADs") != true {
+                        row.disabled = false
+                    } else {
+                        row.disabled = true
+                    }
+                })
+                .onCellSelection({ [self] (cell, row) in
+                    // 購入アラート表示
+                    showPurchaseMenu()
+                    row.updateCell()
+                })
     }
 /* アラート表示 */
     func showPurchaseMenu() {
         //アラート生成
-        let actionSheet = UIAlertController(title: "\(purchaseInfo)", message: "\nNew purchase -> Purchase\nAlready purchased -> Restore".localized, preferredStyle: UIAlertController.Style.actionSheet)
+        let actionSheet = UIAlertController(title: "\(purchaseInfo)", message: "\nNew purchase -> Purchase\nAlready purchased -> Restore".localized, preferredStyle: .alert)
         // 購入処理へ
-        let purchaseAction = UIAlertAction(title: "Purchase".localized, style: UIAlertAction.Style.default, handler: { [self]
+        let purchaseAction = UIAlertAction(title: "Purchase".localized, style: .default, handler: { [self]
             (action: UIAlertAction!) in
             startPurchase(productIdentifier: productIdentifiers[0])
+//            startPurchase(productIdentifier: productIdentifier)
+//            iapManager.startPurchase(productIdentifiers: productIdentifiers)
+//            iapManager.startPurchase(productIdentifiers: productIdentifiers)
         })
         // 購入済み復元処理へ
-        let restoreAction = UIAlertAction(title: "Restore".localized, style: UIAlertAction.Style.default, handler: { [self]
+        let restoreAction = UIAlertAction(title: "Restore".localized, style: .default, handler: { [self]
             (action: UIAlertAction!) in
             // リストア処理
             startRestore()
+//            iapManager.startRestore(productIdentifiers: productIdentifiers)
         })
         // キャンセル
-        let cancelAction = UIAlertAction(title: "Cancel".localized, style: UIAlertAction.Style.cancel, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: {
             (action: UIAlertAction!) in
             print("cancel")
         })
@@ -234,6 +218,21 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
         self.present(alert, animated: true, completion: nil)
     }
 //------------------------------------
+///* プロダクト情報 */
+//    // プロダクト情報取得
+//    func getProductInfo() {
+//        SwiftyStoreKit.retrieveProductsInfo([productIdentifiers]) { [self] result in
+//            if let product = result.retrievedProducts.first {
+//                let priceString = product.localizedPrice!
+//                purchaseInfo = "\(product.localizedTitle) : \(priceString)"
+//                print(purchaseInfo)
+//            } else if let invalidProductId = result.invalidProductIDs.first {
+//                print("Invalid product identifier: \(invalidProductId)")
+//            } else {
+//                print("Error: \(result.error)")
+//            }
+//        }
+//    }
 // 課金処理開始
     func startPurchase(productIdentifier : String) {
         print("課金処理開始!!")
@@ -241,12 +240,13 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
         PurchaseManager.sharedManager().delegate = self
         //プロダクト情報を取得
         ProductManager.productsWithID(productIdentifiers: [productIdentifier], completion: { (products, error) -> Void in
-            if products?.isEmpty == false {
+            if products?.isEmpty != true {
                 //課金処理開始
                 PurchaseManager.sharedManager().startWithProduct((products?[0])!)
             }
             if (error != nil) {
                 print("error")
+                self.showAlertMessage(title: "Error".localized, message: "Unable to purchase the product.".localized)
             }
         })
     }
@@ -264,9 +264,8 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
         print("課金終了！！")
         //アラート表示
         showAlertMessage(title: "THANK YOU", message: "Successfully purchased!".localized)
-        // UserDefault更新
 //        uds.set(true, forKey: "RemoveADs")
-        //コンテンツ解放が終了したら、この処理を実行(true: 課金処理全部完了, false 課金処理中断)
+        // コンテンツ解放が終了したら、この処理を実行(true: 課金処理全部完了, false 課金処理中断)
         decisionHandler(true)
     }
     //課金失敗時
@@ -295,6 +294,7 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
     // 承認待ち状態時(ファミリー共有)
     func purchaseManagerDidDeferred(_ purchaseManager: PurchaseManager!) {
         print("承認待ち！！")
+        showAlertMessage(title: "Waiting For Approval", message: "Thank you! You can continue to use Cutelator while your purchase is pending an approval from your parent.")
     }
     // プロダクト情報取得
     fileprivate func fetchProductInformationForIds(_ productIds:[String]) {

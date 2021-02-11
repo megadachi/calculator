@@ -41,6 +41,7 @@ PODS:
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
   - PromisesObjC (1.2.11)
+  - SwiftyStoreKit (0.16.1)
   - UIColor_Hex_Swift (5.1.0)
 
 DEPENDENCIES:
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - ImageRow
   - LicensePlist
+  - SwiftyStoreKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -66,6 +68,7 @@ SPEC REPOS:
     - LicensePlist
     - nanopb
     - PromisesObjC
+    - SwiftyStoreKit
     - UIColor_Hex_Swift
 
 SPEC CHECKSUMS:
@@ -81,8 +84,9 @@ SPEC CHECKSUMS:
   LicensePlist: 11c638fa9dc22ddb5771cdf910242ae1ba2684da
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: e1ecc11c6a1aaf96d8a7f5396fb52d61fe76fa63
+PODFILE CHECKSUM: 24f98b37eb9c2adc4850fe44f4388548619363d5
 
 COCOAPODS: 1.10.0
