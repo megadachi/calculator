@@ -8,19 +8,34 @@
 
 import UIKit
 import GoogleMobileAds
+import AppTrackingTransparency
+import AdSupport
 import StoreKit
-//import SwiftyStoreKit
+import COSTouchVisualizer
 
 @UIApplicationMain
 //class AppDelegate: UIResponder, UIApplicationDelegate {
-class AppDelegate: UIResponder, UIApplicationDelegate, PurchaseManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PurchaseManagerDelegate, COSTouchVisualizerWindowDelegate {
 
-    var window: UIWindow?
+//    var window: UIWindow?
+    lazy var window: UIWindow? = {
+        let customWindow = COSTouchVisualizerWindow(frame: UIScreen.main.bounds)
+        
+        customWindow.fillColor = UIColor.purple
+        customWindow.strokeColor = UIColor.blue
+        customWindow.touchAlpha = 0.4;
+        
+        customWindow.rippleFillColor = UIColor.purple
+        customWindow.rippleStrokeColor = UIColor.blue
+        customWindow.touchAlpha = 0.1;
+        
+        return customWindow
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // AdMob
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
         // デリゲート設定
         PurchaseManager.sharedManager().delegate = self
         // Attach an observer to the payment queue.
@@ -40,7 +55,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PurchaseManagerDelegate {
 //                    }
 //                }
 //            }
-        
+        // COSTouchVisualizer
+        guard let window = window as? COSTouchVisualizerWindow else {
+                    return false
+                }
+                window.touchVisualizerWindowDelegate = self
+        return true
+    }
+    // MARK: - COSTouchVisualizerWindowDelegate
+    func touchVisualizerWindowShouldAlwaysShowFingertip(_ window: COSTouchVisualizerWindow!) -> Bool {
+        // Return YES to make the fingertip always display even if there's no any mirrored screen.
+        // Return NO or don't implement this method if you want to keep the fingertip display only when
+        // the device is connected to a mirrored screen.
         return true
     }
     // 課金終了(前回アプリ起動時課金処理が中断されていた場合呼ばれる)

@@ -18,7 +18,7 @@ class PatternViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet var collectionView: UICollectionView!
    
     // 画像patterns
-    var patterns = ["wallpaperImg1", "wallpaperImg2", "wallpaperImg3", "wallpaperImg4", "wallpaperImg5", "wallpaperImg6"]
+    var patterns = ["wallpaperImg1", "wallpaperImg2", "wallpaperImg3", "wallpaperImg4", "wallpaperImg5", "wallpaperImg6", "wallpaperImg10", "wallpaperImg17", "wallpaperImg18", "wallpaperImg19"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

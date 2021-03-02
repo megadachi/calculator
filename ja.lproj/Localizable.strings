@@ -61,3 +61,5 @@
 "Purchase information is invalid" = "購入情報が正しくありません";
 "Receipt Error" = "レシートエラー";
 "Please try again." = "もう一度やり直してください。";
+"If you allow tracking, track data helps advertisers to deliver customized advertising relevant to you (without revealing personal information).\n\nWould you like to disable ads? You can remove ads by making a purchase." = "トラッキング機能を有効にすると、あなたに合わせた広告が表示されるようになります(個人の属性を特定できる形での個人情報の収集、利用は行いません。)\n\n広告を削除したい場合は、購入することで削除できます。";
+"Our free application uses advertising" = "このアプリには広告が表示されています";

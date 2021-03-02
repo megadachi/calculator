@@ -18,6 +18,7 @@
 		0C75FBF223414C91006CC590 /* BPdotsDiamondBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75FBF123414C91006CC590 /* BPdotsDiamondBold.otf */; };
 		0C7A7E21233921F100D56B37 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0C7A7E20233921F100D56B37 /* Settings.bundle */; };
 		0C872F1F25C0FA910057D559 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0C872EB025C0FA910057D559 /* LICENSE */; };
+		0C8B411225DE28B500CE9E8C /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C8B411125DE28B500CE9E8C /* AppTrackingTransparency.framework */; };
 		0CA9137625C8020B0008BB8A /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9137525C8020B0008BB8A /* IAPManager.swift */; };
 		0CB2687325D14FC200C7C538 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 0CB2687225D14FC200C7C538 /* StoreKitTestCertificate.cer */; };
 		0CC9500F23176EB4002E3D01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC9500E23176EB4002E3D01 /* AppDelegate.swift */; };
@@ -165,6 +166,7 @@
 		0C872F1D25C0FA910057D559 /* lhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lhash.h; sourceTree = "<group>"; };
 		0C872F1E25C0FA910057D559 /* asn1err.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1err.h; sourceTree = "<group>"; };
 		0C872F2625C0FFFC0057D559 /* calculator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "calculator-Bridging-Header.h"; sourceTree = "<group>"; };
+		0C8B411125DE28B500CE9E8C /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		0CA9137525C8020B0008BB8A /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		0CB2687225D14FC200C7C538 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		0CC9500B23176EB4002E3D01 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8B411225DE28B500CE9E8C /* AppTrackingTransparency.framework in Frameworks */,
 				BB514CB3D2B6E95802E2FA07 /* Pods_calculator.framework in Frameworks */,
 				0CCA80AE25B56213004B11DD /* StoreKit.framework in Frameworks */,
 			);
@@ -376,7 +379,6 @@
 				0CCA80AF25B56901004B11DD /* ProductManager.swift */,
 				0CCA80B325B56AE3004B11DD /* PurchaseManager.swift */,
 				0CB2687225D14FC200C7C538 /* StoreKitTestCertificate.cer */,
-				0C04D1D325B840E3001B0968 /* Configuration.storekit */,
 				0CF762AD25956490001EB60E /* FVStackViewManager.swift */,
 				0C6CE75B258DFFC40045C60F /* AdmobManager.swift */,
 				0CD2519C256CA4BC00EFA7C7 /* FirstViewController.swift */,
@@ -386,6 +388,7 @@
 				0C672DA9233D35FB00886EED /* CollectionViewCell.swift */,
 				0C672DAA233D35FB00886EED /* CollectionViewCell.xib */,
 				0CC9501923176EB5002E3D01 /* LaunchScreen.storyboard */,
+				0C04D1D325B840E3001B0968 /* Configuration.storekit */,
 				0C1330FD2451677D00A955C1 /* Assets.xcassets */,
 				0CF35FD725C01459005BEAA5 /* AppleIncRootCertificate.cer */,
 				0CC9501C23176EB5002E3D01 /* Info.plist */,
@@ -408,6 +411,7 @@
 		B1F2E2F3FE30587F51F4FDE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C8B411125DE28B500CE9E8C /* AppTrackingTransparency.framework */,
 				0CCA80AD25B56213004B11DD /* StoreKit.framework */,
 				02520997871F16640A3607B5 /* Pods_calculator.framework */,
 			);

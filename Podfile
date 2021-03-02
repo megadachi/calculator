@@ -16,6 +16,7 @@ pod 'ImageRow'
 pod 'ColorPickerRow'
 pod 'ASN1Decoder'
 pod 'SwiftyStoreKit'
+pod "COSTouchVisualizer"
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

@@ -12,6 +12,8 @@ import ColorPickerRow
 import ImageRow
 import Photos
 import StoreKit
+import AdSupport
+import AppTrackingTransparency
 
 class SecondViewController: FormViewController, PurchaseManagerDelegate {
     // 課金処理クラス
@@ -40,7 +42,9 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
 //        iapManager.getProductInfo(productIdentifiers: productIdentifiers)
 //        getProductInfo()
         print("ad",uds.bool(forKey: "RemoveADs"))
-       
+//       requestPrompt()
+        // トラッキング許諾リクエスト
+        AdmobManager().checkTrackingAuthorizationStatus()
     }
     
     // picker変更の表示設定
@@ -264,7 +268,6 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
         print("課金終了！！")
         //アラート表示
         showAlertMessage(title: "THANK YOU", message: "Successfully purchased!".localized)
-//        uds.set(true, forKey: "RemoveADs")
         // コンテンツ解放が終了したら、この処理を実行(true: 課金処理全部完了, false 課金処理中断)
         decisionHandler(true)
     }
@@ -289,7 +292,6 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
         print("リストア終了！！")
         //アラート表示
         showAlertMessage(title: "THANK YOU", message: "Successfully restored!".localized)
-//        uds.set(true, forKey: "RemoveADs")
     }
     // 承認待ち状態時(ファミリー共有)
     func purchaseManagerDidDeferred(_ purchaseManager: PurchaseManager!) {
@@ -314,6 +316,72 @@ class SecondViewController: FormViewController, PurchaseManagerDelegate {
             }
         })
     }
+///* funding choices */
+//    // 事前許諾プロンプトを提示
+//    func requestPrompt(){
+//            // Create a UMPRequestParameters object.
+//            let parameters = UMPRequestParameters()
+//            // 許諾年齢未満であるか？
+//            parameters.tagForUnderAgeOfConsent = false
+//            // 事前許諾プロンプトの提示状況をリクエスト(メインスレッドで呼ぶ必要あり)
+//            UMPConsentInformation.sharedInstance.requestConsentInfoUpdate(
+//                with: parameters,
+//                completionHandler: { error in
+//                if error != nil {
+//                    // Error
+//                    debugPrint(error?.localizedDescription ?? "error")
+//                } else {
+//                    // 事前許諾プロンプトが利用可能かチェック
+//                    let formStatus = UMPConsentInformation.sharedInstance.formStatus
+//                    // UMPFormStatus.unknown：0 不明, UMPFormStatus.available：1 利用可能, UMPFormStatus.unavailable：2 利用不可
+//                    if formStatus == .available {
+//                        DispatchQueue.main.async {
+//                            // プロンプトをロード
+//                            self.loadForm()
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//    // 事前許諾プロンプトのロード
+//    private func loadForm() {
+//            // メインスレッドで呼ぶ必要あり
+//            UMPConsentForm.load { (form, loadError) in
+//                if loadError != nil{
+//                    debugPrint(loadError?.localizedDescription ?? "any error")
+//                } else {
+//                    print("UMPConsentInformation",UMPConsentInformation.sharedInstance.consentStatus)
+//                    // プロンプトの読み込み完了
+//                    // 事前許諾の提示ステータスをチェック（※ATTステータスではない)
+//                    // UMPConsentStatus.unknown：0 不明, UMPConsentStatus.required：1 提示が必要
+//                    // UMPConsentStatus.notRequired：2 提示の必要なし, UMPConsentStatus.obtained：3 提示済み（プロンプト内アクション済み)
+//                    if UMPConsentInformation.sharedInstance.consentStatus == .required {
+//                        // プロンプトの提示が必要
+////                        guard let vc = UIViewController.getFrontViewController() else {
+////                            return
+////                        }
+//                        // 同意プロンプト選択後ここに来るので、アプリが広告の要求を開始する
+//                        form?.present(from: self, completionHandler: { dismissError in
+//                            // ATTのプロンプト決定後コールバック
+////                            self.updateATTStatus()
+//                            print("present")
+//                        })
+//                    }
+//                    if UMPConsentInformation.sharedInstance.consentStatus == .obtained {
+//                        // App can start requesting ads.
+//                        print("obtained")
+//                    }
+//                }
+//            }
+//    }
+    
+//    fileprivate func updateATTStatus(){
+//        if isAdvertisingTrackingEnabled() {
+//            debugPrint("ok")
+//        }else{
+//            debugPrint("ATT Status >> Deny, etc")
+//        }
+//    }
 }
 
 // 端末の言語設定によって言語切り替え

@@ -207,10 +207,10 @@
                                 <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="cLf-h7-CLD">
-                                <rect key="frame" x="10" y="79" width="246" height="291"/>
+                                <rect key="frame" x="10" y="79" width="318" height="291"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHi-Ck-cei">
-                                        <rect key="frame" x="0.0" y="0.0" width="246" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="318" height="36"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -222,13 +222,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" tag="1" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YB2-cU-Bil">
-                                        <rect key="frame" x="0.0" y="36" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="36" width="318" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zq5-SI-mnc">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="AC"/>
+                                                <state key="normal" title=" AC "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -239,10 +239,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rXf-Dg-BvF">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="82" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="C"/>
+                                                <state key="normal" title=" C "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -253,10 +253,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFy-ju-NES">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="164" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="%"/>
+                                                <state key="normal" title=" % "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -267,10 +267,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0RD-cn-P9z">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="246" y="0.0" width="72" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
-                                                <state key="normal" title="÷"/>
+                                                <state key="normal" title=" ÷ "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -283,13 +283,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="2" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aT8-fY-OHd">
-                                        <rect key="frame" x="0.0" y="87" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="87" width="318" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhI-LL-U7W">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="7"/>
+                                                <state key="normal" title=" 7 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -300,10 +300,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJK-Ok-OfS">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="82" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="8"/>
+                                                <state key="normal" title=" 8 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -314,10 +314,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obL-7Z-V4B">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="164" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="9"/>
+                                                <state key="normal" title=" 9 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -328,10 +328,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTJ-Xd-mUS">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="246" y="0.0" width="72" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
-                                                <state key="normal" title="×"/>
+                                                <state key="normal" title=" × "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -344,13 +344,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="3" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0WS-H3-lSV">
-                                        <rect key="frame" x="0.0" y="138" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="138" width="318" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkW-le-P7a">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="4"/>
+                                                <state key="normal" title=" 4 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -361,10 +361,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGR-uY-HZM">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="82" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="5"/>
+                                                <state key="normal" title=" 5 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -375,10 +375,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xvj-b6-yX8">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="164" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="6"/>
+                                                <state key="normal" title=" 6 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -389,10 +389,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8XZ-w9-mDB">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="246" y="0.0" width="72" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
-                                                <state key="normal" title="-"/>
+                                                <state key="normal" title=" - "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -405,13 +405,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="4" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dyz-Ni-9WO">
-                                        <rect key="frame" x="0.0" y="189" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="189" width="318" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtG-jx-1AE">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="1"/>
+                                                <state key="normal" title=" 1 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -422,10 +422,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Stg-41-gTN">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="82" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="2"/>
+                                                <state key="normal" title=" 2 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -436,10 +436,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKJ-m3-0ZY">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="164" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="3"/>
+                                                <state key="normal" title=" 3 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -450,10 +450,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdt-Rw-5X2">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="246" y="0.0" width="72" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
-                                                <state key="normal" title="+"/>
+                                                <state key="normal" title=" + "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -466,13 +466,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" tag="5" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xax-7K-SB3">
-                                        <rect key="frame" x="0.0" y="240" width="246" height="51"/>
+                                        <rect key="frame" x="0.0" y="240" width="318" height="51"/>
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nW-Ia-450">
-                                                <rect key="frame" x="0.0" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
-                                                <state key="normal" title="0"/>
+                                                <state key="normal" title=" 0 "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -483,7 +483,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L8L-7i-MZl">
-                                                <rect key="frame" x="64" y="0.0" width="54" height="48"/>
+                                                <rect key="frame" x="82" y="0.0" width="72" height="48"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="30"/>
                                                 <state key="normal" title="+/-"/>
@@ -497,10 +497,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mke-yq-kmQ">
-                                                <rect key="frame" x="128" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="164" y="0.0" width="72" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
-                                                <state key="normal" title="."/>
+                                                <state key="normal" title=" . "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>
@@ -511,10 +511,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikf-Sn-RCu">
-                                                <rect key="frame" x="192" y="0.0" width="54" height="51"/>
+                                                <rect key="frame" x="246" y="0.0" width="72" height="51"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="BPdotsDiamond-Bold" family="BPdotsDiamond" pointSize="32"/>
-                                                <state key="normal" title="="/>
+                                                <state key="normal" title=" = "/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="5"/>

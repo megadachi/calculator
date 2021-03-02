@@ -77,7 +77,8 @@ class FVManager: UIViewController {
             UILabel.appearance(whenContainedInInstancesOf: [FirstViewController.self]).font = UIFont(name: textFont, size: 30)
             UILabel.appearance(whenContainedInInstancesOf: [FirstViewController.self]).adjustsFontSizeToFitWidth = true
             for btn in btns{
-                btn.titleLabel!.font = UIFont(name: textFont, size: 50)
+                btn.contentEdgeInsets = UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5)
+                btn.titleLabel!.font = UIFont(name: textFont, size: 100)
                 btn.titleLabel!.adjustsFontSizeToFitWidth = true
             }
         }
@@ -142,7 +143,6 @@ class FVManager: UIViewController {
                 scaledImage.size = CGSize(width: view.frame.width * pinchScale, height: view.frame.height * pinchScale)
                 scaledImage.origin = CGPoint(x: view.frame.midX - scaledImage.size.width / 2.0, y: view.frame.midY - scaledImage.size.height / 2.0)
                 if checkRange(view: scaledImage, range: range) == true {
-                    print("range for scale, OK")
                     // Viewサイズをピンチ比率に変更
                     view.transform = CGAffineTransform(scaleX: pinchScale, y: pinchScale)
                     if pinchScale != maxScale {
@@ -153,8 +153,6 @@ class FVManager: UIViewController {
                             uds.removeObject(forKey: "PinchScale")
                         }
                     }
-                } else {
-                    print("range for scale, NG")
                 }
             case .ended, .cancelled:
                 gestureOff(view: view)
@@ -202,7 +200,9 @@ class FVManager: UIViewController {
     // 現座標計算
     func getPoint(view: UIStackView, range: CGRect) {
         // 中心座標が背景中心とずれていれば(＝ジェスチャあり)座標比を計算し保存
-        if view.frame.midX != range.midX || view.frame.midY != range.midY {
+//        if view.frame.midX != range.midX || view.frame.midY != range.midY {
+//            print("view.frame.midX",view.frame.midX,"range.midX",range.midX)
+//            print("view.frame.midY",view.frame.midY,"range.midY",range.midY)
             // 前回の保存座標があれば削除
             if savedPoint.count > 0 {
                 savedPoint.removeAll()
@@ -211,13 +211,14 @@ class FVManager: UIViewController {
             savedPoint.append(view.frame.minY / range.maxY)
             uds.set(savedPoint, forKey: "savedPoint")
             print("GetPoint",savedPoint[0]*range.maxX,savedPoint[1]*range.maxY)
-        } else {
-            // デフォルト座標であれば保存データを削除
-            if uds.object(forKey: "savedPoint") != nil {
-                savedPoint.removeAll()
-                uds.removeObject(forKey: "savedPoint")
-            }
-        }
+//        } else {
+//            print("GetPoint",savedPoint[0]*range.maxX,savedPoint[1]*range.maxY)
+//            // デフォルト座標であれば保存データを削除
+//            if uds.object(forKey: "savedPoint") != nil {
+//                savedPoint.removeAll()
+//                uds.removeObject(forKey: "savedPoint")
+//            }
+//        }
     }
     // ジェスチャ中の枠色設定
     func gestureOn(view: UIView) {

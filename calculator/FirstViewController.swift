@@ -23,7 +23,7 @@ class FirstViewController: UIViewController {
     var backImgImage: Any = UIColor.orange
     // ボタン
     @IBOutlet var btns: [UIButton]!
-    // ラベル
+    // ラベル表示
     @IBOutlet weak var outputLabel: UILabel!
     // バナー
     @IBOutlet weak var bannerView: UIView!
@@ -47,12 +47,12 @@ class FirstViewController: UIViewController {
     // カウンターで正負を管理、偶数＝plus 奇数＝negative
     var countNegative = 0
     // 割合計算を管理するため、入力した数字を保管
-    var stackedNumber = "0"
+    var stackedNb = "0"
     var stackedNbsArray: [String] = []
-    // 計算結果を保存する name[名前] formul[[式][計算結果]]
+    // 計算結果をリスト用に保存する name[名前] formul[[式][計算結果]]
     var nameArray:[String] = []
     var formulaArray:[[String]] = []
-    // copy&pasteに使う
+    // リストからのデータ copy&paste用
     var copiedText = ""
     // 計算結果(回答)
     var recalculateNb = "0"
@@ -61,23 +61,44 @@ class FirstViewController: UIViewController {
         // ＝ボタンで計算完了後に数字が押された場合、情報をクリアし計算可能に
         if restart == false {
             outputLabel.text = ""
-            stackedNumber = ""
+            stackedNb = ""
             restart = true
         }
-        // 割合計算用に数字をストックする
-        if let nb = sender.titleLabel?.text {
-            stackedNumber = stackedNumber + nb
-        }
         // ラベルに数字がある場合、代入する
-        guard let formulaText = outputLabel.text else {
+        guard let stringForCalc = outputLabel.text else {
+            return
+        }
+        // %の後に数字を入力させない
+        guard outputLabel.text?.hasSuffix("%") == false else {
             return
         }
         // 押されたボタンのTitleを取得
         guard let senderedText = sender.titleLabel?.text else {
             return
         }
+        // 空白を削除
+        let parsedSenderedText = senderedText.trimmingCharacters(in: .whitespaces)
+        // 0だけを羅列させない
+        if parsedSenderedText == "0" {
+            var strings = stackedNb
+            if strings.hasPrefix("+") || strings.hasPrefix("-") || strings.hasPrefix("×") || strings.hasPrefix("÷") {
+                strings = String(strings.dropFirst(1))
+            }
+            if strings != "" {
+                strings = strings.replacingOccurrences(of: "0", with: "")
+                var stringsCount = strings.count
+                if strings.contains(")") {
+                    stringsCount -= 3
+                }
+                guard stringsCount > 0 else {
+                    return
+                }
+            }
+        }
+        // 割合計算用に数字をストックする
+        stackedNb += parsedSenderedText
         // 代入した数字と取得したボタンタイトルをラベルに表示
-        outputLabel.text = formulaText + senderedText
+        outputLabel.text = stringForCalc + parsedSenderedText
         countNegative = 0
     }
     // 演算子ボタンを定義
@@ -100,41 +121,55 @@ class FirstViewController: UIViewController {
                 recalculateNb = "0"
             }
             // 演算子ボタン押下のたびに直前に入力された数字を配列に保管
-            stackedNbsArray.append(stackedNumber)
+            stackedNbsArray.append(stackedNb)
             // 数字をスタックし直すため、いったんクリア
-            stackedNumber = ""
+            stackedNb = ""
             // ＝ボタン押下後、計算結果を用いて計算可能にする
             restart = true
         default: // ％ボタン、小数点ボタンの重複を防止
-            if outputLabel.text!.hasSuffix("%") || outputLabel.text!.hasSuffix("."){
-                outputLabel.text = String(outputLabel.text!.dropLast())
+//            if outputLabel.text!.hasSuffix("%") || outputLabel.text!.hasSuffix(".") {
+//                outputLabel.text = String(outputLabel.text!.dropLast())
+//            }
+            // 数字に2回含まないようにする
+            guard !stackedNb.contains(".") else {
+                return
+            }
+            guard !stackedNb.contains("%") else {
+                return
             }
             guard restart == true else {
                 return
             }
         }
-        guard let formulaText = outputLabel.text else {
+        guard let stringForCalc = outputLabel.text else {
             return
         } // 押されたボタンのTitleを取得
         guard let senderedText = sender.titleLabel?.text else {
             return
         }
-        outputLabel.text = formulaText + senderedText
+        // 空白を削除
+        let parsedSenderedText = senderedText.trimmingCharacters(in: .whitespaces)
+        stackedNb += parsedSenderedText
+        outputLabel.text = stringForCalc + parsedSenderedText
     }
     // その他のボタンを定義
     @IBAction func symbols(_ sender: UIButton) {
         switch sender.tag {
         case 11 : // ACボタンが押されたら式と数字管理をクリアする
             outputLabel.text = ""
-            stackedNumber = ""
+            stackedNb = ""
             stackedNbsArray.removeAll()
             countNegative = 0
         case 12 : // Cボタンが押されたら一字消去
             guard outputLabel.text != nil else {
                 return
             }
-            // =押下後に押せないようにする
+            // =押下後は全消去(ACと同じ)
             guard restart == true else {
+                outputLabel.text = ""
+                stackedNb = ""
+                stackedNbsArray.removeAll()
+                countNegative = 0
                 return
             }
             if outputLabel.text?.hasSuffix(")") == true {
@@ -142,25 +177,25 @@ class FirstViewController: UIViewController {
                 countNegative = 0
             } else {
                 outputLabel.text = String(outputLabel.text!.dropLast())
-                stackedNumber =  String(stackedNumber.dropLast())
+                stackedNb =  String(stackedNb.dropLast())
             }
         case 18 : // =ボタンが押されたら答えを計算して表示する
-            guard let formulaText = outputLabel.text else {
+            guard let stringForCalc = outputLabel.text else {
                 return
             }
             guard restart == true else {
                 return
             }
             // 直前の数字を配列に追加
-            stackedNbsArray.append(stackedNumber)
+            stackedNbsArray.append(stackedNb)
             // 割合計算用に文字列を変換
-            let formulas: String = formatpFormula(formulaText)
+            let formulas: String = formatFormulaForPercent(stringForCalc)
             // その他の文字列を変換
             let formula: String = formatFormula(formulas)
             recalculateNb = evalFormula(formula)
             outputLabel.text = outputLabel.text! + "=" + recalculateNb
             restart = false
-            stackedNumber = ""
+            stackedNb = ""
             // 数字配列を空にする
             stackedNbsArray.removeAll()
         default: // +/-ボタン
@@ -190,7 +225,6 @@ class FirstViewController: UIViewController {
         // ラベルタップでヒストリーに保存
         self.setupLabelTap()
         
-        uds.set(false, forKey: "RemoveADs")
         if uds.object(forKey: "nameArray") != nil && uds.object(forKey: "formulaArray") != nil{
             nameArray = uds.object(forKey: "nameArray") as! [String]
             formulaArray = uds.object(forKey: "formulaArray") as! [[String]]
@@ -209,12 +243,12 @@ class FirstViewController: UIViewController {
     // 画面遷移の際に呼ばれる
     override func viewWillAppear(_ animated: Bool) {
         // ads表示
-        if uds.bool(forKey: "RemoveADs") != true {
-            bannerView.isHidden = false
-            bannerViewAction()
-        } else {
-            bannerView.isHidden = true
-        }
+//        if uds.bool(forKey: "RemoveADs") != true {
+//            bannerView.isHidden = false
+//            bannerViewAction()
+//        } else {
+//            bannerView.isHidden = true
+//        }
         // カスタマイズ設定
         FVManager.shared.changeBackground(backImg: bgView)
         FVManager.shared.changeTextColor(label: outputLabel)
@@ -240,18 +274,20 @@ class FirstViewController: UIViewController {
         }
         // 画面回転時の座標ずれ調整
         adjustPoint()
+        fitToRange()
         // ジェスチャ登録
         FVManager.shared.onPinch(view: contentView!, range: rectRange)
         FVManager.shared.onPan(view: contentView!, range: rectRange)
     }
 /* 電卓機能 */
     // 割合計算用に数字配列を用いて文字列を置換え
-    private func formatpFormula(_ pformula: String) -> String {
+    private func formatFormulaForPercent(_ formula: String) -> String {
         // %を”x/100","*(1-x/100)","*(1+x/100)"に置き換え
         var formulas = ""
         for number in stackedNbsArray {
-            let formattedpFormula: String = pformula.replacingOccurrences(of: "-" + number + "%", with: "*(1-" + number + "/100)").replacingOccurrences(of: "+" + number + "%", with: "*(1+" + number + "/100)")
-            formulas = formattedpFormula
+            let nb = number.replacingOccurrences(of: "%", with: "")
+            let formattedFormula: String = formula.replacingOccurrences(of: "-" + number, with: "*(1-" + nb + "/100)").replacingOccurrences(of: "+" + number, with: "*(1+" + nb + "/100)")
+            formulas = formattedFormula
         }
         return formulas
     }
@@ -303,9 +339,9 @@ class FirstViewController: UIViewController {
         // 計算結果が表示されていた場合、代入
         if restart == false {
             outputLabel.text = copiedText
-            // 割合計算用に数字をstackedNumberにストックする
+            // 割合計算用に数字をstackedNbにストックする
             stackedNbsArray.append(copiedText)
-            stackedNumber = ""
+            stackedNb = ""
             copiedText = ""
             // コピーボードを空にする
             uds.removeObject(forKey: "copiedText")
@@ -320,7 +356,7 @@ class FirstViewController: UIViewController {
                 // ラベルにコピーを追加して表示
                 outputLabel.text = outputLabel.text! + copiedText
                 stackedNbsArray.append(copiedText)
-                stackedNumber = ""
+                stackedNb = ""
                 copiedText = ""
                 // コピーボードを空にする
                 uds.removeObject(forKey: "copiedText")
@@ -358,9 +394,9 @@ class FirstViewController: UIViewController {
         }
         ))
         present(alert, animated: true, completion: nil)
-        // 割合計算用に数字をstackedNumberにストックする
+        // 割合計算用に数字をstackedNbにストックする
         stackedNbsArray.append(copiedText)
-        stackedNumber = ""
+        stackedNb = ""
         // コピーボードを空にする
         uds.removeObject(forKey: "copiedText")
         // ＝ボタン押下後、計算結果を用いて計算可能にする
@@ -390,12 +426,10 @@ class FirstViewController: UIViewController {
                 let name = alert?.textFields?.first?.text ?? ""
                 // 計算結果を保存する name[名前]
                 self.nameArray.append(name)
-                print("recalculate",self.recalculateNb)
                 // 計算結果を保存する formul[[式][計算結果]]
                 self.formulaArray.append([self.outputLabel.text!, self.recalculateNb])
                 self.uds.set(self.nameArray, forKey: "nameArray")
                 self.uds.set(self.formulaArray, forKey: "formulaArray")
-                print("set formul",self.formulaArray)
             }
         }))
         present(alert, animated: true, completion: nil)
@@ -420,10 +454,23 @@ class FirstViewController: UIViewController {
         for btn in btns {
             btn.translatesAutoresizingMaskIntoConstraints = false
             btn.heightAnchor.constraint(equalTo: contentView!.heightAnchor, multiplier: btnHeightRatio).isActive = true
+            btn.contentEdgeInsets = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+            btn.titleLabel!.adjustsFontSizeToFitWidth = true
+            if let textFont = uds.object(forKey: "fontData") as? String {
+                btn.titleLabel!.font = UIFont(name: textFont, size: 100)
+            } else {
+                btn.titleLabel!.font = UIFont(name: "BPdotsDiamond-Bold", size: 100)
+            }
         }
         // ラベルサイズ調整
         outputLabel.heightAnchor.constraint(equalTo: contentView!.heightAnchor, multiplier: btnHeightRatio * 2).isActive = true
-        UIButton.appearance(whenContainedInInstancesOf: [FirstViewController.self]).titleLabel?.adjustsFontSizeToFitWidth = true
+        if deviceName != "iPhone" {
+            if let textFont = uds.object(forKey: "fontData") as? String {
+                outputLabel!.font = UIFont(name: textFont, size: 50)
+            } else {
+                outputLabel!.font = UIFont(name: "BPdotsDiamond-Bold", size: 50)
+            }
+        }
         // 倍率が保存されていれば代入し使用
         if let rate = uds.object(forKey: "PinchScale"){
             pinchScale = rate as! CGFloat
@@ -448,7 +495,6 @@ class FirstViewController: UIViewController {
         if savedPoint.count > 0 {
             contentView!.frame.origin.x = savedPoint[0] * rectRange.maxX
             contentView!.frame.origin.y = savedPoint[1] * rectRange.maxY
-            fitToRange()
         }
     }
     // 可動域を超える場合に可動域限に配置

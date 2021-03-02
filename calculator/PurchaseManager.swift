@@ -16,7 +16,7 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
     
     var delegate : PurchaseManagerDelegate?
     // プロダクトID
-    fileprivate var productIdentifier : String?
+    fileprivate var productidentifiers : String?
     fileprivate var refreshRequest: SKReceiptRefreshRequest?
     // レシート検証ステータス
     enum ReceiptValidationError : Error {
@@ -39,10 +39,10 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
     func startWithProduct(_ product : SKProduct){
         print("InnApp : PurchaseManager startWithProduct")
         // configures the app to make payments on the device, before presenting products for sale
-        //エラーがあれば終了
+        //エラーがあれば終了 SKPaymentQue...AppStoreと通信し商品の購入処理のためのインターフェースを提供するクラス,購入するためのSKPaymentTransactionを作成
         if SKPaymentQueue.canMakePayments() == false {
             let errorMessage = "Purchase is not authorised".localized
-            let error = NSError(domain: "PurchaseErrorDomain", code: 1, userInfo: [NSLocalizedDescriptionKey:errorMessage])
+//            let error = NSError(domain: "PurchaseErrorDomain", code: 1, userInfo: [NSLocalizedDescriptionKey:errorMessage])
             self.delegate?.purchaseManagerDidFailedPurchase?(self)
             print("InnApp : PurchaseManager" + errorMessage)
             showMessage(title: errorMessage, message: "Please check the restrection settings.".localized)
@@ -64,7 +64,7 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
                         let ac = UIAlertController(title: nil, message: "Purchase was on the way.\nContinue to download for free.".localized, preferredStyle: .alert)
                         let action = UIAlertAction(title: "Continue".localized, style: UIAlertAction.Style.default, handler: {[weak self] (action : UIAlertAction!) -> Void in
                             if let weakSelf = self {
-                                weakSelf.productIdentifier = product.productIdentifier
+                                weakSelf.productidentifiers = product.productIdentifier
                                 weakSelf.completeTransaction(transaction)
                             }
                             })
@@ -79,13 +79,14 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
         print("InnApp : PurchaseManager startWithProduct MakeNewTransaction", product.productIdentifier)
         // Create a Payment Request
         let payment = SKMutablePayment(product: product)
-        // Submit a Payment Request
+        // Submit a Payment Request SKPaymentQueueにキューを追加することで購入のためのトランザクションが生成される
         SKPaymentQueue.default().add(payment)
-        self.productIdentifier = product.productIdentifier
+        self.productidentifiers = product.productIdentifier
     }
 /* MARK: - SKPaymentTransactionObserver, create an Observer */
+    // updatedTransactions tells an observer that one or more transactions have been updated トランザクション(購入処理)の状態が通知される
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        //課金状態が更新されるたびに呼ばれる
+        // 課金状態が更新されるたびに呼ばれる SKPaymentTransaction...購入するためのトランザクションの状態を表すクラス
         for transaction in transactions {
             print("InnApp : PurchaseManager updatedTransactions", transaction.payment.productIdentifier)
             switch transaction.transactionState {
@@ -95,24 +96,24 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
                 break
             case .purchased :
                 //課金完了 レシートの確認やアイテムの付与を行う
+                print("InnApp : PurchaseManager Purchased")
                 self.completeTransaction(transaction)
                 verifyPurchase()
                 break
             case .failed :
-                    //課金失敗 エラーが発生したことをユーザに知らせる
-                    self.failedTransaction(transaction)
-//                }
+                print("InnApp : PurchaseManager failed")
+                //課金失敗 エラーが発生したことをユーザに知らせる
+                self.failedTransaction(transaction)
+                //                }
                 break
             case .restored :
                 //リストア レシートの確認やアイテムの付与を行う
                 print("func paymentQueu .restored: start")
                 self.restoreTransaction(transaction)
-                print("func paymentQueu .restored: after restoreTransaction")
-//                verifyPurchase()
-//                print("func paymentQueu .restored: after verifyPurchase")
                 break
             case .deferred :
                 //承認待ち
+                print("InnApp : PurchaseManager deffered")
                 self.deferredTransaction(transaction)
                 break
             @unknown default:
@@ -122,7 +123,7 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
     }
 /* MARK: - SKPaymentTransaction process */
     fileprivate func completeTransaction(_ transaction : SKPaymentTransaction) {
-        if transaction.payment.productIdentifier == self.productIdentifier {
+        if transaction.payment.productIdentifier == self.productidentifiers {
             //課金終了
             self.delegate?.purchaseManager?(self, didFinishPurchaseWithTransaction: transaction, decisionHandler: { (complete) -> Void in
                 if complete == true {
@@ -130,7 +131,7 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
                     SKPaymentQueue.default().finishTransaction(transaction)
                 }
             })
-            self.productIdentifier = nil
+            self.productidentifiers = nil
         } else {
             //課金終了(以前中断された課金処理)
             self.delegate?.purchaseManager?(self, didFinishUntreatedPurchaseWithTransaction: transaction, decisionHandler: { (complete) -> Void in
@@ -145,13 +146,15 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
         print("InnApp : PurchaseManager failedTransaction")
         //課金失敗
         self.delegate?.purchaseManagerDidFailedPurchase?(self)
-        if transaction.payment.productIdentifier == self.productIdentifier {
-            self.productIdentifier = nil
+        if transaction.payment.productIdentifier == self.productidentifiers {
+            self.productidentifiers = nil
             }
         SKPaymentQueue.default().finishTransaction(transaction)
         // キャンセルでなくTransactionが修了した場合、エラー表示
         if (transaction.error as? SKError)?.code != .paymentCancelled {
             delegate?.purchaseManagerDidFailedPurchase!(self)
+        } else {
+            print("purchase cancelled")
         }
     }
     fileprivate func restoreTransaction(_ transaction : SKPaymentTransaction) {
@@ -161,15 +164,15 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
             if complete == true {
                 //トランザクション終了
                 SKPaymentQueue.default().finishTransaction(transaction)
-                ("func restoreTransaction: transaction complete")
+                print("func restoreTransaction: transaction complete")
             }
         })
     }
     fileprivate func deferredTransaction(_ transaction : SKPaymentTransaction) {
         //承認待ち
         self.delegate?.purchaseManagerDidDeferred?(self)
-        if transaction.payment.productIdentifier == self.productIdentifier {
-            self.productIdentifier = nil
+        if transaction.payment.productIdentifier == self.productidentifiers {
+            self.productidentifiers = nil
             }
     }
     // 全ての購入処理が終わったとき
@@ -191,18 +194,18 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
             // 端末内の"Bundle.main.appStoreReceiptURL"で取得できるパスにレシートデータがあるか確認
             if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL,
                         FileManager.default.fileExists(atPath: appStoreReceiptURL.path) {
-                print("receipt was in the device")
+                print("receipt is in the device")
                 // レシートがある場合、レシートをチェック
                 verifyPurchase()
-            } else {
+            } else { // レシートが保存されていない場合
                 print("SKPaymentManager : no receipt. restore completed transaction.")
-                // 自分をQueueに追加して、結果を待ち構えます。
+                // 前回のトランザクションから自分をQueueに追加し、結果を待ち構える
                 SKPaymentQueue.default().add(self)
                 // Asks the payment queue to restore previously completed purchases リストア実行
                 SKPaymentQueue.default().restoreCompletedTransactions()
-                print("receipt was not in the device")
+                print("receipt is not in the device")
                 verifyPurchase()
-                // レシートがない場合 ＝ 未購入
+                // 復元後もレシートがない場合 ＝ 未購入
                 guard let receiptURL = Bundle.main.appStoreReceiptURL,
                       FileManager.default.fileExists(atPath: receiptURL.path) else {
                     delegate?.purchaseManagerFailedRestoreNeverPurchase?(self)
@@ -211,15 +214,18 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
             }
         }
     }
-    // リストア要求終了時呼ばれる
+    // ells the delegate that the request has completed.
     func requestDidFinish(_ request: SKRequest) {
+        // リストア要求終了時呼ばれる
         if request is SKReceiptRefreshRequest {
             // リストア要求終了時処理 解放
             self.refreshRequest = nil
         }
     }
-    //AppStoreで必須
+    //AppStoreで必須 SKPayment...商品の購入処理のリクエストを表すクラスです。前述のSKProductのインスタンスを利用して、商品の購入リクエストを生成
     func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        // handle promoted In App Purchase, "true" will make the purchase window appear immediately when the app opens
+        SKPaymentQueue.default().add(payment)
         return true
     }
     //リストア失敗時に呼ばれる
@@ -275,6 +281,7 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
             } catch let error {
                 print("SKPaymentManager : Failure to validate receipt: \(error)")
                 showMessage(title: "Receipt Error".localized, message: "Please try again.".localized)
+                return
             }
             //Load in the receipt
             let receiptBio = BIO_new(BIO_s_mem())
@@ -285,7 +292,7 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
             // Check that the container has a signature
             guard OBJ_obj2nid(receiptPKCS7!.pointee.type) == NID_pkcs7_signed else {
                 print("receiptStatus = .invalidPKCS7Signature")
-                showMessage(title: "Purchase information is invalid".localized, message: "Would you like to remove advertisements? Why not purchase?".localized)
+                showMessage(title: "Receipt Error".localized, message: "Please try again.".localized)
                 return
             }
             // Certificateのチェック
@@ -305,18 +312,18 @@ class PurchaseManager : NSObject, SKPaymentTransactionObserver, SKRequestDelegat
             let caStore = X509_STORE_new()
             X509_STORE_add_cert(caStore, caRootX509)
             OPENSSL_init_crypto(UInt64(OPENSSL_INIT_ADD_ALL_DIGESTS), nil)
-                        #if DEBUG
-                        let verifyResult = PKCS7_verify(receiptPKCS7, nil, caStore, nil, nil, PKCS7_NOCHAIN)
-                        #else
+            #if DEBUG
+            let verifyResult = PKCS7_verify(receiptPKCS7, nil, caStore, nil, nil, PKCS7_NOCHAIN)
+            #else
             let verifyResult = PKCS7_verify(receiptPKCS7, nil, caStore, nil, nil, 0)
-                        #endif
+            #endif
             // verify a certificate in the chain from the root certificate signed the receipt. If so, the function returns 1.
             if verifyResult != 1 {
                 print("PKCS7_verify",verifyResult)
                 delegate?.purchaseManagerFailedRestoreNeverPurchase?(self)
                 return
             } else {
-                print("validation succeed")
+                print("validation succeeded")
                 UserDefaults.standard.set(true, forKey: "RemoveADs")
                 print("verifyID",UserDefaults.standard.bool(forKey: "RemoveADs"))
                 // リストア完了メッセージ表示
